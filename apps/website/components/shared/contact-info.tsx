@@ -5,23 +5,22 @@ const ITEMS = [
     label: "Phone",
     icon: "/figma/contact/icon-users.svg",
     lines: SITE.phones,
+    hrefPrefix: "tel:" as const,
   },
   {
     label: "Email",
     icon: "/figma/contact/icon-mail.svg",
     lines: SITE.emails,
+    hrefPrefix: "mailto:" as const,
   },
   {
     label: "office address",
     icon: "/figma/contact/icon-pin.svg",
     lines: [SITE.address],
+    hrefPrefix: null,
   },
 ];
 
-/**
- * Shared contact strip used on Contact and Why Choose Us
- * (Figma node 275:124386).
- */
 export function ContactInfo() {
   return (
     <section className="mx-auto w-full max-w-[1215px] px-6 py-16 md:py-24">
@@ -32,24 +31,34 @@ export function ContactInfo() {
         <p className="font-body text-lg text-ink">Reach out to us with ease.</p>
       </div>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-3">
+      <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-6">
         {ITEMS.map((item) => (
-          <div key={item.label} className="flex items-center gap-3">
+          <div key={item.label} className="flex min-w-0 items-start gap-3">
             <span className="flex size-[62px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand">
               <img alt="" src={item.icon} className="size-6" />
             </span>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1 overflow-hidden">
               <p className="font-body text-xs leading-[1.4] font-semibold text-brand uppercase">
                 {item.label}
               </p>
-              {item.lines.map((line) => (
-                <p
-                  key={line}
-                  className="font-body text-base leading-[1.4] text-ink md:text-xl"
-                >
-                  {line}
-                </p>
-              ))}
+              {item.lines.map((line) =>
+                item.hrefPrefix ? (
+                  <a
+                    key={line}
+                    href={`${item.hrefPrefix}${line.replace(/\s/g, "")}`}
+                    className="block break-words font-body text-base leading-[1.4] text-ink [overflow-wrap:anywhere] hover:text-brand md:text-lg"
+                  >
+                    {line}
+                  </a>
+                ) : (
+                  <p
+                    key={line}
+                    className="break-words font-body text-base leading-[1.4] text-ink [overflow-wrap:anywhere] md:text-lg"
+                  >
+                    {line}
+                  </p>
+                ),
+              )}
             </div>
           </div>
         ))}
