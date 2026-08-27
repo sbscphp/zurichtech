@@ -23,8 +23,9 @@ export function Insights() {
         <div className="-mx-6 overflow-x-auto px-6 pb-2">
           <div className="flex w-max gap-8">
             {INSIGHTS.slice(0, 5).map((insight) => (
-              <article
+              <Link
                 key={insight.title}
+                href="/blogs/migrate-to-cloud-without-downtime"
                 className="flex w-[280px] shrink-0 flex-col gap-4 sm:w-[364px]"
               >
                 <p className="font-display text-sm leading-[1.2] text-brand uppercase">
@@ -47,7 +48,7 @@ export function Insights() {
                     {insight.excerpt}
                   </p>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

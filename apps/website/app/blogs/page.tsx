@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Insights",
 };
 
+const DETAIL_HREF = "/blogs/migrate-to-cloud-without-downtime";
+
 const FEATURED = INSIGHTS[1];
 const SIDEBAR = [
   {
@@ -38,21 +40,18 @@ const GRID = [
     title: "Preparing Your Technology for What Comes Next",
     excerpt: INSIGHTS[4].excerpt,
     image: "/figma/home/insight-5.png",
-    href: "/blogs",
   },
   {
     category: "IoT",
     title: "The Role of Cloud Technology in Building Agile Businesses",
     excerpt: INSIGHTS[2].excerpt,
     image: "/figma/home/insight-2.png",
-    href: "/blogs",
   },
   {
     category: "DevOps",
     title: "Building Better Digital Experiences Through Technology",
     excerpt: INSIGHTS[3].excerpt,
     image: "/figma/home/insight-4.png",
-    href: "/blogs",
   },
 ];
 
@@ -78,7 +77,7 @@ export default function BlogsPage() {
             Recents Insights
           </h2>
           <div className="grid gap-8 lg:grid-cols-[660px_610px]">
-            <Link href="/blogs" className="flex flex-col gap-4">
+            <Link href={DETAIL_HREF} className="flex flex-col gap-4">
               <div className="relative h-[360px] overflow-hidden bg-white">
                 <Image
                   src={FEATURED.image}
@@ -103,7 +102,7 @@ export default function BlogsPage() {
               {SIDEBAR.map((item) => (
                 <Link
                   key={item.title}
-                  href="/blogs"
+                  href={DETAIL_HREF}
                   className="flex gap-4"
                 >
                   <div className="relative h-[140px] w-[180px] shrink-0 overflow-hidden bg-white sm:h-[226px] sm:w-[282px]">
@@ -140,8 +139,9 @@ export default function BlogsPage() {
           </h2>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {GRID.map((item, index) => (
-              <article
+              <Link
                 key={`${item.title}-${index}`}
+                href={DETAIL_HREF}
                 className="flex flex-col gap-4"
               >
                 <p className="font-display text-sm text-brand uppercase">
@@ -162,7 +162,7 @@ export default function BlogsPage() {
                 <p className="font-body text-base leading-[1.4] text-ink-dimmed">
                   {item.excerpt}
                 </p>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
