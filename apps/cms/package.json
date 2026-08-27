@@ -1,0 +1,30 @@
+{
+  "name": "cms",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy:production": "sanity deploy --yes",
+    "seed": "tsx scripts/seed.ts",
+    "lint": "echo \"CMS lint scaffolded\"",
+    "check-types": "tsc --noEmit",
+    "test": "echo \"CMS has no unit tests\""
+  },
+  "dependencies": {
+    "@sanity/icons": "^3.7.4",
+    "@sanity/vision": "^4.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanity": "^4.0.0",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@sanity/client": "^7.0.0",
+    "@types/react": "^19.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}

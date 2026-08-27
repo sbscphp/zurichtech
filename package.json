@@ -1,0 +1,22 @@
+{
+  "name": "zuritech-website-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.10.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "check-types": "turbo check-types",
+    "test": "turbo test"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "typescript": "^5.8.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

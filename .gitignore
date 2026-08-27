@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+dist
+.turbo
+.sanity
+*.tsbuildinfo
+next-env.d.ts
+
+.env
+.env.local
+.env.*.local
+
+.DS_Store
+*.log
