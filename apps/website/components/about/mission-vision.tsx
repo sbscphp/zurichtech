@@ -29,8 +29,10 @@ export function MissionVision() {
               <Link href="/contact">Let’s work Together</Link>
             </Button>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            <article className="flex flex-col gap-6 rounded-lg bg-white p-5">
+          <div className="relative min-h-[340px] lg:min-h-[400px]">
+            <article
+              className="flex flex-col gap-6 rounded-lg bg-white p-5 lg:absolute lg:left-0 lg:top-[23px] lg:w-[422px]"
+            >
               <span className="flex size-10 items-center justify-center rounded-lg bg-brand-soft">
                 <img alt="" src="/figma/home/icon-code.svg" className="size-5" />
               </span>
@@ -46,7 +48,9 @@ export function MissionVision() {
                 </p>
               </div>
             </article>
-            <article className="flex flex-col gap-6 rounded-lg bg-white p-5 shadow-[0px_17px_8.5px_rgba(0,0,0,0.04),0px_36px_14px_rgba(0,0,0,0.1)] lg:-translate-y-3">
+            <article
+              className="mt-6 flex flex-col gap-6 rounded-lg bg-white p-5 shadow-[0px_1px_1.5px_rgba(0,0,0,0.05),0px_17px_8.5px_rgba(0,0,0,0.04),0px_36px_14px_rgba(0,0,0,0.1)] lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:w-[410px] lg:px-5 lg:py-8"
+            >
               <span className="flex size-10 items-center justify-center rounded-lg bg-brand-soft">
                 <img alt="" src="/figma/home/icon-code.svg" className="size-5" />
               </span>

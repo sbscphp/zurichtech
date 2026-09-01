@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import { cn } from "@/lib/utils";
+
 const TESTIMONIALS = [
   {
     category: "IT consulting",
@@ -11,14 +13,25 @@ const TESTIMONIALS = [
     name: "Jadesola Alao",
     role: "CFO | SBSC UK",
     image: "/figma/home/team-3.png",
+    imageClass: "object-[center_top]",
   },
   {
     category: "Cloud migration",
     quote:
       "“Thanks to their expertise, our data is now securely hosted on the cloud, improving accessibility and performance significantly.”",
-    name: "Dr. Onyinyechi",
-    role: "Chief of Operation",
+    name: "Anika Sharma",
+    role: "CTO | Horizon Ventures",
+    image: "/figma/home/team-4.png",
+    imageClass: "object-[center_15%]",
+  },
+  {
+    category: "Cybersecurity",
+    quote:
+      "“They implemented robust security measures that have protected us from multiple threats without hampering user experience.”",
+    name: "Diego Fernández",
+    role: "Head of IT | SecureNet",
     image: "/figma/home/team-2.png",
+    imageClass: "object-center",
   },
 ];
 
@@ -58,7 +71,7 @@ export function Testimonials() {
             <p className="font-display text-sm leading-[1.2] text-brand uppercase">
               {item.category}
             </p>
-            <p className="font-body text-[28px] leading-[1.2] text-ink lg:text-[40px]">
+            <p className="font-body text-[28px] leading-[1.2] text-ink lg:text-[40px] lg:leading-[1.2]">
               {item.quote}
             </p>
           </div>
@@ -91,13 +104,13 @@ export function Testimonials() {
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className="relative h-[390px] overflow-hidden bg-gradient-to-b from-brand-soft to-[rgba(239,113,119,0.03)]">
+          <div className="relative h-[390.5px] overflow-hidden bg-gradient-to-b from-brand-soft to-[rgba(239,113,119,0.03)]">
             <Image
               src={item.image}
               alt={item.name}
               fill
               sizes="428px"
-              className="object-cover object-top"
+              className={cn("object-cover", item.imageClass)}
             />
           </div>
           <div>

@@ -11,7 +11,7 @@ import { getImageUrl } from "./image";
 import { homePageQuery } from "./queries";
 import { mapCtaLink, type CtaLink, type SanityCtaLink } from "./types";
 
-export const FALLBACK_HERO_IMAGE = "/figma/home/hero.png";
+export const FALLBACK_HERO_IMAGE = "/figma/home/hero-bg.png";
 export const FALLBACK_WHY_IMAGE = "/figma/home/why-choose-us.png";
 
 export type ClientLogo = {
@@ -60,7 +60,8 @@ export type HomePageContent = {
   statsDescription: string;
   stats: Stat[];
   whyEyebrow: string;
-  whyTitle: string;
+  whyTitlePrefix: string;
+  whyTitleHighlight: string;
   whyImageUrl: string;
   whyImageAlt: string;
   whyPoints: WhyPoint[];
@@ -79,17 +80,17 @@ const FALLBACK_WHY_POINTS: WhyPoint[] = [
   {
     number: "01",
     title: "Business-focused technology",
-    body: "We take the time to understand your business challenges before building solutions, ensuring every technology decision supports meaningful operational and business outcomes.",
+    body: "We understand your challenges first, then create solutions that support meaningful business outcomes and drive sustainable growth.",
   },
   {
     number: "02",
     title: "Expertise across the technology stack",
-    body: "From software and web development to cloud, DevOps, cybersecurity, and IT audit, we bring the technical capability needed to solve complex challenges with confidence.",
+    body: "We provide expertise across software, cloud, DevOps, cybersecurity, and IT audit to solve complex challenges.",
   },
   {
     number: "03",
     title: "Built for sustainable growth",
-    body: "We create reliable, scalable technology solutions that help businesses improve operations today while building a stronger foundation for tomorrow",
+    body: "We create reliable, scalable technology solutions that help businesses improve operations today while building a stronger foundation for tomorrow.",
   },
 ];
 
@@ -119,11 +120,12 @@ export const FALLBACK_HOME_PAGE: HomePageContent = {
     "Businesses need technology that does more than simply keep up. From complex systems and evolving infrastructure to growing security demands, the right technology partner helps turn challenges into opportunities for sustainable growth.",
   stats: FALLBACK_STATS,
   whyEyebrow: "why Choose Us?",
-  whyTitle: "Technology expertise built around what your business needs next.",
+  whyTitlePrefix: "Technology expertise built around what your ",
+  whyTitleHighlight: "business needs next.",
   whyImageUrl: FALLBACK_WHY_IMAGE,
   whyImageAlt: "ZurichTech team in the office",
   whyPoints: FALLBACK_WHY_POINTS,
-  whyCta: { label: "Learn more about Us", href: "/about" },
+  whyCta: { label: "Learn more", href: "/about" },
   servicesTitle: "Technology solutions built to move your business forward.",
   servicesCta: { label: "Get in Touch", href: "/contact" },
   insightsTitle: "Ideas, insights and technology shaping what's next.",
@@ -183,6 +185,8 @@ type SanityHomePage = {
   stats?: SanityStat[];
   whyImage?: SanityHeroImage;
   whyEyebrow?: string;
+  whyTitlePrefix?: string;
+  whyTitleHighlight?: string;
   whyTitle?: string;
   whyPoints?: SanityWhyPoint[];
   whyCta?: SanityCtaLink;
@@ -340,7 +344,10 @@ function mapHomePage(doc: SanityHomePage | null): HomePageContent {
       doc.statsDescription?.trim() || FALLBACK_HOME_PAGE.statsDescription,
     stats: mapStats(doc.stats, FALLBACK_HOME_PAGE.stats),
     whyEyebrow: doc.whyEyebrow?.trim() || FALLBACK_HOME_PAGE.whyEyebrow,
-    whyTitle: doc.whyTitle?.trim() || FALLBACK_HOME_PAGE.whyTitle,
+    whyTitlePrefix:
+      doc.whyTitlePrefix?.trim() || FALLBACK_HOME_PAGE.whyTitlePrefix,
+    whyTitleHighlight:
+      doc.whyTitleHighlight?.trim() || FALLBACK_HOME_PAGE.whyTitleHighlight,
     whyImageUrl: whyImage.url,
     whyImageAlt: whyImage.alt,
     whyPoints: mapWhyPoints(doc.whyPoints, FALLBACK_HOME_PAGE.whyPoints),

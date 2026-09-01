@@ -7,16 +7,21 @@ import type { WhyPoint } from "@/lib/sanity/home";
 
 type WhyChooseUsProps = {
   eyebrow: string;
-  title: string;
+  titlePrefix: string;
+  titleHighlight: string;
   imageUrl: string;
   imageAlt: string;
   points: WhyPoint[];
   cta: CtaLink;
 };
 
+/**
+ * Home why-choose-us split (Figma node 282:8058).
+ */
 export function WhyChooseUs({
   eyebrow,
-  title,
+  titlePrefix,
+  titleHighlight,
   imageUrl,
   imageAlt,
   points,
@@ -24,9 +29,9 @@ export function WhyChooseUs({
 }: WhyChooseUsProps) {
   return (
     <section className="bg-surface-blush px-6 py-16 lg:px-20 lg:py-20">
-      <div className="mx-auto grid w-full max-w-[1280px] items-center gap-8 lg:grid-cols-[632px_1fr] lg:gap-8">
-        <div className="rounded-2xl bg-brand-soft p-5">
-          <div className="relative aspect-[592/735] overflow-hidden rounded-lg">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center justify-between gap-8 lg:flex-row lg:gap-8">
+        <div className="flex h-[698px] w-full max-w-[632px] items-center rounded-2xl bg-brand-soft p-5">
+          <div className="relative h-[658px] w-full overflow-hidden rounded-2xl">
             <Image
               src={imageUrl}
               alt={imageAlt}
@@ -37,17 +42,18 @@ export function WhyChooseUs({
           </div>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex w-full max-w-[616px] flex-col gap-6">
           <div className="flex flex-col gap-2">
             <p className="font-display text-lg leading-[1.2] text-brand uppercase">
               {eyebrow}
             </p>
             <h2 className="font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
-              {title}
+              {titlePrefix}
+              <span className="text-brand">{titleHighlight}</span>
             </h2>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-6">
             {points.map((point) => (
               <div
                 key={point.number}

@@ -11,17 +11,18 @@ import {
 const CONTACT_ROWS = [
   {
     icon: "/figma/shared/icon-pin.svg",
-    text: SITE.address,
+    lines: [SITE.address],
   },
   {
     icon: "/figma/shared/icon-headset.svg",
-    text: SITE.email,
-    href: `mailto:${SITE.email}`,
+    lines: SITE.emails,
+    hrefPrefix: "mailto:",
   },
   {
     icon: "/figma/shared/icon-phone.svg",
-    text: SITE.phone,
-    href: `tel:${SITE.phone.replace(/\s/g, "")}`,
+    lines: [SITE.phone],
+    hrefPrefix: "tel:",
+    hrefSanitize: true,
   },
 ];
 
@@ -60,7 +61,7 @@ export function Footer() {
                 </p>
                 <ul className="flex flex-col gap-3">
                   {CONTACT_ROWS.map((row) => (
-                    <li key={row.text} className="flex items-start gap-3">
+                    <li key={row.lines.join("-")} className="flex items-start gap-3">
                       <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[6.4px] bg-white/32">
                         <span className="relative size-4 overflow-hidden">
                           <img
@@ -70,18 +71,25 @@ export function Footer() {
                           />
                         </span>
                       </span>
-                      {row.href ? (
-                        <a
-                          href={row.href}
-                          className="font-body text-base leading-[1.4] text-white/40 hover:text-white"
-                        >
-                          {row.text}
-                        </a>
-                      ) : (
-                        <p className="font-body text-base leading-[1.4] text-white/40">
-                          {row.text}
-                        </p>
-                      )}
+                      <div className="font-body text-base leading-[1.4] text-white/40">
+                        {row.lines.map((line) =>
+                          row.hrefPrefix ? (
+                            <a
+                              key={line}
+                              href={`${row.hrefPrefix}${
+                                row.hrefSanitize
+                                  ? line.replace(/\s/g, "")
+                                  : line
+                              }`}
+                              className="block hover:text-white"
+                            >
+                              {line}
+                            </a>
+                          ) : (
+                            <p key={line}>{line}</p>
+                          ),
+                        )}
+                      </div>
                     </li>
                   ))}
                 </ul>

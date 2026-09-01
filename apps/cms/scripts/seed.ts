@@ -188,9 +188,9 @@ async function seed() {
   console.log(`Seeding ${projectId}/${dataset}…`);
 
   const heroImage = await uploadPublicImage(
-    "figma/home/hero.png",
-    "home-hero.png",
-    "ZurichTech hero illustration",
+    "figma/home/hero-bg.png",
+    "home-hero-bg.png",
+    "ZurichTech hero background",
   );
   if (heroImage) console.log("  ✓ Hero image uploaded");
 
@@ -277,7 +277,8 @@ async function seed() {
       "stat",
     ),
     whyEyebrow: "why Choose Us?",
-    whyTitle: "Technology expertise built around what your business needs next.",
+    whyTitlePrefix: "Technology expertise built around what your ",
+    whyTitleHighlight: "business needs next.",
     ...(whyImage ? { whyImage } : {}),
     whyPoints: keyed(
       [
@@ -285,24 +286,24 @@ async function seed() {
           _type: "whyPoint",
           number: "01",
           title: "Business-focused technology",
-          body: "We take the time to understand your business challenges before building solutions, ensuring every technology decision supports meaningful operational and business outcomes.",
+          body: "We understand your challenges first, then create solutions that support meaningful business outcomes and drive sustainable growth.",
         },
         {
           _type: "whyPoint",
           number: "02",
           title: "Expertise across the technology stack",
-          body: "From software and web development to cloud, DevOps, cybersecurity, and IT audit, we bring the technical capability needed to solve complex challenges with confidence.",
+          body: "We provide expertise across software, cloud, DevOps, cybersecurity, and IT audit to solve complex challenges.",
         },
         {
           _type: "whyPoint",
           number: "03",
           title: "Built for sustainable growth",
-          body: "We create reliable, scalable technology solutions that help businesses improve operations today while building a stronger foundation for tomorrow",
+          body: "We create reliable, scalable technology solutions that help businesses improve operations today while building a stronger foundation for tomorrow.",
         },
       ],
       "why",
     ),
-    whyCta: { label: "Learn more about Us", href: "/about" },
+    whyCta: { label: "Learn more", href: "/about" },
     servicesTitle: "Technology solutions built to move your business forward.",
     servicesCta: { label: "Get in Touch", href: "/contact" },
     insightsTitle: "Ideas, insights and technology shaping what's next.",

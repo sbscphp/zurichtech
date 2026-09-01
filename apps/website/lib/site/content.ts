@@ -7,6 +7,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
+  { label: "Projects", href: "/projects" },
   { label: "Blogs", href: "/blogs" },
   { label: "Why Choose Us", href: "/why-choose-us" },
 ];
@@ -22,6 +23,7 @@ export const FOOTER_SERVICES: NavLink[] = [
 export const FOOTER_COMPANY: NavLink[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
   { label: "Insights", href: "/blogs" },
   { label: "Contact Us", href: "/contact" },
   { label: "Policy and Legal", href: "/legal" },

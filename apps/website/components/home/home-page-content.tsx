@@ -38,7 +38,8 @@ export function HomePageContent({
       />
       <WhyChooseUs
         eyebrow={home.whyEyebrow}
-        title={home.whyTitle}
+        titlePrefix={home.whyTitlePrefix}
+        titleHighlight={home.whyTitleHighlight}
         imageUrl={home.whyImageUrl}
         imageAlt={home.whyImageAlt}
         points={home.whyPoints}

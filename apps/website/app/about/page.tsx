@@ -22,7 +22,7 @@ export default function AboutPage() {
       <Story />
       <MissionVision />
       <Team />
-      <section className="bg-surface-blush px-6 py-16 lg:px-20 lg:py-[60px]">
+      <section className="bg-surface-blush px-6 py-16 lg:px-20 lg:py-20">
         <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-[60px]">
           <Values />
           <Testimonials />

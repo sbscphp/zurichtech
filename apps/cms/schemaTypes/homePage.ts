@@ -278,10 +278,25 @@ export const homePage = defineType({
       group: "why",
     }),
     defineField({
-      name: "whyTitle",
-      title: "Why Choose Us Title",
+      name: "whyTitlePrefix",
+      title: "Why Choose Us Title — Prefix",
       type: "string",
       group: "why",
+      description: "Text before the highlighted phrase.",
+    }),
+    defineField({
+      name: "whyTitleHighlight",
+      title: "Why Choose Us Title — Highlight",
+      type: "string",
+      group: "why",
+      description: "Phrase shown in brand color.",
+    }),
+    defineField({
+      name: "whyTitle",
+      title: "Why Choose Us Title (legacy)",
+      type: "string",
+      group: "why",
+      description: "Deprecated — use prefix and highlight fields instead.",
     }),
     defineField({
       name: "whyPoints",

@@ -68,7 +68,7 @@ export default function WhyChooseUsPage() {
       <PageBanner
         title="A Technology Partner You Can Actually Rely On."
         description="Plenty of developers can write code. Here's what businesses tell us keeps them coming back to SaidByte Technologies."
-        cta={{ label: "Our Projects", href: "/portfolio" }}
+        cta={{ label: "Our Projects", href: "/projects" }}
       />
 
       <section className="px-6 py-16 lg:px-20 lg:py-[82px]">
