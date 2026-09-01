@@ -1,28 +1,35 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { HOME_SERVICES } from "@/lib/site/content";
+import type { CtaLink } from "@/lib/sanity/types";
+import type { Service } from "@/lib/sanity/services";
+
+type ServicesGridProps = {
+  title: string;
+  cta: CtaLink;
+  services: Service[];
+};
 
 /**
  * Home services grid (Figma node 282:8071).
  */
-export function ServicesGrid() {
+export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
   return (
     <section className="bg-surface-blush px-6 pb-16 lg:px-20 lg:pb-20">
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <h2 className="max-w-[583px] font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
-            Technology solutions built to move your business forward.
+            {title}
           </h2>
           <Button asChild variant="brand" size="xl" className="font-body">
-            <Link href="/contact">Get in Touch</Link>
+            <Link href={cta.href}>{cta.label}</Link>
           </Button>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {HOME_SERVICES.map((service) => (
+          {services.map((service) => (
             <article
-              key={service.title}
+              key={service._id}
               className="flex min-h-[328px] flex-col justify-between rounded-lg bg-white p-5"
             >
               <div className="flex flex-col gap-6">
@@ -38,12 +45,12 @@ export function ServicesGrid() {
                     {service.title}
                   </h3>
                   <p className="font-body text-base leading-[1.4] text-ink-dimmed">
-                    {service.description}
+                    {service.summary}
                   </p>
                 </div>
               </div>
               <Link
-                href={service.href}
+                href={`/services/${service.slug}`}
                 className="mt-6 inline-flex items-center gap-2 font-body text-base text-brand"
               >
                 Explore

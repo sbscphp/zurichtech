@@ -12,16 +12,30 @@ export const siteSettingsQuery = `*[_type == "siteSettings" && _id == "siteSetti
 }`;
 
 export const homePageQuery = `*[_type == "homePage" && _id == "homePage"][0] {
-  heroEyebrow,
-  heroTitle,
+  heroTitleLine1,
+  heroTitleLine2,
+  heroTitleHighlight,
   heroDescription,
   heroPrimaryCta{ label, href },
   heroSecondaryCta{ label, href },
-  highlightsTitle,
-  highlights[]{ title, description },
-  ctaTitle,
-  ctaDescription,
-  ctaButton{ label, href }
+  heroImage{ alt, asset },
+  clientLogos[]{ name, logoSrc },
+  statsTitle,
+  statsDescription,
+  stats[]{ value, label },
+  whyImage{ alt, asset },
+  whyEyebrow,
+  whyTitle,
+  whyPoints[]{ number, title, body },
+  whyCta{ label, href },
+  servicesTitle,
+  servicesCta{ label, href },
+  insightsTitle,
+  insightsCta{ label, href },
+  insights[]{ category, title, excerpt, imageSrc, href },
+  teamEyebrow,
+  teamTitle,
+  homeTeam[]{ name, role, imageSrc, objectPosition, raised }
 }`;
 
 export const aboutPageQuery = `*[_type == "aboutPage" && _id == "aboutPage"][0] {

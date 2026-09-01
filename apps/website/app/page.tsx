@@ -1,21 +1,14 @@
-import { Hero } from "@/components/home/hero";
-import { Insights } from "@/components/home/insights";
-import { LogoMarquee } from "@/components/home/logo-marquee";
-import { ServicesGrid } from "@/components/home/services-grid";
-import { StatsBand } from "@/components/home/stats-band";
-import { Team } from "@/components/home/team";
-import { WhyChooseUs } from "@/components/home/why-choose-us";
+import { HomePageContent } from "@/components/home/home-page-content";
+import { getHomePage } from "@/lib/sanity/home";
+import { getServices } from "@/lib/sanity/services";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [homePage, services] = await Promise.all([
+    getHomePage(),
+    getServices(),
+  ]);
+
   return (
-    <>
-      <Hero />
-      <LogoMarquee />
-      <StatsBand />
-      <WhyChooseUs />
-      <ServicesGrid />
-      <Insights />
-      <Team />
-    </>
+    <HomePageContent initialHomePage={homePage} initialServices={services} />
   );
 }

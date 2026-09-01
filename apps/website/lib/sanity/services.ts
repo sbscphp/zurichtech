@@ -1,5 +1,7 @@
 import type { SanityImageSource } from "@sanity/image-url";
 
+import { HOME_SERVICES } from "@/lib/site/content";
+
 import { sanityFetch } from "./fetch";
 import {
   serviceBySlugQuery,
@@ -43,104 +45,24 @@ export const FALLBACK_SERVICES_PAGE: ServicesPageContent = {
     "Each engagement starts with a scoping call and a written plan before any code is written.",
 };
 
-export const FALLBACK_SERVICES: Service[] = [
-  {
-    _id: "fallback-product-engineering",
-    title: "Product engineering",
-    slug: "product-engineering",
-    summary:
-      "Web and mobile products built in reviewable increments, with tests that make them safe to change.",
-    icon: "code",
-    overview: [
-      "We join as an embedded team or take the build outright, depending on what you already have in place.",
-      "Every engagement ships to a real environment in the first two weeks.",
-    ],
-    deliverables: [
-      "Working application deployed to your infrastructure",
-      "Test suite and CI pipeline",
-      "Handover documentation",
-    ],
-    process: [
-      {
-        title: "Scope",
-        description:
-          "A short discovery pass that produces a written plan, a timeline, and a number.",
-      },
-      {
-        title: "Build",
-        description:
-          "Two-week cycles with a demo and a deployable build at the end of each one.",
-      },
-      {
-        title: "Hand over",
-        description:
-          "Documentation, a walkthrough, and a support window while your team takes the wheel.",
-      },
-    ],
-  },
-  {
-    _id: "fallback-cloud-platform",
-    title: "Cloud & platform",
-    slug: "cloud-platform",
-    summary:
-      "Infrastructure as code, CI/CD, observability, and cost control on AWS, GCP, or Azure.",
-    icon: "cloud",
-    overview: [
-      "We set up the boring parts properly: environments, secrets, deploys, alerts, and backups.",
-    ],
-    deliverables: [
-      "Infrastructure defined in code",
-      "Automated deploy pipeline",
-      "Monitoring and alerting baseline",
-    ],
-    process: [
-      {
-        title: "Audit",
-        description:
-          "A read of what you run today, what it costs, and where it breaks.",
-      },
-      {
-        title: "Migrate",
-        description:
-          "Incremental moves with a rollback path at every step.",
-      },
-      {
-        title: "Operate",
-        description: "Runbooks and dashboards your on-call can actually use.",
-      },
-    ],
-  },
-  {
-    _id: "fallback-data-ai",
-    title: "Data & AI",
-    slug: "data-ai",
-    summary:
-      "Pipelines, warehouses, dashboards, and model integrations built on the data you already have.",
-    icon: "database",
-    overview: [
-      "Most teams do not have a data problem, they have a plumbing problem. We start there.",
-    ],
-    deliverables: [
-      "Ingestion pipelines and a modelled warehouse",
-      "Dashboards for the metrics you actually watch",
-      "Model or LLM integration where it earns its keep",
-    ],
-    process: [
-      {
-        title: "Map",
-        description: "Where the data lives now and who needs it.",
-      },
-      {
-        title: "Pipe",
-        description: "Reliable, monitored ingestion into one place.",
-      },
-      {
-        title: "Serve",
-        description: "Dashboards, APIs, or model endpoints on top.",
-      },
-    ],
-  },
-];
+export const FALLBACK_SERVICES: Service[] = HOME_SERVICES.map((service, index) => {
+  const slug = service.title
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+  return {
+    _id: `fallback-${slug}`,
+    title: service.title,
+    slug,
+    summary: service.description,
+    icon: index < 3 ? "code" : index < 5 ? "cloud" : "database",
+    overview: [service.description],
+    deliverables: [],
+    process: [],
+  };
+});
 
 type SanityProcessStep = { title?: string; description?: string };
 

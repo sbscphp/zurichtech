@@ -66,93 +66,88 @@ const client = createClient({
 
 const services = [
   {
-    id: "service-product-engineering",
-    title: "Product engineering",
-    slug: "product-engineering",
+    id: "service-software-development",
+    title: "Software Development",
+    slug: "software-development",
     order: 1,
     icon: "code",
     summary:
-      "Web and mobile products built in reviewable increments, with tests that make them safe to change.",
+      "We design and develop tailored software solutions that help businesses solve complex challenges, improve efficiency, and create new opportunities for growth.",
     overview: [
-      "We join as an embedded team or take the build outright, depending on what you already have in place.",
-      "Every engagement ships to a real environment in the first two weeks.",
+      "We design and develop tailored software solutions that help businesses solve complex challenges, improve efficiency, and create new opportunities for growth.",
     ],
-    deliverables: [
-      "Working application deployed to your infrastructure",
-      "Test suite and CI pipeline",
-      "Handover documentation",
-    ],
-    process: [
-      {
-        title: "Scope",
-        description:
-          "A short discovery pass that produces a written plan, a timeline, and a number.",
-      },
-      {
-        title: "Build",
-        description:
-          "Two-week cycles with a demo and a deployable build at the end of each one.",
-      },
-      {
-        title: "Hand over",
-        description:
-          "Documentation, a walkthrough, and a support window while your team takes the wheel.",
-      },
-    ],
+    deliverables: [] as string[],
+    process: [] as { title: string; description: string }[],
   },
   {
-    id: "service-cloud-platform",
-    title: "Cloud & platform",
-    slug: "cloud-platform",
+    id: "service-web-development",
+    title: "Web Development",
+    slug: "web-development",
     order: 2,
+    icon: "code",
+    summary:
+      "We create modern, responsive web experiences that bring your brand, products, and services to life while delivering a seamless experience across devices.",
+    overview: [
+      "We create modern, responsive web experiences that bring your brand, products, and services to life while delivering a seamless experience across devices.",
+    ],
+    deliverables: [],
+    process: [],
+  },
+  {
+    id: "service-mobile-app-development",
+    title: "Mobile App Development",
+    slug: "mobile-app-development",
+    order: 3,
+    icon: "code",
+    summary:
+      "We create intuitive, high-performing mobile applications that help businesses connect with customers and deliver value wherever they are",
+    overview: [
+      "We create intuitive, high-performing mobile applications that help businesses connect with customers and deliver value wherever they are",
+    ],
+    deliverables: [],
+    process: [],
+  },
+  {
+    id: "service-it-consulting-and-advisory",
+    title: "IT Consulting & Advisory",
+    slug: "it-consulting-and-advisory",
+    order: 4,
+    icon: "code",
+    summary:
+      "We provide strategic technology guidance to help businesses make informed decisions, overcome challenges, and get more value from their technology investments.",
+    overview: [
+      "We provide strategic technology guidance to help businesses make informed decisions, overcome challenges, and get more value from their technology investments.",
+    ],
+    deliverables: [],
+    process: [],
+  },
+  {
+    id: "service-cloud-services-aws-azure-gcp",
+    title: "Cloud Services (AWS, Azure, GCP)",
+    slug: "cloud-services-aws-azure-gcp",
+    order: 5,
     icon: "cloud",
     summary:
-      "Infrastructure as code, CI/CD, observability, and cost control on AWS, GCP, or Azure.",
+      "We help businesses leverage cloud technology to build flexible, scalable, and reliable infrastructure designed for changing business needs.",
     overview: [
-      "We set up the boring parts properly: environments, secrets, deploys, alerts, and backups.",
+      "We help businesses leverage cloud technology to build flexible, scalable, and reliable infrastructure designed for changing business needs.",
     ],
-    deliverables: [
-      "Infrastructure defined in code",
-      "Automated deploy pipeline",
-      "Monitoring and alerting baseline",
-    ],
-    process: [
-      {
-        title: "Audit",
-        description:
-          "A read of what you run today, what it costs, and where it breaks.",
-      },
-      {
-        title: "Migrate",
-        description: "Incremental moves with a rollback path at every step.",
-      },
-      {
-        title: "Operate",
-        description: "Runbooks and dashboards your on-call can actually use.",
-      },
-    ],
+    deliverables: [],
+    process: [],
   },
   {
-    id: "service-data-ai",
-    title: "Data & AI",
-    slug: "data-ai",
-    order: 3,
+    id: "service-data-science-and-ai-ml-solutions",
+    title: "Data Science & AI/ML Solutions",
+    slug: "data-science-and-ai-ml-solutions",
+    order: 6,
     icon: "database",
     summary:
-      "Pipelines, warehouses, dashboards, and model integrations built on the data you already have.",
+      "We help businesses turn data into actionable intelligence and explore AI-powered solutions that support smarter decisions and new opportunities.",
     overview: [
-      "Most teams do not have a data problem, they have a plumbing problem. We start there.",
+      "We help businesses turn data into actionable intelligence and explore AI-powered solutions that support smarter decisions and new opportunities.",
     ],
-    deliverables: [
-      "Ingestion pipelines and a modelled warehouse",
-      "Dashboards for the metrics you actually watch",
-      "Model or LLM integration where it earns its keep",
-    ],
-    process: [
-      { title: "Map", description: "Where the data lives now and who needs it." },
-      { title: "Pipe", description: "Reliable, monitored ingestion into one place." },
-      { title: "Serve", description: "Dashboards, APIs, or model endpoints on top." },
-    ],
+    deliverables: [],
+    process: [],
   },
 ];
 
@@ -160,8 +155,51 @@ function keyed<T extends object>(items: T[], prefix: string) {
   return items.map((item, index) => ({ _key: `${prefix}-${index}`, ...item }));
 }
 
+const websitePublicDir = join(cmsDir, "../website/public");
+
+async function uploadPublicImage(
+  relativePath: string,
+  filename: string,
+  alt: string,
+) {
+  const filePath = join(websitePublicDir, relativePath);
+  if (!existsSync(filePath)) {
+    console.warn(`  ! Image not found at ${filePath}`);
+    return undefined;
+  }
+
+  const buffer = readFileSync(filePath);
+  const asset = await client.assets.upload("image", buffer, {
+    filename,
+    contentType: "image/png",
+  });
+
+  return {
+    _type: "image" as const,
+    asset: {
+      _type: "reference" as const,
+      _ref: asset._id,
+    },
+    alt,
+  };
+}
+
 async function seed() {
   console.log(`Seeding ${projectId}/${dataset}…`);
+
+  const heroImage = await uploadPublicImage(
+    "figma/home/hero.png",
+    "home-hero.png",
+    "ZurichTech hero illustration",
+  );
+  if (heroImage) console.log("  ✓ Hero image uploaded");
+
+  const whyImage = await uploadPublicImage(
+    "figma/home/why-choose-us.png",
+    "home-why-choose-us.png",
+    "ZurichTech team in the office",
+  );
+  if (whyImage) console.log("  ✓ Why Choose Us image uploaded");
 
   await client.createOrReplace({
     _id: "siteSettings",
@@ -205,40 +243,166 @@ async function seed() {
   await client.createOrReplace({
     _id: "homePage",
     _type: "homePage",
-    heroEyebrow: "Zuritech",
-    heroTitle: "Engineering teams build here.",
+    heroTitleLine1: "Engineering the systems",
+    heroTitleLine2: "your ",
+    heroTitleHighlight: "business actually runs on.",
     heroDescription:
-      "We design, build, and run software for companies that need their product to work on day one and keep working after that.",
-    heroPrimaryCta: { label: "Start a project", href: "/contact" },
-    heroSecondaryCta: { label: "See our services", href: "/services" },
-    highlightsTitle: "What we bring to the table",
-    highlights: keyed(
+      "We design, build and secure software, cloud platforms and digital products with senior engineers, written commitments and delivery dates that hold",
+    heroPrimaryCta: { label: "Learn more", href: "/about" },
+    heroSecondaryCta: { label: "Our services", href: "/services" },
+    ...(heroImage ? { heroImage } : {}),
+    clientLogos: keyed(
+      [
+        { _type: "clientLogo", name: "Synergy", logoSrc: "/figma/home/logo-synergy.svg" },
+        { _type: "clientLogo", name: "Horizon", logoSrc: "/figma/home/logo-horizon.svg" },
+        { _type: "clientLogo", name: "Catalyst", logoSrc: "/figma/home/logo-catalyst.svg" },
+        { _type: "clientLogo", name: "Phoenix", logoSrc: "/figma/home/logo-phoenix.svg" },
+        { _type: "clientLogo", name: "Solaris", logoSrc: "/figma/home/logo-solaris.svg" },
+        { _type: "clientLogo", name: "Apex", logoSrc: "/figma/home/logo-apex.svg" },
+        { _type: "clientLogo", name: "Aurora", logoSrc: "/figma/home/logo-aurora.svg" },
+        { _type: "clientLogo", name: "Pulse", logoSrc: "/figma/home/logo-pulse.svg" },
+      ],
+      "logo",
+    ),
+    statsTitle:
+      "The gap between business ambition and technology execution shouldn't hold you back.",
+    statsDescription:
+      "Businesses need technology that does more than simply keep up. From complex systems and evolving infrastructure to growing security demands, the right technology partner helps turn challenges into opportunities for sustainable growth.",
+    stats: keyed(
+      [
+        { _type: "stat", value: "120+", label: "Project Delivered" },
+        { _type: "stat", value: "98%", label: "On-time delivery" },
+        { _type: "stat", value: "10+", label: "Engineering Experience" },
+      ],
+      "stat",
+    ),
+    whyEyebrow: "why Choose Us?",
+    whyTitle: "Technology expertise built around what your business needs next.",
+    ...(whyImage ? { whyImage } : {}),
+    whyPoints: keyed(
       [
         {
-          _type: "highlight",
-          title: "Product engineering",
-          description:
-            "Web and mobile products shipped in small, reviewable increments — with the tests and tooling to keep them safe to change.",
+          _type: "whyPoint",
+          number: "01",
+          title: "Business-focused technology",
+          body: "We take the time to understand your business challenges before building solutions, ensuring every technology decision supports meaningful operational and business outcomes.",
         },
         {
-          _type: "highlight",
-          title: "Cloud & platform",
-          description:
-            "Infrastructure that scales down as easily as it scales up, so you pay for what you actually use.",
+          _type: "whyPoint",
+          number: "02",
+          title: "Expertise across the technology stack",
+          body: "From software and web development to cloud, DevOps, cybersecurity, and IT audit, we bring the technical capability needed to solve complex challenges with confidence.",
         },
         {
-          _type: "highlight",
-          title: "Data & AI",
-          description:
-            "Pipelines, dashboards, and model integrations that turn the data you already collect into decisions.",
+          _type: "whyPoint",
+          number: "03",
+          title: "Built for sustainable growth",
+          body: "We create reliable, scalable technology solutions that help businesses improve operations today while building a stronger foundation for tomorrow",
         },
       ],
-      "highlight",
+      "why",
     ),
-    ctaTitle: "Have something in mind?",
-    ctaDescription:
-      "Tell us what you are building and we will come back with a plan, a timeline, and a number.",
-    ctaButton: { label: "Talk to us", href: "/contact" },
+    whyCta: { label: "Learn more about Us", href: "/about" },
+    servicesTitle: "Technology solutions built to move your business forward.",
+    servicesCta: { label: "Get in Touch", href: "/contact" },
+    insightsTitle: "Ideas, insights and technology shaping what's next.",
+    insightsCta: { label: "Learn More", href: "/blogs" },
+    insights: keyed(
+      [
+        {
+          _type: "insightCard",
+          category: "Cloud",
+          title: "Building Technology That Scales With Your Business",
+          excerpt:
+            "Discover how the right technology foundation can help businesses improve efficiency, adapt to change, and build confidently for long-term growth.",
+          imageSrc: "/figma/home/insight-1.png",
+          href: "/blogs/migrate-to-cloud-without-downtime",
+        },
+        {
+          _type: "insightCard",
+          category: "IT consulting",
+          title: "Turning Complex Challenges Into Smarter Technology",
+          excerpt:
+            "Explore how businesses can use the right technology strategy to simplify operations, solve complex challenges, and unlock new opportunities for growth.",
+          imageSrc: "/figma/home/insight-2.png",
+          href: "/blogs/migrate-to-cloud-without-downtime",
+        },
+        {
+          _type: "insightCard",
+          category: "Cloud",
+          title: "The Role of Cloud Technology in Building Agile Businesses",
+          excerpt:
+            "Learn how cloud solutions can help organisations become more flexible, efficient, and ready to adapt to changing business demands",
+          imageSrc: "/figma/home/insight-3.png",
+          href: "/blogs/migrate-to-cloud-without-downtime",
+        },
+        {
+          _type: "insightCard",
+          category: "web development",
+          title: "Building Better Digital Experiences Through Technology",
+          excerpt:
+            "From websites to custom software, discover how thoughtfully designed digital solutions can create better experiences for both businesses and their customers.",
+          imageSrc: "/figma/home/insight-4.png",
+          href: "/blogs/migrate-to-cloud-without-downtime",
+        },
+        {
+          _type: "insightCard",
+          category: "IT consulting",
+          title: "Preparing Your Technology for What Comes Next",
+          excerpt:
+            "Technology should support where your business is going, not just where it is today. Explore how scalable solutions can help you build with confidence for the future.",
+          imageSrc: "/figma/home/insight-5.png",
+          href: "/blogs/migrate-to-cloud-without-downtime",
+        },
+        {
+          _type: "insightCard",
+          category: "AI",
+          title: "Harnessing Artificial Intelligence for Smarter Decisions",
+          excerpt:
+            "Explore how AI-driven insights empower businesses to make data-backed decisions that boost productivity and innovation.",
+          imageSrc: "/figma/home/insight-1.png",
+          href: "/blogs/migrate-to-cloud-without-downtime",
+        },
+      ],
+      "insight",
+    ),
+    teamEyebrow: "Our team",
+    teamTitle: "ZurichTech Professionals",
+    homeTeam: keyed(
+      [
+        {
+          _type: "homeTeamMember",
+          name: "Adekunle, Muh'D Thanni",
+          role: "Chief Technology Officer",
+          imageSrc: "/figma/home/team-1.png",
+          objectPosition: "object-[center_20%]",
+        },
+        {
+          _type: "homeTeamMember",
+          name: "Dr. Onyinyechi",
+          role: "Chief of Operation",
+          imageSrc: "/figma/home/team-2.png",
+          objectPosition: "object-center",
+          raised: true,
+        },
+        {
+          _type: "homeTeamMember",
+          name: "Jadesola Alao",
+          role: "Chief Marketing Officer",
+          imageSrc: "/figma/home/team-3.png",
+          objectPosition: "object-[center_top]",
+        },
+        {
+          _type: "homeTeamMember",
+          name: "Dr. Joy Godiya",
+          role: "Chief Executive Officer",
+          imageSrc: "/figma/home/team-4.png",
+          objectPosition: "object-[center_15%]",
+          raised: true,
+        },
+      ],
+      "member",
+    ),
   });
   console.log("  ✓ Home Page");
 
