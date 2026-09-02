@@ -34,7 +34,7 @@ export function Team({ eyebrow, title, members }: TeamProps) {
                 member.raised && "lg:pt-[120px]",
               )}
             >
-              <div className="relative h-[390px] overflow-hidden bg-gradient-to-b from-brand-soft to-[rgba(239,113,119,0.03)]">
+              <div className="relative h-[390.5px] overflow-hidden bg-gradient-to-b from-brand-soft to-[rgba(239,113,119,0.03)]">
                 <Image
                   src={member.imageSrc}
                   alt={member.name}

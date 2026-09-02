@@ -25,6 +25,8 @@ export const homePageQuery = `*[_type == "homePage" && _id == "homePage"][0] {
   stats[]{ value, label },
   whyImage{ alt, asset },
   whyEyebrow,
+  whyTitlePrefix,
+  whyTitleHighlight,
   whyTitle,
   whyPoints[]{ number, title, body },
   whyCta{ label, href },

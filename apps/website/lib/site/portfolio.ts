@@ -1,59 +1,75 @@
-export const PROJECTS = [
+export type Project = {
+  slug: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  imageClass?: string;
+  tags: string[];
+};
+
+export const PROJECTS: Project[] = [
   {
-    slug: "healthcare-web",
+    slug: "innovixus-labs-website",
     category: "Web application",
-    title: "Healthcare Management system",
+    title: "Innovixus Labs Website",
     excerpt:
       "Comprehensive patient management system for healthcare providers with appointment scheduling.",
     image: "/figma/portfolio/project-1.png",
+    imageClass: "object-cover object-[8%_15%]",
     tags: ["Next.js", "Node.js"],
   },
   {
-    slug: "healthcare-mobile",
+    slug: "food-delivery-mobile-app",
     category: "Mobile application",
-    title: "Healthcare Management system",
+    title: "Food Delivery Mobile App",
     excerpt:
       "Comprehensive patient management system for healthcare providers with appointment scheduling.",
     image: "/figma/portfolio/project-2.png",
+    imageClass: "object-cover object-top",
     tags: ["Next.js", "Node.js"],
   },
   {
-    slug: "healthcare-commerce",
+    slug: "healthcare-ecommerce-platform",
     category: "E - commerce platform",
     title: "Healthcare Management system",
     excerpt:
       "Comprehensive patient management system for healthcare providers with appointment scheduling.",
     image: "/figma/portfolio/project-3.png",
+    imageClass: "object-cover object-top",
     tags: ["Next.js", "Node.js"],
   },
   {
-    slug: "healthcare-web-platform",
-    category: "Web application",
+    slug: "healthcare-web-mobile",
+    category: "Web / Mobile Application",
     title: "Healthcare Management system",
     excerpt:
       "Comprehensive patient management system for healthcare providers with appointment scheduling.",
     image: "/figma/portfolio/project-1.png",
+    imageClass: "object-cover object-[8%_15%]",
     tags: ["Next.js", "Node.js"],
   },
   {
-    slug: "healthcare-portal",
+    slug: "healthcare-web-portal",
     category: "Web application",
     title: "Healthcare Management system",
     excerpt:
       "Comprehensive patient management system for healthcare providers with appointment scheduling.",
     image: "/figma/portfolio/project-5.png",
+    imageClass: "object-cover object-top",
     tags: ["Next.js", "Node.js"],
   },
   {
-    slug: "healthcare-school",
+    slug: "school-management-platform",
     category: "school management system",
-    title: "Healthcare Management system",
+    title: "School Management Platform",
     excerpt:
       "Comprehensive patient management system for healthcare providers with appointment scheduling.",
     image: "/figma/portfolio/project-6.png",
+    imageClass: "object-cover object-top",
     tags: ["Next.js", "Node.js"],
   },
-] as const;
+];
 
 export const CASE_STUDY = {
   title: "Innovixus Labs Website - Simplifying Hajj Management Operations",

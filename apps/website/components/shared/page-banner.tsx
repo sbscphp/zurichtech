@@ -25,17 +25,22 @@ export function PageBanner({
     <section
       className={cn(
         "relative isolate overflow-hidden",
-        tone === "brand" ? "bg-brand" : "bg-black",
+        tone === "brand" ? "bg-brand" : "bg-black min-h-[682px]",
       )}
     >
       <BannerGrid />
 
-      <div className="relative mx-auto flex w-full max-w-[750px] flex-col items-center gap-6 px-6 py-24 text-center text-white md:py-[135px]">
+      <div className="relative mx-auto flex w-full max-w-[603px] flex-col items-center gap-6 px-6 pb-6 pt-24 text-center text-white md:pb-6 md:pt-[255px]">
         <h1 className="font-display text-[32px] leading-[1.2] font-medium sm:text-[40px] lg:text-[48px]">
           {title}
         </h1>
         {description ? (
-          <p className="max-w-[579px] font-body text-base leading-[1.4] text-white/80 lg:text-xl">
+          <p
+            className={cn(
+              "max-w-[579px] font-body text-base leading-[1.4] lg:text-xl",
+              tone === "ink" ? "text-[#adb5bd]" : "text-white/80",
+            )}
+          >
             {description}
           </p>
         ) : null}
