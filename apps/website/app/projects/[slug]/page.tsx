@@ -120,7 +120,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
 function BulletList({ items }: { items: readonly string[] }) {
   return (
-    <ul className="flex list-disc flex-col gap-3 pl-[30px] font-body text-xl leading-[1.4] text-ink-dimmed">
+    <ul className="flex list-disc flex-col gap-3 pl-7.5 font-body text-xl leading-[1.4] text-ink-dimmed">
       {items.map((item) => (
         <li key={item}>{item}</li>
       ))}
