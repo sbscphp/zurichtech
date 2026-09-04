@@ -33,9 +33,9 @@ export function Insights({ title, cta, insights }: InsightsProps) {
 
   return (
     <section className="px-6 py-16 lg:px-20 lg:py-20">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <h2 className="max-w-[583px] font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
+          <h2 className="max-w-145.75 font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             {titleNode}
           </h2>
           <Button asChild variant="brand" size="xl" className="font-body">
@@ -49,7 +49,7 @@ export function Insights({ title, cta, insights }: InsightsProps) {
               <Link
                 key={insight.title}
                 href={insight.href}
-                className="flex w-[280px] shrink-0 flex-col gap-4 sm:w-[364px]"
+                className="flex w-70 shrink-0 flex-col gap-4 sm:w-91"
               >
                 <p className="font-display text-sm leading-[1.2] text-brand uppercase">
                   {insight.category}

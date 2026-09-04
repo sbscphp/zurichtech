@@ -71,8 +71,8 @@ export default function WhyChooseUsPage() {
         cta={{ label: "Our Projects", href: "/projects" }}
       />
 
-      <section className="px-6 py-16 lg:px-20 lg:py-[82px]">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-[82px]">
+      <section className="px-6 py-16 lg:px-20 lg:py-20.5">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-20.5">
           <div className="grid items-center gap-12 lg:grid-cols-[601px_1fr]">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-3">
@@ -104,7 +104,7 @@ export default function WhyChooseUsPage() {
               </div>
             </div>
             <div className="rounded-2xl bg-brand-soft p-5">
-              <div className="relative h-[440px] overflow-hidden rounded-2xl">
+              <div className="relative h-110 overflow-hidden rounded-2xl">
                 <Image
                   src="/figma/why-choose-us/story.png"
                   alt="ZurichTech colleagues in discussion"
@@ -123,7 +123,7 @@ export default function WhyChooseUsPage() {
                 className="flex flex-col items-center gap-6 text-center"
               >
                 <span
-                  className={`flex size-[94px] items-center justify-center overflow-hidden rounded-full ${pillar.tint}`}
+                  className={`flex size-23.5 items-center justify-center overflow-hidden rounded-full ${pillar.tint}`}
                 >
                   <img alt="" src={pillar.icon} className="size-11" />
                 </span>
@@ -142,7 +142,7 @@ export default function WhyChooseUsPage() {
       </section>
 
       <section className="bg-surface-rose px-6 py-16 lg:px-20">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center gap-10">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex items-center gap-2">
               <img
@@ -160,7 +160,7 @@ export default function WhyChooseUsPage() {
             {DIFFERENCE.map((card) => (
               <article
                 key={card.title}
-                className="flex flex-col gap-4 rounded-[32px] border-b-4 border-transparent bg-white p-6 transition-colors duration-300 hover:border-brand"
+                className="flex flex-col gap-4 rounded-4xl border-b-4 border-transparent bg-white p-6 transition-colors duration-300 hover:border-brand"
               >
                 <h3 className="font-body text-xl font-semibold text-black">
                   {card.title}

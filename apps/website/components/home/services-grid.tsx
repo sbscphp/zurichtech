@@ -39,10 +39,10 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
 
   let cursor = 0;
   const segments: ReactNode[] = [];
-  ranges.forEach((range, index) => {
-    segments.push(title.slice(cursor, range.start));
+  ranges.forEach((range) => {
     segments.push(
-      <span key={index} className="text-brand">
+      title.slice(cursor, range.start),
+      <span key={range.start} className="text-brand">
         {title.slice(range.start, range.end)}
       </span>,
     );
@@ -54,9 +54,9 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
 
   return (
     <section className="bg-surface-blush px-6 pb-16 lg:px-20 lg:pb-20">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <h2 className="max-w-[583px] font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
+          <h2 className="max-w-145.75 font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             {titleNode}
           </h2>
           <Button asChild variant="brand" size="xl" className="font-body">
@@ -68,7 +68,7 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
           {services.map((service) => (
             <article
               key={service._id}
-              className="group flex min-h-[328px] flex-col justify-between rounded-lg bg-white p-5 transition-colors duration-300 hover:bg-brand"
+              className="group flex min-h-82 flex-col justify-between rounded-lg bg-white p-5 transition-colors duration-300 hover:bg-brand"
             >
               <div className="flex flex-col gap-6">
                 <span className="flex size-10 items-center justify-center overflow-hidden rounded-lg bg-brand-soft transition-colors duration-300 group-hover:bg-white">
@@ -91,7 +91,7 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
                 href={`/services/${service.slug}`}
                 className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-transparent px-4 py-2 font-body text-base text-brand transition-colors duration-300 group-hover:bg-white"
               >
-                Explore
+                Explore{" "}
                 <span className="relative size-5 overflow-hidden">
                   <img
                     alt=""

@@ -141,7 +141,7 @@ const SERVICES: ShowcaseService[] = [
 export function ServiceShowcase() {
   return (
     <section className="px-6 pt-16 pb-16 lg:px-20 lg:pt-20 lg:pb-24">
-      <div className="mx-auto flex w-full max-w-[956px] flex-col gap-12">
+      <div className="mx-auto flex w-full max-w-239 flex-col gap-12">
         {SERVICES.map((service) => (
           <ServiceRow key={service.number} service={service} />
         ))}
@@ -175,7 +175,7 @@ function ServiceRow({ service }: { service: ShowcaseService }) {
           </p>
         </div>
 
-        <ul className="flex w-full flex-col gap-[18px]">
+        <ul className="flex w-full flex-col gap-4.5">
           {service.features.map((feature) => (
             <li
               key={feature}
@@ -198,7 +198,7 @@ function ServiceRow({ service }: { service: ShowcaseService }) {
         <Button
           asChild
           variant="brand"
-          className="h-[52px] w-[242px] gap-2 rounded-[10px] px-8 py-1 font-body text-xl font-normal"
+          className="h-13 w-60.5 gap-2 rounded-[10px] px-8 py-1 font-body text-xl font-normal"
         >
           <Link href={CTA.href}>{CTA.label}</Link>
         </Button>

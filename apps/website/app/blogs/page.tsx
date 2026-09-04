@@ -130,7 +130,7 @@ export default function BlogsPage() {
           src="/figma/blogs/hero.png"
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="relative mx-auto flex min-h-[420px] max-w-[900px] items-center justify-center px-6 py-24 text-center md:min-h-[682px]">
+        <div className="relative mx-auto flex min-h-105 max-w-225 items-center justify-center px-6 py-24 text-center md:min-h-170.5">
           <h1 className="font-display text-[36px] leading-[1.2] font-medium text-white md:text-[48px]">
             Where technology meets insight.
           </h1>
@@ -138,7 +138,7 @@ export default function BlogsPage() {
       </section>
 
       <section className="px-6 py-16 lg:px-20">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
           <h2 className="font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             Recents Insights
           </h2>
@@ -147,7 +147,7 @@ export default function BlogsPage() {
               <p className="font-display text-sm text-brand uppercase">
                 {FEATURED.category}
               </p>
-              <div className="relative h-[360px] overflow-hidden bg-white">
+              <div className="relative h-90 overflow-hidden bg-white">
                 <Image
                   src={FEATURED.image}
                   alt=""
@@ -171,7 +171,7 @@ export default function BlogsPage() {
                   href={DETAIL_HREF}
                   className="flex gap-4"
                 >
-                  <div className="relative h-[140px] w-[180px] shrink-0 overflow-hidden bg-white sm:h-[226px] sm:w-[282px]">
+                  <div className="relative h-35 w-45 shrink-0 overflow-hidden bg-white sm:h-56.5 sm:w-70.5">
                     <Image
                       src={item.image}
                       alt=""
@@ -199,7 +199,7 @@ export default function BlogsPage() {
       </section>
 
       <section className="px-6 pb-16 lg:px-20 lg:pb-24">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
           <h2 className="font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             Explore more Insights
           </h2>
