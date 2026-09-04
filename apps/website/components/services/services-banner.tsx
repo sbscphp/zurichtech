@@ -7,7 +7,7 @@ const BANNER = {
   title: "Technology solutions for every stage of your digital journey.",
   description:
     "From digital products to cloud, security, and data, we deliver the expertise businesses need to solve complex challenges and move forward with confidence.",
-  cta: { label: "Let’s work Together", href: "/contact" },
+  cta: { label: "Let’s work Together", href: "/partners" },
 };
 
 /**

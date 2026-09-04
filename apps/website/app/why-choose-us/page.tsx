@@ -80,7 +80,8 @@ export default function WhyChooseUsPage() {
                   why choose us
                 </p>
                 <h2 className="font-display text-[36px] leading-[1.2] text-black lg:text-[48px]">
-                  Your Technology Partner for Growth
+                  Your <span className="text-brand">Technology Partner</span>{" "}
+                  for Growth
                 </h2>
               </div>
               <div className="flex flex-col gap-4 font-body text-lg leading-[1.4] text-ink-dimmed">
@@ -159,7 +160,7 @@ export default function WhyChooseUsPage() {
             {DIFFERENCE.map((card) => (
               <article
                 key={card.title}
-                className="flex flex-col gap-4 rounded-[32px] bg-white p-6"
+                className="flex flex-col gap-4 rounded-[32px] border-b-4 border-transparent bg-white p-6 transition-colors duration-300 hover:border-brand"
               >
                 <h3 className="font-body text-xl font-semibold text-black">
                   {card.title}

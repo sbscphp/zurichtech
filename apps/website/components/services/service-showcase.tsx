@@ -13,13 +13,11 @@ type ShowcaseService = {
   imageSide: "left" | "right";
   /** Figma image frame height — first row is slightly taller. */
   imageHeight: number;
-  /** Some CTAs use the smaller button size in Figma. */
-  ctaSize?: "default" | "compact";
   /** Cybersecurity image sits on a blush frame in Figma. */
   imageFrame?: "plain" | "blush";
 };
 
-const CTA = { label: "Let’s work Together", href: "/contact" };
+const CTA = { label: "Let’s work Together", href: "/partners" };
 
 /** Services in page order (Figma node 261:24836). */
 const SERVICES: ShowcaseService[] = [
@@ -40,7 +38,6 @@ const SERVICES: ShowcaseService[] = [
     },
     imageSide: "right",
     imageHeight: 566,
-    ctaSize: "default",
   },
   {
     number: "02",
@@ -60,7 +57,6 @@ const SERVICES: ShowcaseService[] = [
     },
     imageSide: "left",
     imageHeight: 564,
-    ctaSize: "compact",
   },
   {
     number: "03",
@@ -81,7 +77,6 @@ const SERVICES: ShowcaseService[] = [
     imageSide: "right",
     imageHeight: 564,
     imageFrame: "blush",
-    ctaSize: "default",
   },
   {
     number: "04",
@@ -95,13 +90,11 @@ const SERVICES: ShowcaseService[] = [
       "Cloud optimisation and cost management",
     ],
     image: {
-      src: "/figma/services/service-04-cloud-devops.png",
-      alt: "Server infrastructure powering cloud workloads",
-      className: "object-cover object-top",
+      src: "/figma/services/cloud-solutions.png",
+      alt: "Cloud icon representing cloud solutions and DevOps",
     },
     imageSide: "left",
     imageHeight: 546,
-    ctaSize: "default",
   },
   {
     number: "05",
@@ -120,7 +113,6 @@ const SERVICES: ShowcaseService[] = [
     },
     imageSide: "right",
     imageHeight: 564,
-    ctaSize: "compact",
   },
   {
     number: "06",
@@ -140,7 +132,6 @@ const SERVICES: ShowcaseService[] = [
     },
     imageSide: "left",
     imageHeight: 564,
-    ctaSize: "compact",
   },
 ];
 
@@ -207,8 +198,7 @@ function ServiceRow({ service }: { service: ShowcaseService }) {
         <Button
           asChild
           variant="brand"
-          size={service.ctaSize === "compact" ? "lg" : "xl"}
-          className="font-body"
+          className="h-[52px] w-[242px] gap-2 rounded-[10px] px-8 py-1 font-body text-xl font-normal"
         >
           <Link href={CTA.href}>{CTA.label}</Link>
         </Button>

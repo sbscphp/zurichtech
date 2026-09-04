@@ -28,7 +28,7 @@ export function SiteCta() {
           </p>
         </div>
         <Button asChild variant="brand" size="xl" className="font-body">
-          <Link href="/contact">Work With Us</Link>
+          <Link href="/partners">Work With Us</Link>
         </Button>
       </div>
     </div>

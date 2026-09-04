@@ -28,7 +28,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Explore fresh perspectives, industry trends, and useful insights from the world of technology and innovation.",
     date: "May 18, 2026",
     readTime: "4 mins read",
-    image: "/figma/blogs/detail-hero.png",
+    image: "/figma/blogs/insight-heroimage.png",
     category: "Cloud",
     intro: [
       "Cloud migration is often treated as a technology upgrade. In reality, it is an operational transformation that affects applications, data, infrastructure, security, employees, customers, and business processes.",

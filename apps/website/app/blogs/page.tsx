@@ -23,35 +23,101 @@ const SIDEBAR = [
     category: "DATA ANALYSIS",
     title: INSIGHTS[0].title,
     excerpt: INSIGHTS[0].excerpt,
-    image: "/figma/home/insight-3.png",
+    image: "/figma/blogs/blog-card2.png",
   },
   {
-    category: "UI",
-    title: INSIGHTS[3].title,
-    excerpt: INSIGHTS[3].excerpt,
-    image: "/figma/home/insight-4.png",
+    category: "AI",
+    title: "Integrating AI to Enhance Customer Experiences",
+    excerpt:
+      "Learn how AI technologies can personalize interactions, improve satisfaction, and drive customer loyalty.",
+    image: "/figma/home/insight-3.png",
   },
 ];
 
 const GRID = [
-  ...INSIGHTS,
   {
-    category: "Blockchain",
-    title: "Preparing Your Technology for What Comes Next",
-    excerpt: INSIGHTS[4].excerpt,
-    image: "/figma/home/insight-5.png",
+    category: "Cloud",
+    title: "Building Technology That Scales With Your Business",
+    excerpt:
+      "Discover how the right technology foundation can help businesses improve efficiency, adapt to change, and build confidently for long-term growth.",
+    image: "/figma/blogs/explore-img1.png",
   },
   {
-    category: "IoT",
+    category: "IT Consulting",
+    title: "Turning Complex Challenges Into Smarter Technology",
+    excerpt:
+      "Explore how businesses can use the right technology strategy to simplify operations, solve complex challenges, and unlock new opportunities for growth.",
+    image: "/figma/blogs/IT-consulting.png",
+  },
+  {
+    category: "Cloud",
     title: "The Role of Cloud Technology in Building Agile Businesses",
-    excerpt: INSIGHTS[2].excerpt,
-    image: "/figma/home/insight-2.png",
+    excerpt:
+      "Learn how cloud solutions can help organisations become more flexible, efficient, and ready to adapt to changing business demands",
+    image: "/figma/blogs/explore-img1.png",
+  },
+  {
+    category: "Risk Management",
+    title: "Mitigating Threats Through Proactive Security Measures",
+    excerpt:
+      "Explore strategies to identify vulnerabilities and implement robust security protocols.",
+    image: "/figma/blogs/explore-img4.png",
+  },
+  {
+    category: "Cybersecurity",
+    title: "Protecting Your Business in a Digital World",
+    excerpt:
+      "Understand the essentials of cybersecurity to safeguard your assets and maintain trust with your customers.",
+    image: "/figma/blogs/explore-img5.png",
+  },
+  {
+    category: "Cybersecurity",
+    title: "Building Resilient Systems Against Cyber Attacks",
+    excerpt:
+      "Learn best practices for designing infrastructure that can withstand evolving cyber threats.",
+    image: "/figma/blogs/explore-img5.png",
   },
   {
     category: "DevOps",
-    title: "Building Better Digital Experiences Through Technology",
-    excerpt: INSIGHTS[3].excerpt,
-    image: "/figma/home/insight-4.png",
+    title: "Accelerating Software Delivery with DevOps",
+    excerpt:
+      "Discover how DevOps practices improve collaboration, speed, and quality in software development.",
+    image: "/figma/blogs/explore-img6.png",
+  },
+  {
+    category: "Web",
+    title: "Building Agile Teams for Competitive Advantage",
+    excerpt:
+      "Learn methods to foster a culture of continuous improvement and innovation.",
+    image: "/figma/blogs/explore-img7.png",
+  },
+  {
+    category: "Software",
+    title: "Streamlining Workflows for Faster Releases",
+    excerpt:
+      "Implement pipelines that automate testing and deployment for seamless delivery.",
+    image: "/figma/blogs/explore-img7.png",
+  },
+  {
+    category: "SaaS",
+    title: "Delivering Scalable Software Solutions on Demand",
+    excerpt:
+      "Understand the benefits of SaaS models for flexibility, cost-effectiveness, and rapid deployment.",
+    image: "/figma/blogs/explore-img8.png",
+  },
+  {
+    category: "Cloud Services",
+    title: "Enabling Seamless Access and Collaboration",
+    excerpt:
+      "Leverage SaaS platforms to improve user experience and operational agility.",
+    image: "/figma/blogs/explore-img1.png",
+  },
+  {
+    category: "SaaS",
+    title: "Transforming Business Models with Subscription-Based Software",
+    excerpt:
+      "Learn how SaaS drives innovation and customer-centric development.",
+    image: "/figma/blogs/explore-img8.png",
   },
 ];
 
@@ -78,6 +144,9 @@ export default function BlogsPage() {
           </h2>
           <div className="grid gap-8 lg:grid-cols-[660px_610px]">
             <Link href={DETAIL_HREF} className="flex flex-col gap-4">
+              <p className="font-display text-sm text-brand uppercase">
+                {FEATURED.category}
+              </p>
               <div className="relative h-[360px] overflow-hidden bg-white">
                 <Image
                   src={FEATURED.image}
@@ -87,9 +156,6 @@ export default function BlogsPage() {
                   className="object-cover"
                 />
               </div>
-              <p className="font-display text-sm text-brand uppercase">
-                {FEATURED.category}
-              </p>
               <h3 className="font-display text-[22px] leading-[1.4] text-ink lg:text-[32px]">
                 {FEATURED.title}
               </h3>

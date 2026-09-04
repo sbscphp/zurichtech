@@ -33,7 +33,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
         <img
           alt=""
           src={post.image}
-          className="absolute top-[19%] left-0 h-[81%] w-full object-cover"
+          className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 from-[23%] to-[#666666]/50 to-[77%]" />
         <div className="absolute inset-x-0 top-0 h-[430px] bg-[linear-gradient(5.6deg,rgba(227,0,11,0.1)_53.6%,rgba(102,102,102,0)_68%)]" />

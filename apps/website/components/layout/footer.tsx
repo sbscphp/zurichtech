@@ -81,7 +81,7 @@ export function Footer() {
                                   ? line.replace(/\s/g, "")
                                   : line
                               }`}
-                              className="block hover:text-white"
+                              className="block hover:text-brand hover:underline"
                             >
                               {line}
                             </a>
@@ -126,7 +126,7 @@ function FooterColumn({
           <li key={item.label}>
             <Link
               href={item.href}
-              className="inline-block py-1 font-body text-base leading-[1.4] text-white/40 transition-colors hover:text-white"
+              className="inline-block py-1 font-body text-base leading-[1.4] text-white/40 transition-colors hover:text-brand hover:underline"
             >
               {item.label}
             </Link>
