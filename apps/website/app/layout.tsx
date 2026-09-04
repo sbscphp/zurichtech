@@ -67,14 +67,6 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning>
-        <svg className="absolute size-0" aria-hidden>
-          <filter id="logo-knockout" colorInterpolationFilters="sRGB">
-            <feColorMatrix
-              type="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  1 1 1 0 -0.08"
-            />
-          </filter>
-        </svg>
         <QueryProvider>
           <div className="flex min-h-screen flex-col">
             <Header />

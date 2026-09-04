@@ -11,7 +11,7 @@ import { getImageUrl } from "./image";
 import { homePageQuery } from "./queries";
 import { mapCtaLink, type CtaLink, type SanityCtaLink } from "./types";
 
-export const FALLBACK_HERO_IMAGE = "/figma/home/hero-bg.png";
+export const FALLBACK_HERO_IMAGE = "/figma/home/hero-image.png";
 export const FALLBACK_WHY_IMAGE = "/figma/home/why-choose-us.png";
 
 export type ClientLogo = {

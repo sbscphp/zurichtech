@@ -83,7 +83,7 @@ export function ContactForm({ service, onServiceChange }: ContactFormProps = {})
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full max-w-[586px] flex-col gap-8 rounded-2xl bg-surface-muted p-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.05)]"
+      className="flex w-full max-w-146.5 flex-col gap-8 rounded-2xl bg-surface-muted p-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.05)]"
     >
       <div className="flex flex-col gap-6">
         <Field label="Full Name" htmlFor="full_name" required>
@@ -166,7 +166,7 @@ export function ContactForm({ service, onServiceChange }: ContactFormProps = {})
             placeholder="Start Typing"
             value={form.message}
             onChange={(event) => update("message", event.target.value)}
-            className="min-h-[120px] rounded-[4px] border-line bg-white px-4 py-6 font-body text-lg placeholder:text-[#adb5bd]"
+            className="min-h-30 rounded-lg border-line bg-white px-4 py-6 font-body text-lg placeholder:text-[#adb5bd]"
           />
         </Field>
       </div>
@@ -176,7 +176,7 @@ export function ContactForm({ service, onServiceChange }: ContactFormProps = {})
           type="submit"
           variant="brand"
           disabled={submit.isPending}
-          className="h-auto w-[191px] gap-2 rounded-lg px-6 py-2.5 font-body text-lg"
+          className="h-auto w-47.75 gap-2 rounded-lg px-6 py-2.5 font-body text-lg"
         >
           {submit.isPending ? "Sending…" : "Send enquiry"}
           <span className="relative size-6 overflow-hidden">

@@ -5,9 +5,8 @@ export type NavLink = {
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
-  { label: "Projects", href: "/projects" },
+  { label: "Services", href: "/services" },
   { label: "Blogs", href: "/blogs" },
   { label: "Why Choose Us", href: "/why-choose-us" },
 ];
@@ -23,7 +22,6 @@ export const FOOTER_SERVICES: NavLink[] = [
 export const FOOTER_COMPANY: NavLink[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
   { label: "Insights", href: "/blogs" },
   { label: "Contact Us", href: "/contact" },
   { label: "Policy and Legal", href: "/legal" },
@@ -37,7 +35,7 @@ export const SITE = {
     "No. 7 Rhine Street, Off Ibrahim Babangida Boulevard, Ministers Hill, Maitama, Abuja",
   email: "support@zuritechnologies.com",
   phone: "+234 8055053800",
-  phones: ["+234 802 863 3332", "+234 809 868 6767"],
+  phones: ["+234 802 863 3332"],
   emails: [
     "info@zurichtechnologies.com.ng",
     "princesanni@zurichtechnologies.com.ng",
@@ -89,7 +87,7 @@ export const INSIGHTS = [
     title: "Building Technology That Scales With Your Business",
     excerpt:
       "Discover how the right technology foundation can help businesses improve efficiency, adapt to change, and build confidently for long-term growth.",
-    image: "/figma/home/insight-1.png",
+    image: "/figma/home/cloud-tech.png",
     href: "/blogs",
   },
   {
@@ -97,7 +95,7 @@ export const INSIGHTS = [
     title: "Turning Complex Challenges Into Smarter Technology",
     excerpt:
       "Explore how businesses can use the right technology strategy to simplify operations, solve complex challenges, and unlock new opportunities for growth.",
-    image: "/figma/home/insight-2.png",
+    image: "/figma/blogs/IT-consulting.png",
     href: "/blogs",
   },
   {
@@ -105,7 +103,7 @@ export const INSIGHTS = [
     title: "The Role of Cloud Technology in Building Agile Businesses",
     excerpt:
       "Learn how cloud solutions can help organisations become more flexible, efficient, and ready to adapt to changing business demands",
-    image: "/figma/home/insight-3.png",
+    image: "/figma/home/cloud-tech.png",
     href: "/blogs",
   },
   {
@@ -113,7 +111,7 @@ export const INSIGHTS = [
     title: "Building Better Digital Experiences Through Technology",
     excerpt:
       "From websites to custom software, discover how thoughtfully designed digital solutions can create better experiences for both businesses and their customers.",
-    image: "/figma/home/insight-4.png",
+    image: "/figma/home/code-image.png",
     href: "/blogs",
   },
   {
@@ -121,7 +119,7 @@ export const INSIGHTS = [
     title: "Preparing Your Technology for What Comes Next",
     excerpt:
       "Technology should support where your business is going, not just where it is today. Explore how scalable solutions can help you build with confidence for the future.",
-    image: "/figma/home/insight-5.png",
+    image: "/figma/blogs/IT-consulting.png",
     href: "/blogs",
   },
   {
@@ -138,27 +136,27 @@ export const TEAM = [
   {
     name: "Adekunle, Muh’D Thanni",
     role: "Chief Technology Officer",
-    image: "/figma/home/team-1.png",
-    offset: "object-[center_20%]",
+    image: "/figma/home/teammate-1.png",
+    offset: "object-center",
   },
   {
     name: "Dr. Onyinyechi",
     role: "Chief of Operation",
-    image: "/figma/home/team-2.png",
+    image: "/figma/home/teammate-2.png",
     offset: "object-center",
     raised: true,
   },
   {
     name: "Jadesola Alao",
     role: "Chief Marketing Officer",
-    image: "/figma/home/team-3.png",
-    offset: "object-[center_top]",
+    image: "/figma/home/teammate-3.png",
+    offset: "object-center",
   },
   {
     name: "Dr. Joy Godiya",
     role: "Chief Executive Officer",
-    image: "/figma/home/team-4.png",
-    offset: "object-[center_15%]",
+    image: "/figma/home/teammate-4.png",
+    offset: "object-center",
     raised: true,
   },
 ];
