@@ -34,7 +34,7 @@ export const SITE = {
   address:
     "No. 7 Rhine Street, Off Ibrahim Babangida Boulevard, Ministers Hill, Maitama, Abuja",
   email: "support@zuritechnologies.com",
-  phone: "+234 8055053800",
+  phone: "+234 802 863 3332",
   phones: ["+234 802 863 3332"],
   emails: [
     "info@zurichtechnologies.com.ng",

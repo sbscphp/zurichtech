@@ -33,7 +33,10 @@ type ContactFormProps = {
  * Extra fields are folded into the existing API `message` payload so we
  * don't change the backend contract during this conversion pass.
  */
-export function ContactForm({ service, onServiceChange }: ContactFormProps = {}) {
+export function ContactForm({
+  service,
+  onServiceChange,
+}: ContactFormProps = {}) {
   const [form, setForm] = useState(EMPTY_FORM);
   const submit = useSubmitContact();
   const selectedService = service ?? form.service;
@@ -168,6 +171,9 @@ export function ContactForm({ service, onServiceChange }: ContactFormProps = {})
             onChange={(event) => update("message", event.target.value)}
             className="min-h-30 rounded-lg border-line bg-white px-4 py-6 font-body text-lg placeholder:text-[#adb5bd]"
           />
+          <p className="text-[20px] text-[#212529] mt-1 italic font-normal">
+            Your opinion matters to us...{" "}
+          </p>
         </Field>
       </div>
 

@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import type { CtaLink } from "@/lib/sanity/types";
 import type { Service } from "@/lib/sanity/services";
+import type { CtaLink } from "@/lib/sanity/types";
+import { getServiceSectionHref } from "@/lib/site/service-sections";
 
 type ServicesGridProps = {
   title: string;
@@ -72,9 +74,11 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
             >
               <div className="flex flex-col gap-6">
                 <span className="flex size-10 items-center justify-center overflow-hidden rounded-lg bg-brand-soft transition-colors duration-300 group-hover:bg-white">
-                  <img
+                  <Image
                     alt=""
                     src={SERVICE_ICONS[service.title] ?? DEFAULT_SERVICE_ICON}
+                    width={20}
+                    height={20}
                     className="size-5"
                   />
                 </span>
@@ -88,14 +92,16 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
                 </div>
               </div>
               <Link
-                href={`/services/${service.slug}`}
+                href={getServiceSectionHref(service)}
                 className="mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-transparent px-4 py-2 font-body text-base text-brand transition-colors duration-300 group-hover:bg-white"
               >
                 Explore{" "}
                 <span className="relative size-5 overflow-hidden">
-                  <img
+                  <Image
                     alt=""
                     src="/figma/shared/arrow-up-right-sm.svg"
+                    width={20}
+                    height={20}
                     className="block size-full"
                   />
                 </span>
