@@ -1,21 +1,22 @@
 import { SITE } from "@/lib/site/content";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 const ITEMS = [
   {
     label: "Phone",
-    icon: "/figma/contact/icon-users.svg",
+    icon: <Phone className="size-6" />,
     lines: SITE.phones,
     hrefPrefix: "tel:" as const,
   },
   {
     label: "Email",
-    icon: "/figma/contact/icon-mail.svg",
+    icon: <Mail className="size-6" />,
     lines: SITE.emails,
     hrefPrefix: "mailto:" as const,
   },
   {
     label: "office address",
-    icon: "/figma/contact/icon-pin.svg",
+    icon: <MapPin className="size-6" />,
     lines: [SITE.address],
     hrefPrefix: null,
   },
@@ -34,8 +35,8 @@ export function ContactInfo() {
       <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-6">
         {ITEMS.map((item) => (
           <div key={item.label} className="flex min-w-0 items-start gap-3">
-            <span className="flex size-15.5 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand">
-              <img alt="" src={item.icon} className="size-6" />
+            <span className="flex size-15.5 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand text-white">
+              {item.icon}
             </span>
             <div className="min-w-0 flex-1 overflow-hidden">
               <p className="font-body text-xs leading-[1.4] font-semibold text-brand uppercase">
@@ -46,14 +47,14 @@ export function ContactInfo() {
                   <a
                     key={line}
                     href={`${item.hrefPrefix}${line.replace(/\s/g, "")}`}
-                    className="wrap-anywhere block font-body text-base leading-[1.4] text-ink hover:text-brand md:text-lg"
+                    className="wrap-anywhere block font-body text-base leading-[1.4] text-ink hover:text-brand "
                   >
                     {line}
                   </a>
                 ) : (
                   <p
                     key={line}
-                    className="wrap-anywhere font-body text-base leading-[1.4] text-ink md:text-lg"
+                    className="wrap-anywhere font-body text-base leading-[1.4] text-ink "
                   >
                     {line}
                   </p>

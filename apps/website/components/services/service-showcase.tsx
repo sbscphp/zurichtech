@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 type ShowcaseService = {
   number: string;
   title: string;
+  slug: string;
   description: string;
   features: string[];
   image: { src: string; alt: string; className?: string };
@@ -24,6 +25,7 @@ const SERVICES: ShowcaseService[] = [
   {
     number: "01",
     title: "Software Development",
+    slug: "software-development",
     description:
       "Custom software solutions designed to solve complex business challenges and support long-term growth.",
     features: [
@@ -42,6 +44,7 @@ const SERVICES: ShowcaseService[] = [
   {
     number: "02",
     title: "Web Development",
+    slug: "web-development",
     description:
       "Intuitive, high-performing mobile experiences built to keep your business connected with users wherever they are.",
     features: [
@@ -61,6 +64,7 @@ const SERVICES: ShowcaseService[] = [
   {
     number: "03",
     title: "Cybersecurity and ID Audit",
+    slug: "cybersecurity-and-id-audit",
     description:
       "Practical security solutions designed to protect your systems, data and operations in an evolving digital landscape.",
     features: [
@@ -81,6 +85,7 @@ const SERVICES: ShowcaseService[] = [
   {
     number: "04",
     title: "Cloud Solutions and Devops",
+    slug: "cloud-solutions-and-devops",
     description:
       "Flexible and scalable cloud solutions that help your business operate efficiently, securely and with confidence.",
     features: [
@@ -99,6 +104,7 @@ const SERVICES: ShowcaseService[] = [
   {
     number: "05",
     title: "IT Consulting & Advisory",
+    slug: "it-consulting-and-advisory",
     description:
       "Strategic technology guidance that helps you make smarter decisions and get more value from your technology investments.",
     features: [
@@ -117,6 +123,7 @@ const SERVICES: ShowcaseService[] = [
   {
     number: "06",
     title: "IT Support & Maintenance",
+    slug: "it-support-and-maintenance",
     description:
       "Reliable, ongoing support that keeps your technology secure, efficient and performing at its best.",
     features: [
@@ -154,7 +161,10 @@ function ServiceRow({ service }: { service: ShowcaseService }) {
   const imageOnLeft = service.imageSide === "left";
 
   return (
-    <article className="grid items-center gap-8 lg:grid-cols-[470px_454px] lg:gap-8">
+    <article
+      id={service.slug}
+      className="scroll-mt-[100px] grid items-center gap-8 lg:scroll-mt-[132px] lg:grid-cols-[470px_454px] lg:gap-8"
+    >
       <div
         className={cn(
           "flex flex-col items-start gap-8",

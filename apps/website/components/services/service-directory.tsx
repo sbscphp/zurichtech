@@ -12,6 +12,7 @@ import {
   type Service,
   type ServicesPageContent,
 } from "@/lib/sanity/services";
+import { getServiceSectionHref } from "@/lib/site/service-sections";
 
 type ServiceDirectoryProps = {
   initialPage?: ServicesPageContent;
@@ -35,7 +36,7 @@ export function ServiceDirectory({
           {services.map((service) => (
             <li key={service._id}>
               <Link
-                href={`/services/${service.slug}`}
+                href={getServiceSectionHref(service)}
                 className="group flex h-full flex-col rounded-xl border border-border p-6 transition-colors hover:bg-muted/40"
               >
                 <h3 className="font-semibold">{service.title}</h3>
