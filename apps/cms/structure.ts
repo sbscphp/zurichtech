@@ -18,10 +18,35 @@ export const structure: StructureResolver = (S) =>
         ),
       S.documentTypeListItem("service").title("Services"),
       S.listItem()
+        .title("Blogs Page")
+        .child(S.document().schemaType("blogsPage").documentId("blogsPage")),
+      S.documentTypeListItem("blogPost").title("Blog Posts"),
+      S.listItem()
+        .title("Why Choose Us Page")
+        .child(
+          S.document()
+            .schemaType("whyChooseUsPage")
+            .documentId("whyChooseUsPage"),
+        ),
+      S.listItem()
         .title("Contact Page")
         .child(
           S.document().schemaType("contactPage").documentId("contactPage"),
         ),
+      S.listItem()
+        .title("Partners Page")
+        .child(
+          S.document().schemaType("partnersPage").documentId("partnersPage"),
+        ),
+      S.listItem()
+        .title("Projects Page")
+        .child(
+          S.document().schemaType("projectsPage").documentId("projectsPage"),
+        ),
+      S.documentTypeListItem("project").title("Projects"),
+      S.listItem()
+        .title("Legal Page")
+        .child(S.document().schemaType("legalPage").documentId("legalPage")),
       S.divider(),
       S.listItem()
         .title("Site Settings")

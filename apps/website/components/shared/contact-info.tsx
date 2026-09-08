@@ -1,39 +1,60 @@
-import { SITE } from "@/lib/site/content";
+"use client";
+
 import { Mail, MapPin, Phone } from "lucide-react";
 
-const ITEMS = [
-  {
-    label: "Phone",
-    icon: <Phone className="size-6" />,
-    lines: SITE.phones,
-    hrefPrefix: "tel:" as const,
-  },
-  {
-    label: "Email",
-    icon: <Mail className="size-6" />,
-    lines: SITE.emails,
-    hrefPrefix: "mailto:" as const,
-  },
-  {
-    label: "office address",
-    icon: <MapPin className="size-6" />,
-    lines: [SITE.address],
-    hrefPrefix: null,
-  },
-];
+import { useSiteSettings } from "@/hooks/sanity/use-site-settings";
+import {
+  FALLBACK_SITE_SETTINGS,
+  type SiteSettingsContent,
+} from "@/lib/sanity/site-settings";
 
-export function ContactInfo() {
+type ContactInfoProps = {
+  title?: string;
+  description?: string;
+  initialSiteSettings?: SiteSettingsContent;
+};
+
+export function ContactInfo({
+  title = "Contact Information",
+  description = "Reach out to us with ease.",
+  initialSiteSettings,
+}: ContactInfoProps) {
+  const { data = FALLBACK_SITE_SETTINGS } = useSiteSettings(
+    initialSiteSettings,
+  );
+
+  const items = [
+    {
+      label: "Phone",
+      icon: <Phone className="size-6" />,
+      lines: data.contactPhones,
+      hrefPrefix: "tel:" as const,
+    },
+    {
+      label: "Email",
+      icon: <Mail className="size-6" />,
+      lines: data.contactEmails,
+      hrefPrefix: "mailto:" as const,
+    },
+    {
+      label: "office address",
+      icon: <MapPin className="size-6" />,
+      lines: [data.contactAddress],
+      hrefPrefix: null,
+    },
+  ];
+
   return (
     <section className="mx-auto w-full max-w-303.75 px-6 py-16 md:py-24">
       <div className="flex flex-col items-center gap-4 text-center">
         <h2 className="font-serif text-[36px] leading-none text-ink-heading md:text-[48px]">
-          Contact Information
+          {title}
         </h2>
-        <p className="font-body text-lg text-ink">Reach out to us with ease.</p>
+        <p className="font-body text-lg text-ink">{description}</p>
       </div>
 
       <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-6">
-        {ITEMS.map((item) => (
+        {items.map((item) => (
           <div key={item.label} className="flex min-w-0 items-start gap-3">
             <span className="flex size-15.5 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand text-white">
               {item.icon}

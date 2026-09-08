@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 
-import { ServiceShowcase } from "@/components/services/service-showcase";
-import { ServicesBanner } from "@/components/services/services-banner";
+import { ServicesPageContentView } from "@/components/services/services-page-content";
+import { getServices, getServicesPage } from "@/lib/sanity/services";
 
 export const metadata: Metadata = {
   title: "Services",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const [page, services] = await Promise.all([
+    getServicesPage(),
+    getServices(),
+  ]);
+
   return (
-    <>
-      <ServicesBanner />
-      <ServiceShowcase />
-    </>
+    <ServicesPageContentView
+      initialPage={page}
+      initialServices={services}
+    />
   );
 }

@@ -11,14 +11,20 @@ import { useSubmitContact } from "@/hooks/api/use-submit-contact";
 import { getApiErrorMessage } from "@/lib/api/client";
 import { HOME_SERVICES } from "@/lib/site/content";
 
-const EMPTY_FORM = {
-  full_name: "",
-  email: "",
-  phone: "",
-  company: "",
-  service: HOME_SERVICES[0].title,
-  message: "",
+type ServiceOption = {
+  title: string;
 };
+
+function createEmptyForm(defaultService: string) {
+  return {
+    full_name: "",
+    email: "",
+    phone: "",
+    company: "",
+    service: defaultService,
+    message: "",
+  };
+}
 
 const fieldClass =
   "h-12 rounded-[4px] border-line bg-white px-4 font-body text-lg placeholder:text-[#adb5bd]";
@@ -26,6 +32,10 @@ const fieldClass =
 type ContactFormProps = {
   service?: string;
   onServiceChange?: (value: string) => void;
+  services?: ServiceOption[];
+  formNote?: string;
+  submitLabel?: string;
+  successMessage?: string;
 };
 
 /**
@@ -36,14 +46,21 @@ type ContactFormProps = {
 export function ContactForm({
   service,
   onServiceChange,
+  services,
+  formNote = "Your opinion matters to us...",
+  submitLabel = "Send enquiry",
+  successMessage = "Thanks — we will be in touch.",
 }: ContactFormProps = {}) {
-  const [form, setForm] = useState(EMPTY_FORM);
+  const serviceOptions =
+    services && services.length > 0 ? services : HOME_SERVICES;
+  const defaultService = serviceOptions[0]?.title ?? "";
+  const [form, setForm] = useState(() => createEmptyForm(defaultService));
   const submit = useSubmitContact();
   const selectedService = service ?? form.service;
 
-  function update<K extends keyof typeof EMPTY_FORM>(
+  function update<K extends keyof ReturnType<typeof createEmptyForm>>(
     key: K,
-    value: (typeof EMPTY_FORM)[K],
+    value: ReturnType<typeof createEmptyForm>[K],
   ) {
     setForm((current) => ({ ...current, [key]: value }));
   }
@@ -68,8 +85,8 @@ export function ContactForm({
       },
       {
         onSuccess: (data) => {
-          setForm(EMPTY_FORM);
-          toast.success(data.message ?? "Thanks — we will be in touch.");
+          setForm(createEmptyForm(defaultService));
+          toast.success(data.message ?? successMessage);
         },
         onError: (error) => {
           toast.error(
@@ -147,9 +164,9 @@ export function ContactForm({
               }}
               className={`${fieldClass} w-full appearance-none pr-12 outline-none`}
             >
-              {HOME_SERVICES.map((service) => (
-                <option key={service.title} value={service.title}>
-                  {service.title}
+              {serviceOptions.map((option) => (
+                <option key={option.title} value={option.title}>
+                  {option.title}
                 </option>
               ))}
             </select>
@@ -171,9 +188,11 @@ export function ContactForm({
             onChange={(event) => update("message", event.target.value)}
             className="min-h-30 rounded-lg border-line bg-white px-4 py-6 font-body text-lg placeholder:text-[#adb5bd]"
           />
-          <p className="text-[20px] text-[#212529] mt-1 italic font-normal">
-            Your opinion matters to us...{" "}
-          </p>
+          {formNote ? (
+            <p className="mt-1 text-[20px] font-normal text-[#212529] italic">
+              {formNote}
+            </p>
+          ) : null}
         </Field>
       </div>
 
@@ -184,7 +203,7 @@ export function ContactForm({
           disabled={submit.isPending}
           className="h-auto w-47.75 gap-2 rounded-lg px-6 py-2.5 font-body text-lg"
         >
-          {submit.isPending ? "Sending…" : "Send enquiry"}
+          {submit.isPending ? "Sending…" : submitLabel}
           <span className="relative size-6 overflow-hidden">
             <img
               alt=""

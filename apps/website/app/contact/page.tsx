@@ -1,36 +1,26 @@
 import type { Metadata } from "next";
 
-import { ContactForm } from "@/components/contact/contact-form";
-import { ContactInfo } from "@/components/shared/contact-info";
+import { ContactPageContentView } from "@/components/contact/contact-page-content";
+import { getContactPage } from "@/lib/sanity/contact";
+import { getServices } from "@/lib/sanity/services";
+import { getSiteSettings } from "@/lib/sanity/site-settings";
 
 export const metadata: Metadata = {
   title: "Contact Us",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [page, services, siteSettings] = await Promise.all([
+    getContactPage(),
+    getServices(),
+    getSiteSettings(),
+  ]);
+
   return (
-    <>
-      <section className="relative isolate">
-        <div className="relative h-170.5 overflow-hidden bg-[#db7575]">
-          <img
-            alt=""
-            src="/figma/contact/hero.png"
-            className="absolute top-0 left-1/2 h-333.25 w-[2000px] max-w-none -translate-x-1/2 object-cover"
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-transparent from-33% to-[#fd5059] to-83%" />
-          <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
-            <h1 className="max-w-243.25 font-display text-[32px] leading-[1.1] font-medium text-white sm:text-[44px] lg:text-[72px]">
-              Share your ideas with us, and together we can build it.
-            </h1>
-          </div>
-        </div>
-
-        <div className="relative z-10 mx-auto flex w-full max-w-146.5 justify-center px-6 py-16">
-          <ContactForm />
-        </div>
-      </section>
-
-      <ContactInfo />
-    </>
+    <ContactPageContentView
+      initialPage={page}
+      initialServices={services}
+      initialSiteSettings={siteSettings}
+    />
   );
 }

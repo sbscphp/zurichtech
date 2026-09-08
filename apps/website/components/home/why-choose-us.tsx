@@ -37,7 +37,7 @@ export function WhyChooseUs({
               alt={imageAlt}
               fill
               sizes="(min-width: 1024px) 592px, 100vw"
-              className="object-cover object-[20%_center]"
+              className="object-cover object-center"
             />
           </div>
         </div>

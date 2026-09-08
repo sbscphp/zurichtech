@@ -46,38 +46,38 @@ export const HOME_SERVICES = [
   {
     title: "Software Development",
     description:
-      "We design and develop tailored software solutions that help businesses solve complex challenges, improve efficiency, and create new opportunities for growth.",
-    href: "/services",
+      "Custom software solutions designed to solve complex business challenges and support long-term growth.",
+    href: "/services#software-development",
   },
   {
     title: "Web Development",
     description:
-      "We create modern, responsive web experiences that bring your brand, products, and services to life while delivering a seamless experience across devices.",
-    href: "/services",
+      "Intuitive, high-performing mobile experiences built to keep your business connected with users wherever they are.",
+    href: "/services#web-development",
   },
   {
-    title: "Mobile App Development",
+    title: "Cybersecurity and ID Audit",
     description:
-      "We create intuitive, high-performing mobile applications that help businesses connect with customers and deliver value wherever they are",
-    href: "/services",
+      "Practical security solutions designed to protect your systems, data and operations in an evolving digital landscape.",
+    href: "/services#cybersecurity-and-id-audit",
+  },
+  {
+    title: "Cloud Solutions and Devops",
+    description:
+      "Flexible and scalable cloud solutions that help your business operate efficiently, securely and with confidence.",
+    href: "/services#cloud-solutions-and-devops",
   },
   {
     title: "IT Consulting & Advisory",
     description:
-      "We provide strategic technology guidance to help businesses make informed decisions, overcome challenges, and get more value from their technology investments.",
-    href: "/services",
+      "Strategic technology guidance that helps you make smarter decisions and get more value from your technology investments.",
+    href: "/services#it-consulting-and-advisory",
   },
   {
-    title: "Cloud Services (AWS, Azure, GCP)",
+    title: "IT Support & Maintenance",
     description:
-      "We help businesses leverage cloud technology to build flexible, scalable, and reliable infrastructure designed for changing business needs.",
-    href: "/services",
-  },
-  {
-    title: "Data Science & AI/ML Solutions",
-    description:
-      "We help businesses turn data into actionable intelligence and explore AI-powered solutions that support smarter decisions and new opportunities.",
-    href: "/services",
+      "Reliable, ongoing support that keeps your technology secure, efficient and performing at its best.",
+    href: "/services#it-support-and-maintenance",
   },
 ];
 
