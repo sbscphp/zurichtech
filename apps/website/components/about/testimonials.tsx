@@ -63,7 +63,7 @@ export function Testimonials({
               type="button"
               onClick={prev}
               aria-label="Previous testimonial"
-              className="rounded-full bg-brand-soft p-3"
+              className="cursor-pointer rounded-full bg-brand-soft p-3"
             >
               <img
                 alt=""
@@ -75,7 +75,7 @@ export function Testimonials({
               type="button"
               onClick={next}
               aria-label="Next testimonial"
-              className="rounded-full bg-brand-soft p-3"
+              className="cursor-pointer rounded-full bg-brand-soft p-3"
             >
               <img
                 alt=""
