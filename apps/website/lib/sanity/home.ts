@@ -148,7 +148,11 @@ export const FALLBACK_HOME_PAGE: HomePageContent = {
   })),
 };
 
-type SanityClientLogo = { name?: string; logoSrc?: string };
+type SanityClientLogo = {
+  name?: string;
+  logoSrc?: string;
+  logo?: SanityHeroImage;
+};
 type SanityStat = { value?: string; label?: string };
 type SanityWhyPoint = { number?: string; title?: string; body?: string };
 type SanityInsightCard = {
@@ -157,6 +161,7 @@ type SanityInsightCard = {
   excerpt?: string;
   imageSrc?: string;
   href?: string;
+  image?: SanityHeroImage;
 };
 type SanityHomeTeamMember = {
   name?: string;
@@ -164,6 +169,7 @@ type SanityHomeTeamMember = {
   imageSrc?: string;
   objectPosition?: string;
   raised?: boolean;
+  photo?: SanityHeroImage;
 };
 
 type SanityHeroImage = {
@@ -208,8 +214,11 @@ function mapClientLogos(
     logos
       ?.map((logo) => {
         const name = logo.name?.trim();
-        const logoSrc = logo.logoSrc?.trim();
-        return name && logoSrc ? { name, logoSrc } : null;
+        if (!name) return null;
+
+        const fromGallery = getImageUrl(logo.logo, 128);
+        const logoSrc = fromGallery || logo.logoSrc?.trim();
+        return logoSrc ? { name, logoSrc } : null;
       })
       .filter((logo): logo is ClientLogo => logo !== null) ?? [];
 
@@ -256,8 +265,9 @@ function mapInsights(
         const category = insight.category?.trim();
         const title = insight.title?.trim();
         const excerpt = insight.excerpt?.trim();
-        const imageSrc = insight.imageSrc?.trim();
         const href = insight.href?.trim();
+        const imageSrc =
+          getImageUrl(insight.image, 800) || insight.imageSrc?.trim();
         return category && title && excerpt && imageSrc && href
           ? { category, title, excerpt, imageSrc, href }
           : null;
@@ -276,7 +286,8 @@ function mapHomeTeam(
   for (const member of members ?? []) {
     const name = member.name?.trim();
     const role = member.role?.trim();
-    const imageSrc = member.imageSrc?.trim();
+    const imageSrc =
+      getImageUrl(member.photo, 800) || member.imageSrc?.trim();
     if (!name || !role || !imageSrc) continue;
 
     mapped.push({

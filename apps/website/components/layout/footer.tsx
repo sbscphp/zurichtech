@@ -1,30 +1,18 @@
+"use client";
+
 import Link from "next/link";
 
 import { BrandLogo } from "@/components/brand/logo";
 import { SiteCta } from "@/components/layout/site-cta";
+import { useSiteSettings } from "@/hooks/sanity/use-site-settings";
 import {
-  FOOTER_COMPANY,
-  FOOTER_SERVICES,
-  SITE,
-} from "@/lib/site/content";
+  FALLBACK_SITE_SETTINGS,
+  type SiteSettingsContent,
+} from "@/lib/sanity/site-settings";
 
-const CONTACT_ROWS = [
-  {
-    icon: "/figma/shared/icon-pin.svg",
-    lines: [SITE.address],
-  },
-  {
-    icon: "/figma/shared/icon-headset.svg",
-    lines: SITE.emails,
-    hrefPrefix: "mailto:",
-  },
-  {
-    icon: "/figma/shared/icon-phone.svg",
-    lines: [SITE.phone],
-    hrefPrefix: "tel:",
-    hrefSanitize: true,
-  },
-];
+type FooterProps = {
+  initialSiteSettings?: SiteSettingsContent;
+};
 
 /**
  * Site footer with overlapping CTA (Figma node 307:9541).
@@ -33,12 +21,38 @@ const CONTACT_ROWS = [
  * pulls into the black footer with a negative margin (Figma: ~172px of the
  * 500px card sits on the black band).
  */
-export function Footer() {
+export function Footer({ initialSiteSettings }: FooterProps) {
+  const { data = FALLBACK_SITE_SETTINGS } = useSiteSettings(initialSiteSettings);
+
+  const contactRows = [
+    {
+      icon: "/figma/shared/icon-pin.svg",
+      lines: [data.contactAddress],
+    },
+    {
+      icon: "/figma/shared/icon-headset.svg",
+      lines: data.contactEmails,
+      hrefPrefix: "mailto:",
+    },
+    {
+      icon: "/figma/shared/icon-phone.svg",
+      lines: data.contactPhones,
+      hrefPrefix: "tel:",
+      hrefSanitize: true,
+    },
+  ];
+
   return (
     <footer className="relative">
       <div className="relative z-10 mx-auto max-w-[1280px] px-6 lg:px-20">
         <div className="-mb-24 md:-mb-[172px]">
-          <SiteCta />
+          <SiteCta
+            titlePrefix={data.ctaTitlePrefix}
+            titleHighlight={data.ctaTitleHighlight}
+            description={data.ctaDescription}
+            button={data.ctaButton}
+            patternUrl={data.ctaPatternUrl}
+          />
         </div>
       </div>
 
@@ -48,20 +62,29 @@ export function Footer() {
             <div className="flex w-full max-w-[313px] flex-col gap-[18px]">
               <BrandLogo />
               <p className="font-body text-base leading-[1.4] text-white/50">
-                {SITE.tagline}
+                {data.tagline}
               </p>
             </div>
 
             <div className="grid flex-1 gap-8 sm:grid-cols-3">
-              <FooterColumn title="services" items={FOOTER_SERVICES} />
-              <FooterColumn title="Company" items={FOOTER_COMPANY} />
+              <FooterColumn
+                title={data.footerServicesTitle}
+                items={data.footerServiceLinks}
+              />
+              <FooterColumn
+                title={data.footerCompanyTitle}
+                items={data.footerCompanyLinks}
+              />
               <div className="flex flex-col gap-2">
                 <p className="font-body text-sm leading-[1.4] font-semibold text-white uppercase">
-                  Contact Us
+                  {data.footerContactTitle}
                 </p>
                 <ul className="flex flex-col gap-3">
-                  {CONTACT_ROWS.map((row) => (
-                    <li key={row.lines.join("-")} className="flex items-start gap-3">
+                  {contactRows.map((row) => (
+                    <li
+                      key={row.lines.join("-")}
+                      className="flex items-start gap-3"
+                    >
                       <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[6.4px] bg-white/32">
                         <span className="relative size-4 overflow-hidden">
                           <img
@@ -98,10 +121,8 @@ export function Footer() {
           </div>
 
           <div className="mt-8 flex flex-col gap-2 border-t border-brand py-8 font-body text-base text-white/50 md:flex-row md:justify-between">
-            <p>© 2026 ZurichTech. All Rights Reserved.</p>
-            <p className="md:text-right">
-              Designed and Developed by SSBC UK, 2026
-            </p>
+            <p>{data.copyrightText}</p>
+            <p className="md:text-right">{data.creditText}</p>
           </div>
         </div>
       </div>

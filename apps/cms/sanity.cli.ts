@@ -6,4 +6,7 @@ export default defineCliConfig({
     dataset: process.env.SANITY_STUDIO_DATASET ?? "production",
   },
   studioHost: process.env.SANITY_STUDIO_HOSTNAME ?? "zuritech",
+  deployment: {
+    appId: "xlcmcp6ytik52ggfh2t7avow",
+  },
 });

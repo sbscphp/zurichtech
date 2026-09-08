@@ -62,14 +62,38 @@ const clientLogoMember = defineArrayMember({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "logoSrc",
-      title: "Logo Path",
-      type: "string",
-      description: "Path under /public (e.g. /figma/home/logo-synergy.svg).",
+      name: "logo",
+      title: "Logo",
+      type: "image",
+      description: "Upload or pick a logo from the media library.",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          description: "Describe the logo for screen readers.",
+        }),
+      ],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: "logoSrc",
+      title: "Logo Path (legacy)",
+      type: "string",
+      description:
+        "Deprecated — use the Logo image field instead. Kept for older entries.",
+      deprecated: {
+        reason: "Use the Logo image field so editors can pick from the gallery.",
+      },
+      readOnly: true,
+      hidden: ({ value }) => value === undefined,
+      initialValue: undefined,
+    }),
   ],
-  preview: { select: { title: "name" } },
+  preview: {
+    select: { title: "name", media: "logo" },
+  },
 });
 
 const insightCardMember = defineArrayMember({
@@ -96,11 +120,33 @@ const insightCardMember = defineArrayMember({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "imageSrc",
-      title: "Image Path",
-      type: "string",
-      description: "Path under /public (e.g. /figma/home/insight-1.png).",
+      name: "image",
+      title: "Image",
+      type: "image",
+      description: "Upload or pick an image from the media library.",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          description: "Describe the image for screen readers.",
+        }),
+      ],
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "imageSrc",
+      title: "Image Path (legacy)",
+      type: "string",
+      description:
+        "Deprecated — use the Image field instead. Kept for older entries.",
+      deprecated: {
+        reason: "Use the Image field so editors can pick from the gallery.",
+      },
+      readOnly: true,
+      hidden: ({ value }) => value === undefined,
+      initialValue: undefined,
     }),
     defineField({
       name: "href",
@@ -110,7 +156,9 @@ const insightCardMember = defineArrayMember({
       validation: (rule) => rule.required(),
     }),
   ],
-  preview: { select: { title: "title", subtitle: "category" } },
+  preview: {
+    select: { title: "title", subtitle: "category", media: "image" },
+  },
 });
 
 const teamMemberMember = defineArrayMember({
@@ -130,11 +178,33 @@ const teamMemberMember = defineArrayMember({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "imageSrc",
-      title: "Photo Path",
-      type: "string",
-      description: "Path under /public (e.g. /figma/home/team-1.png).",
+      name: "photo",
+      title: "Photo",
+      type: "image",
+      description: "Upload or pick a photo from the media library.",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          description: "Describe the photo for screen readers.",
+        }),
+      ],
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "imageSrc",
+      title: "Photo Path (legacy)",
+      type: "string",
+      description:
+        "Deprecated — use the Photo field instead. Kept for older entries.",
+      deprecated: {
+        reason: "Use the Photo field so editors can pick from the gallery.",
+      },
+      readOnly: true,
+      hidden: ({ value }) => value === undefined,
+      initialValue: undefined,
     }),
     defineField({
       name: "objectPosition",
@@ -150,7 +220,9 @@ const teamMemberMember = defineArrayMember({
       initialValue: false,
     }),
   ],
-  preview: { select: { title: "name", subtitle: "role" } },
+  preview: {
+    select: { title: "name", subtitle: "role", media: "photo" },
+  },
 });
 
 export const homePage = defineType({

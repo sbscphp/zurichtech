@@ -5,30 +5,22 @@ import { ArrowRight } from "lucide-react";
 
 import { Section } from "@/components/shared/section";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useServices, useServicesPage } from "@/hooks/sanity/use-services";
-import {
-  FALLBACK_SERVICES,
-  FALLBACK_SERVICES_PAGE,
-  type Service,
-  type ServicesPageContent,
-} from "@/lib/sanity/services";
+import { useServices } from "@/hooks/sanity/use-services";
+import { FALLBACK_SERVICES, type Service } from "@/lib/sanity/services";
 import { getServiceSectionHref } from "@/lib/site/service-sections";
 
 type ServiceDirectoryProps = {
-  initialPage?: ServicesPageContent;
   initialServices?: Service[];
 };
 
 export function ServiceDirectory({
-  initialPage,
   initialServices,
 }: ServiceDirectoryProps) {
-  const { data: page = FALLBACK_SERVICES_PAGE } = useServicesPage(initialPage);
   const { data: services = FALLBACK_SERVICES, isPending } =
     useServices(initialServices);
 
   return (
-    <Section title={page.directoryTitle} description={page.directoryDescription}>
+    <Section title="Our practices" description="Explore each engagement area in more detail.">
       {isPending ? (
         <ServiceDirectorySkeleton />
       ) : (

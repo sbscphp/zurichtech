@@ -1,38 +1,39 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { BLOG_POSTS, getBlogBySlug } from "@/lib/site/blogs";
+import { getBlogPostBySlug, getBlogPosts } from "@/lib/sanity/blogs";
 
 type BlogDetailProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const posts = await getBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: BlogDetailProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   return {
     title: post?.title ?? "Insight",
-    description: post?.heroSubtitle,
+    description: post?.heroSubtitle ?? post?.excerpt,
   };
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailProps) {
   const { slug } = await params;
-  const post = getBlogBySlug(slug);
+  const post = await getBlogPostBySlug(slug);
   if (!post) notFound();
 
   return (
     <article>
       <section className="relative isolate h-105 overflow-hidden bg-black md:h-170.5">
         <img
-          alt=""
-          src={post.image}
+          alt={post.imageAlt || post.title}
+          src={post.imageSrc}
           className="absolute inset-0 size-full object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-r from-black/50 from-23% to-[#666666]/50 to-77%" />
@@ -53,9 +54,11 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
             <h2 className="font-display text-[28px] leading-[1.4] text-black md:text-[32px]">
               {post.title}
             </h2>
-            <p className="font-body text-base leading-[1.4] text-ink-dimmed">
-              {post.date} | {post.readTime}
-            </p>
+            {(post.date || post.readTime) && (
+              <p className="font-body text-base leading-[1.4] text-ink-dimmed">
+                {[post.date, post.readTime].filter(Boolean).join(" | ")}
+              </p>
+            )}
           </header>
 
           <div className="flex flex-col gap-4 font-body text-xl leading-[1.4] text-ink-dimmed">

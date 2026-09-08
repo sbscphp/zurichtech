@@ -1,48 +1,65 @@
+import type { SanityImageSource } from "@sanity/image-url";
+
 import { sanityFetch } from "./fetch";
+import { getImageUrl } from "./image";
 import { contactPageQuery } from "./queries";
 
 export type ContactPageContent = {
-  heroEyebrow: string;
   heroTitle: string;
-  heroDescription: string;
-  formTitle: string;
-  formDescription: string;
+  heroImageUrl: string;
+  heroImageAlt: string;
+  formNote: string;
+  submitLabel: string;
   successMessage: string;
+  infoTitle: string;
+  infoDescription: string;
 };
 
+const FALLBACK_HERO = "/figma/contact/hero.png";
+
 export const FALLBACK_CONTACT_PAGE: ContactPageContent = {
-  heroEyebrow: "Contact",
-  heroTitle: "Tell us what you are building.",
-  heroDescription:
-    "Send us a short brief and we will reply within two working days with next steps — or with an honest no if we are not the right fit.",
-  formTitle: "Send a message",
-  formDescription:
-    "The more context you give us, the more useful our first reply will be.",
+  heroTitle: "Share your ideas with us, and together we can build it.",
+  heroImageUrl: FALLBACK_HERO,
+  heroImageAlt: "",
+  formNote: "Your opinion matters to us...",
+  submitLabel: "Send enquiry",
   successMessage: "Thanks — your message is in. We will be in touch shortly.",
+  infoTitle: "Contact Information",
+  infoDescription: "Reach out to us with ease.",
+};
+
+type SanityImageField = {
+  alt?: string;
+  asset?: SanityImageSource;
 };
 
 type SanityContactPage = {
-  heroEyebrow?: string;
   heroTitle?: string;
-  heroDescription?: string;
-  formTitle?: string;
-  formDescription?: string;
+  heroImage?: SanityImageField;
+  formNote?: string;
+  submitLabel?: string;
   successMessage?: string;
+  infoTitle?: string;
+  infoDescription?: string;
 };
 
 function mapContactPage(doc: SanityContactPage | null): ContactPageContent {
   if (!doc?.heroTitle?.trim()) return FALLBACK_CONTACT_PAGE;
 
+  const heroImageUrl =
+    getImageUrl(doc.heroImage?.asset, 2000) || FALLBACK_HERO;
+
   return {
-    heroEyebrow: doc.heroEyebrow?.trim() || FALLBACK_CONTACT_PAGE.heroEyebrow,
     heroTitle: doc.heroTitle.trim(),
-    heroDescription:
-      doc.heroDescription?.trim() || FALLBACK_CONTACT_PAGE.heroDescription,
-    formTitle: doc.formTitle?.trim() || FALLBACK_CONTACT_PAGE.formTitle,
-    formDescription:
-      doc.formDescription?.trim() || FALLBACK_CONTACT_PAGE.formDescription,
+    heroImageUrl,
+    heroImageAlt: doc.heroImage?.alt?.trim() || "",
+    formNote: doc.formNote?.trim() || FALLBACK_CONTACT_PAGE.formNote,
+    submitLabel: doc.submitLabel?.trim() || FALLBACK_CONTACT_PAGE.submitLabel,
     successMessage:
       doc.successMessage?.trim() || FALLBACK_CONTACT_PAGE.successMessage,
+    infoTitle: doc.infoTitle?.trim() || FALLBACK_CONTACT_PAGE.infoTitle,
+    infoDescription:
+      doc.infoDescription?.trim() || FALLBACK_CONTACT_PAGE.infoDescription,
   };
 }
 

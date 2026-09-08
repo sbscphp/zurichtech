@@ -6,7 +6,6 @@ import { ArrowLeft } from "lucide-react";
 
 import { Section } from "@/components/shared/section";
 import { PageHero } from "@/components/shared/page-hero";
-import { getImageUrl } from "@/lib/sanity/image";
 import { getServiceBySlug, getServices } from "@/lib/sanity/services";
 
 type ServiceDetailProps = {
@@ -37,7 +36,7 @@ export default async function ServiceDetailPage({
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
-  const coverUrl = getImageUrl(service.coverImage, 1600);
+  const coverUrl = service.coverImageUrl;
 
   return (
     <>

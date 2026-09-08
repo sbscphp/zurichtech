@@ -12,6 +12,7 @@ import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryProvider } from "@/lib/query/provider";
+import { getSiteSettings } from "@/lib/sanity/site-settings";
 import { cn } from "@/lib/utils";
 
 import "./globals.css";
@@ -51,9 +52,11 @@ export const metadata: Metadata = {
     "ZurichTech is a product engineering studio building software, cloud, and data platforms.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const siteSettings = await getSiteSettings();
+
   return (
     <html
       lang="en"
@@ -69,11 +72,11 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <QueryProvider>
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <Header initialSiteSettings={siteSettings} />
             <main className="flex-1">
               <AppShell>{children}</AppShell>
             </main>
-            <Footer />
+            <Footer initialSiteSettings={siteSettings} />
           </div>
           <Toaster position="top-center" />
         </QueryProvider>

@@ -1,163 +1,45 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { ServiceCoverImage } from "@/components/services/service-cover-image";
 import { Button } from "@/components/ui/button";
+import type { Service } from "@/lib/sanity/services";
+import type { CtaLink } from "@/lib/sanity/types";
 import { cn } from "@/lib/utils";
 
-type ShowcaseService = {
-  number: string;
-  title: string;
-  slug: string;
-  description: string;
-  features: string[];
-  image: { src: string; alt: string; className?: string };
-  imageSide: "left" | "right";
-  /** Figma image frame height — first row is slightly taller. */
-  imageHeight: number;
-  /** Cybersecurity image sits on a blush frame in Figma. */
-  imageFrame?: "plain" | "blush";
+type ServiceShowcaseProps = {
+  services: Service[];
+  cta: CtaLink;
 };
-
-const CTA = { label: "Let’s work Together", href: "/partners" };
-
-/** Services in page order (Figma node 261:24836). */
-const SERVICES: ShowcaseService[] = [
-  {
-    number: "01",
-    title: "Software Development",
-    slug: "software-development",
-    description:
-      "Custom software solutions designed to solve complex business challenges and support long-term growth.",
-    features: [
-      "Enterprise applications and business platforms",
-      "Custom software and system integration",
-      "API development and third-party integrations",
-      "Application modernisation and optimisation",
-    ],
-    image: {
-      src: "/figma/services/service-01-software-development.png",
-      alt: "Developer working across a desktop and laptop filled with code",
-    },
-    imageSide: "right",
-    imageHeight: 566,
-  },
-  {
-    number: "02",
-    title: "Web Development",
-    slug: "web-development",
-    description:
-      "Intuitive, high-performing mobile experiences built to keep your business connected with users wherever they are.",
-    features: [
-      "Native and cross-platform mobile applications",
-      "Customer-facing and enterprise mobile solutions",
-      "API and backend integration",
-      "App maintenance and performance optimisation",
-    ],
-    image: {
-      src: "/figma/services/service-02-web-development.png",
-      alt: "Person using a mobile application",
-      className: "object-cover object-[12%_10%]",
-    },
-    imageSide: "left",
-    imageHeight: 564,
-  },
-  {
-    number: "03",
-    title: "Cybersecurity and ID Audit",
-    slug: "cybersecurity-and-id-audit",
-    description:
-      "Practical security solutions designed to protect your systems, data and operations in an evolving digital landscape.",
-    features: [
-      "Security assessments and risk management",
-      "Infrastructure and application security",
-      "Identity and access management",
-      "Security monitoring and incident readiness",
-    ],
-    image: {
-      src: "/figma/services/service-03-cybersecurity.png",
-      alt: "Security operations dashboard being monitored",
-      className: "object-cover object-[13%_4%]",
-    },
-    imageSide: "right",
-    imageHeight: 564,
-    imageFrame: "blush",
-  },
-  {
-    number: "04",
-    title: "Cloud Solutions and Devops",
-    slug: "cloud-solutions-and-devops",
-    description:
-      "Flexible and scalable cloud solutions that help your business operate efficiently, securely and with confidence.",
-    features: [
-      "Cloud strategy and migration",
-      "Cloud infrastructure and architecture",
-      "Multi-cloud and hybrid cloud solutions",
-      "Cloud optimisation and cost management",
-    ],
-    image: {
-      src: "/figma/services/cloud-solutions.png",
-      alt: "Cloud icon representing cloud solutions and DevOps",
-    },
-    imageSide: "left",
-    imageHeight: 546,
-  },
-  {
-    number: "05",
-    title: "IT Consulting & Advisory",
-    slug: "it-consulting-and-advisory",
-    description:
-      "Strategic technology guidance that helps you make smarter decisions and get more value from your technology investments.",
-    features: [
-      "Technology strategy and digital transformation",
-      "IT infrastructure and architecture advisory",
-      "Technology assessments and roadmaps",
-      "Systems and process optimisation",
-    ],
-    image: {
-      src: "/figma/services/service-05-it-consulting.png",
-      alt: "Consultants reviewing a technology roadmap together",
-    },
-    imageSide: "right",
-    imageHeight: 564,
-  },
-  {
-    number: "06",
-    title: "IT Support & Maintenance",
-    slug: "it-support-and-maintenance",
-    description:
-      "Reliable, ongoing support that keeps your technology secure, efficient and performing at its best.",
-    features: [
-      "Proactive system monitoring and maintenance",
-      "Technical support and issue resolution",
-      "Software updates and infrastructure management",
-      "Performance, security and reliability optimisation",
-    ],
-    image: {
-      src: "/figma/services/service-06-it-support.png",
-      alt: "Support engineer assisting a colleague at a workstation",
-      className: "object-cover object-[14%_2%]",
-    },
-    imageSide: "left",
-    imageHeight: 564,
-  },
-];
 
 /**
  * Alternating service rows (Figma node 261:24836).
  */
-export function ServiceShowcase() {
+export function ServiceShowcase({ services, cta }: ServiceShowcaseProps) {
   return (
     <section className="px-6 pt-16 pb-16 lg:px-20 lg:pt-20 lg:pb-24">
       <div className="mx-auto flex w-full max-w-239 flex-col gap-12">
-        {SERVICES.map((service) => (
-          <ServiceRow key={service.number} service={service} />
+        {services.map((service, index) => (
+          <ServiceRow
+            key={service._id}
+            service={service}
+            cta={cta}
+            priority={index === 0}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function ServiceRow({ service }: { service: ShowcaseService }) {
+function ServiceRow({
+  service,
+  cta,
+  priority,
+}: {
+  service: Service;
+  cta: CtaLink;
+  priority: boolean;
+}) {
   const imageOnLeft = service.imageSide === "left";
 
   return (
@@ -173,15 +55,17 @@ function ServiceRow({ service }: { service: ShowcaseService }) {
       >
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3">
-            <p className="font-display text-lg leading-[1.2] text-brand uppercase">
-              {service.number}
-            </p>
+            {service.number ? (
+              <p className="font-display text-lg leading-[1.2] text-brand uppercase">
+                {service.number}
+              </p>
+            ) : null}
             <h2 className="font-display text-[32px] leading-[1.2] text-ink">
               {service.title}
             </h2>
           </div>
           <p className="font-body text-lg leading-[1.4] text-ink-dimmed">
-            {service.description}
+            {service.summary}
           </p>
         </div>
 
@@ -210,26 +94,29 @@ function ServiceRow({ service }: { service: ShowcaseService }) {
           variant="brand"
           className="h-13 w-60.5 gap-2 rounded-[10px] px-8 py-1 font-body text-xl font-normal"
         >
-          <Link href={CTA.href}>{CTA.label}</Link>
+          <Link href={cta.href}>{cta.label}</Link>
         </Button>
       </div>
 
-      <div
-        className={cn(
-          "relative w-full overflow-hidden rounded-lg",
-          service.imageFrame === "blush" && "bg-brand-soft",
-          imageOnLeft && "lg:order-1",
-        )}
-        style={{ height: service.imageHeight }}
-      >
-        <Image
-          src={service.image.src}
-          alt={service.image.alt}
-          fill
-          sizes="(min-width: 1024px) 454px, 100vw"
-          className={cn("object-cover", service.image.className)}
+      {service.coverImageUrl ? (
+        <ServiceCoverImage
+          src={service.coverImageUrl}
+          alt={service.coverImageAlt}
+          height={service.imageHeight}
+          imagePosition={service.imagePosition}
+          imageFrame={service.imageFrame}
+          priority={priority}
+          className={cn(imageOnLeft && "lg:order-1")}
         />
-      </div>
+      ) : (
+        <div
+          className={cn(
+            "relative w-full overflow-hidden rounded-lg bg-brand-soft",
+            imageOnLeft && "lg:order-1",
+          )}
+          style={{ height: service.imageHeight }}
+        />
+      )}
     </article>
   );
 }

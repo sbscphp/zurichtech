@@ -19,10 +19,10 @@ const HIGHLIGHTS = ["technology solutions", "your business forward"];
 const SERVICE_ICONS: Record<string, string> = {
   "Software Development": "/figma/home/Graphql.svg",
   "Web Development": "/figma/home/World.svg",
-  "Mobile App Development": "/figma/home/Device-Mobile.svg",
+  "Cybersecurity and ID Audit": "/figma/home/Binary-Tree.svg",
+  "Cloud Solutions and Devops": "/figma/home/Cloud-Snow.svg",
   "IT Consulting & Advisory": "/figma/home/Messages.svg",
-  "Cloud Services (AWS, Azure, GCP)": "/figma/home/Cloud-Snow.svg",
-  "Data Science & AI/ML Solutions": "/figma/home/Binary-Tree.svg",
+  "IT Support & Maintenance": "/figma/home/Device-Mobile.svg",
 };
 
 const DEFAULT_SERVICE_ICON = "/figma/home/icon-code.svg";

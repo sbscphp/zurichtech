@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 
-import { ProjectGrid } from "@/components/projects/project-grid";
-import { ProjectsBanner } from "@/components/projects/projects-banner";
+import { ProjectsPageContentView } from "@/components/projects/projects-page-content";
+import { getProjects, getProjectsPage } from "@/lib/sanity/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const [page, projects] = await Promise.all([
+    getProjectsPage(),
+    getProjects(),
+  ]);
+
   return (
-    <>
-      <ProjectsBanner />
-      <ProjectGrid />
-    </>
+    <ProjectsPageContentView
+      initialPage={page}
+      initialProjects={projects}
+    />
   );
 }

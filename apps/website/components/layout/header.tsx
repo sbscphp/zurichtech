@@ -7,16 +7,24 @@ import { Menu, X } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
-import { NAV_LINKS } from "@/lib/site/content";
+import { useSiteSettings } from "@/hooks/sanity/use-site-settings";
+import {
+  FALLBACK_SITE_SETTINGS,
+  type SiteSettingsContent,
+} from "@/lib/sanity/site-settings";
 import { cn } from "@/lib/utils";
 
+type HeaderProps = {
+  initialSiteSettings?: SiteSettingsContent;
+};
+
 /**
- * Site header (Figma node 268:12670). Copy and structure are hardcoded
- * ahead of the Sanity wiring that follows in a later phase.
+ * Site header (Figma node 268:12670).
  */
-export function Header() {
+export function Header({ initialSiteSettings }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { data = FALLBACK_SITE_SETTINGS } = useSiteSettings(initialSiteSettings);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0px_17px_17px_-7px_rgba(241,241,241,0.04),0px_36px_28px_-7px_rgba(190,185,185,0.1)]">
@@ -24,7 +32,7 @@ export function Header() {
         <BrandLogo />
 
         <nav className="hidden h-full items-center lg:flex">
-          {NAV_LINKS.map((link) => (
+          {data.navLinks.map((link) => (
             <NavLink
               key={link.href}
               href={link.href}
@@ -37,7 +45,7 @@ export function Header() {
 
         <div className="hidden lg:block">
           <Button asChild variant="brand" size="xl" className="font-body">
-            <Link href="/contact">Contact Us</Link>
+            <Link href={data.headerCta.href}>{data.headerCta.label}</Link>
           </Button>
         </div>
 
@@ -55,7 +63,7 @@ export function Header() {
       {open ? (
         <nav className="border-t border-line bg-white lg:hidden">
           <ul className="flex flex-col gap-1 px-6 py-4">
-            {NAV_LINKS.map((link) => (
+            {data.navLinks.map((link) => (
               <li key={link.href}>
                 <NavLink
                   href={link.href}
@@ -68,9 +76,17 @@ export function Header() {
               </li>
             ))}
             <li className="pt-3">
-              <Button asChild variant="brand" size="xl" className="w-full font-body">
-                <Link href="/contact" onClick={() => setOpen(false)}>
-                  Contact Us
+              <Button
+                asChild
+                variant="brand"
+                size="xl"
+                className="w-full font-body"
+              >
+                <Link
+                  href={data.headerCta.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {data.headerCta.label}
                 </Link>
               </Button>
             </li>
