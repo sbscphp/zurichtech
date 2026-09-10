@@ -1,46 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { ContactForm } from "@/components/contact/contact-form";
+import { PartnerForm } from "@/components/partners/partner-form";
 import { LogoMarquee } from "@/components/home/logo-marquee";
 import { ContactInfo } from "@/components/shared/contact-info";
+import { useServiceOfInterest } from "@/hooks/api/use-service-of-interest";
 import { usePartnersPage } from "@/hooks/sanity/use-partners-page";
-import { useServices } from "@/hooks/sanity/use-services";
 import type { ClientLogo } from "@/lib/sanity/home";
 import {
   FALLBACK_PARTNERS_PAGE,
   type PartnersPageContent,
 } from "@/lib/sanity/partners";
 import {
-  FALLBACK_SERVICES,
-  type Service,
-} from "@/lib/sanity/services";
-import {
   FALLBACK_SITE_SETTINGS,
   type SiteSettingsContent,
 } from "@/lib/sanity/site-settings";
+import { FALLBACK_SERVICE_OF_INTEREST } from "@/lib/api/types";
 import { cn } from "@/lib/utils";
 
 type PartnersPageContentProps = {
   initialPage?: PartnersPageContent;
-  initialServices?: Service[];
   initialLogos?: ClientLogo[];
   initialSiteSettings?: SiteSettingsContent;
 };
 
 export function PartnersPageContentView({
   initialPage,
-  initialServices,
   initialLogos,
   initialSiteSettings,
 }: PartnersPageContentProps) {
   const { data: page = FALLBACK_PARTNERS_PAGE } = usePartnersPage(initialPage);
-  const { data: services = FALLBACK_SERVICES } = useServices(initialServices);
-  const serviceOptions = services.map((service) => ({ title: service.title }));
-  const [service, setService] = useState(
-    serviceOptions[0]?.title ?? FALLBACK_SERVICES[0].title,
-  );
+  const {
+    data: serviceOptions = [...FALLBACK_SERVICE_OF_INTEREST],
+    isLoading: servicesLoading,
+    isError: servicesError,
+  } = useServiceOfInterest();
+
+  const [service, setService] = useState(serviceOptions[0] ?? "");
+
+  useEffect(() => {
+    if (!serviceOptions.length) return;
+    setService((current) =>
+      current && serviceOptions.includes(current) ? current : serviceOptions[0],
+    );
+  }, [serviceOptions]);
 
   return (
     <>
@@ -71,49 +75,62 @@ export function PartnersPageContentView({
         <div className="mx-auto grid w-full max-w-[1025px] items-start gap-8 lg:grid-cols-[407px_586px]">
           <div className="rounded-2xl bg-brand-soft p-4">
             <p className="font-body text-xl text-brand">{page.inquiryTitle}</p>
+            {servicesError ? (
+              <p className="mt-3 font-body text-sm text-ink-dimmed">
+                Showing default service options. You can still submit your
+                enquiry.
+              </p>
+            ) : null}
             <div className="mt-[21px] flex flex-col gap-3">
-              {serviceOptions.map((item) => {
-                const selected = item.title === service;
-                return (
-                  <button
-                    key={item.title}
-                    type="button"
-                    onClick={() => setService(item.title)}
-                    aria-pressed={selected}
-                    className={cn(
-                      "flex w-full items-center gap-2 rounded-lg p-5 text-left font-body text-lg leading-[1.4]",
-                      selected
-                        ? "bg-black text-white"
-                        : "border border-line bg-white text-black",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-[3px] border",
-                        selected
-                          ? "border-brand bg-brand"
-                          : "border-line bg-white",
-                      )}
-                    >
-                      {selected ? (
-                        <img
-                          alt=""
-                          src="/figma/partners/check.svg"
-                          className="size-3.5"
-                        />
-                      ) : null}
-                    </span>
-                    {item.title}
-                  </button>
-                );
-              })}
+              {servicesLoading && serviceOptions.length === 0
+                ? Array.from({ length: 4 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="h-[68px] animate-pulse rounded-lg bg-white/70"
+                    />
+                  ))
+                : serviceOptions.map((item) => {
+                    const selected = item === service;
+                    return (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => setService(item)}
+                        aria-pressed={selected}
+                        className={cn(
+                          "flex w-full cursor-pointer items-center gap-2 rounded-lg p-5 text-left font-body text-lg leading-[1.4]",
+                          selected
+                            ? "bg-black text-white"
+                            : "border border-line bg-white text-black",
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-[3px] border",
+                            selected
+                              ? "border-brand bg-brand"
+                              : "border-line bg-white",
+                          )}
+                        >
+                          {selected ? (
+                            <img
+                              alt=""
+                              src="/figma/partners/check.svg"
+                              className="size-3.5"
+                            />
+                          ) : null}
+                        </span>
+                        {item}
+                      </button>
+                    );
+                  })}
             </div>
           </div>
-          <ContactForm
+          <PartnerForm
             service={service}
             onServiceChange={setService}
-            services={serviceOptions}
-            formNote={page.formNote}
+            serviceOptions={serviceOptions}
+            servicesLoading={servicesLoading}
             submitLabel={page.submitLabel}
             successMessage={page.successMessage}
           />
@@ -123,9 +140,7 @@ export function PartnersPageContentView({
       <ContactInfo
         title={page.infoTitle}
         description={page.infoDescription}
-        initialSiteSettings={
-          initialSiteSettings ?? FALLBACK_SITE_SETTINGS
-        }
+        initialSiteSettings={initialSiteSettings ?? FALLBACK_SITE_SETTINGS}
       />
     </>
   );
