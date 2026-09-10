@@ -328,11 +328,31 @@ async function seed() {
     footerServicesTitle: "services",
     footerServiceLinks: keyed(
       [
-        { _type: "link", label: "Software Development", href: "/services" },
-        { _type: "link", label: "Web Development", href: "/services" },
-        { _type: "link", label: "Cloud Solution & DevOps", href: "/services" },
-        { _type: "link", label: "Cybersecurity & IT audit", href: "/services" },
-        { _type: "link", label: "IT Consulting", href: "/services" },
+        {
+          _type: "link",
+          label: "Software Development",
+          href: "/services#software-development",
+        },
+        {
+          _type: "link",
+          label: "Web Development",
+          href: "/services#web-development",
+        },
+        {
+          _type: "link",
+          label: "Cloud Solution & DevOps",
+          href: "/services#cloud-solutions-and-devops",
+        },
+        {
+          _type: "link",
+          label: "Cybersecurity & IT audit",
+          href: "/services#cybersecurity-and-id-audit",
+        },
+        {
+          _type: "link",
+          label: "IT Consulting",
+          href: "/services#it-consulting-and-advisory",
+        },
       ],
       "footer-service",
     ),
