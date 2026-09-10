@@ -16,11 +16,11 @@ const emailSchema = z
 const phoneSchema = z
   .string()
   .trim()
-  .min(7, "Please enter a valid phone number.")
-  .max(30, "Phone number is too long.")
+  .min(8, "Please enter a valid phone number.")
+  .max(20, "Phone number is too long.")
   .regex(
-    /^\+?[\d\s().-]{6,}$/,
-    "Use a valid phone number (digits, spaces, or +).",
+    /^\+[1-9]\d{6,14}$/,
+    "Please enter a valid phone number with country code.",
   );
 
 const organisationSchema = z

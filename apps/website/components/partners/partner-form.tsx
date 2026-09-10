@@ -10,6 +10,7 @@ import {
   inquiryControlClass,
   inquiryTextareaControlClass,
 } from "@/components/contact/inquiry-field";
+import { InquiryPhoneInput } from "@/components/contact/inquiry-phone-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -208,19 +209,14 @@ export function PartnerForm({
           required
           error={errors.phone_number}
         >
-          <Input
+          <InquiryPhoneInput
             id={`${formId}-phone_number`}
-            name="phone_number"
-            type="tel"
-            autoComplete="tel"
-            inputMode="tel"
-            placeholder="Enter your phone number"
             value={form.phone_number}
             disabled={isPending}
-            aria-invalid={Boolean(errors.phone_number)}
+            hasError={Boolean(errors.phone_number)}
+            placeholder="Enter your phone number"
             onBlur={() => validateField("phone_number")}
-            onChange={(event) => update("phone_number", event.target.value)}
-            className={inquiryControlClass(Boolean(errors.phone_number))}
+            onChange={(value) => update("phone_number", value)}
           />
         </InquiryField>
 
