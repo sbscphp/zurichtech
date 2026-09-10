@@ -172,3 +172,105 @@
     animation: none;
   }
 }
+
+/* react-phone-input-2 — match Figma inquiry field chrome */
+.inquiry-phone.react-tel-input {
+  font-family: var(--font-dm-sans), sans-serif;
+  width: 100%;
+}
+
+.inquiry-phone.react-tel-input .form-control.inquiry-phone-input {
+  width: 100%;
+  height: 48px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding-left: 58px;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.inquiry-phone.react-tel-input .form-control.inquiry-phone-input::placeholder {
+  color: #adb5bd;
+  font-size: 18px;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.inquiry-phone.react-tel-input .form-control.inquiry-phone-input:focus {
+  border-color: color-mix(in srgb, var(--ink) 30%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.inquiry-phone.react-tel-input .flag-dropdown.inquiry-phone-button {
+  border: 1px solid var(--line);
+  border-radius: 4px 0 0 4px;
+  background: #fff;
+}
+
+.inquiry-phone.react-tel-input .flag-dropdown.inquiry-phone-button.open,
+.inquiry-phone.react-tel-input .flag-dropdown.inquiry-phone-button:hover {
+  background: #fff;
+  border-color: var(--line);
+}
+
+.inquiry-phone.react-tel-input .selected-flag {
+  border-radius: 4px 0 0 4px;
+  padding: 0 0 0 12px;
+  width: 52px;
+}
+
+.inquiry-phone.react-tel-input .selected-flag:hover,
+.inquiry-phone.react-tel-input .selected-flag:focus,
+.inquiry-phone.react-tel-input .selected-flag.open {
+  background: #f8f9fa;
+}
+
+.inquiry-phone.react-tel-input .country-list.inquiry-phone-dropdown {
+  margin-top: 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  color: var(--ink);
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 16px;
+  max-height: 280px;
+  width: 320px;
+}
+
+.inquiry-phone.react-tel-input .country-list .country:hover,
+.inquiry-phone.react-tel-input .country-list .country.highlight {
+  background: #f8f9fa;
+}
+
+.inquiry-phone.react-tel-input .country-list .search-box.inquiry-phone-search {
+  margin: 8px;
+  width: calc(100% - 16px);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 8px 12px;
+}
+
+.inquiry-phone-error.react-tel-input .form-control.inquiry-phone-input,
+.inquiry-phone-error.react-tel-input .flag-dropdown.inquiry-phone-button {
+  border-color: #fa5252;
+}
+
+.inquiry-phone-error.react-tel-input .form-control.inquiry-phone-input:focus {
+  border-color: #fa5252;
+  box-shadow: 0 0 0 3px rgb(250 82 82 / 0.2);
+}
+
+.inquiry-phone.react-tel-input.disabled .form-control.inquiry-phone-input,
+.inquiry-phone.react-tel-input.disabled .flag-dropdown.inquiry-phone-button {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

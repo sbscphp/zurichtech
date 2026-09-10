@@ -3,15 +3,10 @@
 import { ContactForm } from "@/components/contact/contact-form";
 import { ContactInfo } from "@/components/shared/contact-info";
 import { useContactPage } from "@/hooks/sanity/use-contact-page";
-import { useServices } from "@/hooks/sanity/use-services";
 import {
   FALLBACK_CONTACT_PAGE,
   type ContactPageContent,
 } from "@/lib/sanity/contact";
-import {
-  FALLBACK_SERVICES,
-  type Service,
-} from "@/lib/sanity/services";
 import {
   FALLBACK_SITE_SETTINGS,
   type SiteSettingsContent,
@@ -19,17 +14,14 @@ import {
 
 type ContactPageContentProps = {
   initialPage?: ContactPageContent;
-  initialServices?: Service[];
   initialSiteSettings?: SiteSettingsContent;
 };
 
 export function ContactPageContentView({
   initialPage,
-  initialServices,
   initialSiteSettings,
 }: ContactPageContentProps) {
   const { data: page = FALLBACK_CONTACT_PAGE } = useContactPage(initialPage);
-  const { data: services = FALLBACK_SERVICES } = useServices(initialServices);
 
   return (
     <>
@@ -50,7 +42,6 @@ export function ContactPageContentView({
 
         <div className="relative z-10 mx-auto flex w-full max-w-146.5 justify-center px-6 py-16">
           <ContactForm
-            services={services.map((service) => ({ title: service.title }))}
             formNote={page.formNote}
             submitLabel={page.submitLabel}
             successMessage={page.successMessage}

@@ -1,4 +1,4 @@
-import { apiClient } from "./client";
+import { apiClient, assertApiSuccess } from "./client";
 import { isApiConfigured } from "./env";
 import type { SubmitContactPayload, SubmitContactResponse } from "./types";
 
@@ -16,5 +16,6 @@ export async function submitContact(
     payload,
   );
 
+  assertApiSuccess(data, "Could not send your message. Please try again.");
   return data;
 }

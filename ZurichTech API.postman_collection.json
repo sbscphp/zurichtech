@@ -1,0 +1,497 @@
+{
+  "info": {
+    "_postman_id": "976dea49-1da3-4551-91fb-ade6c4cd7f5a",
+    "name": "ZurichTech API",
+    "description": "Contact and Partner form endpoints for the ZurichTech API. Both share the same underlying ContactFormService and contact_submissions table (app/Services/v1/Contact/ContactFormService.php); only validation differs (Partner requires service_of_interest, Contact does not accept it).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "16847210"
+  },
+  "item": [
+    {
+      "name": "Contact",
+      "item": [
+        {
+          "name": "Submit Contact Form - Valid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Ada Lovelace\",\n    \"email\": \"ada@example.com\",\n    \"phone_number\": \"+2348012345678\",\n    \"organisation\": \"Zurich Tech\",\n    \"message\": \"We would like a quote for a new project.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/contact/submit",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "contact",
+                "submit"
+              ]
+            },
+            "description": "Happy path. Expect 200 with { \"error\": false, \"message\": \"Message sent successfully\", \"data\": [] } and an email to CONTACT_RECIPIENT_EMAIL. service_of_interest is not part of this form."
+          },
+          "response": [
+            {
+              "name": "Submit Contact Form - Valid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"full_name\": \"Ada Lovelace\",\n    \"email\": \"ada@example.com\",\n    \"phone_number\": \"+2348012345678\",\n    \"organisation\": \"Zurich Tech\",\n    \"message\": \"We would like a quote for a new project.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/contact/submit",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "contact",
+                    "submit"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.4.25"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 11:53:15 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": false,\n    \"message\": \"Message sent successfully\",\n    \"data\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Submit Contact Form - Missing Fields (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/contact/submit",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "contact",
+                "submit"
+              ]
+            },
+            "description": "Expect 422 with Laravel's default { \"message\": ..., \"errors\": { field: [...] } } shape for full_name, email, phone_number, organisation, message."
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Contact Form - Invalid Email (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Ada Lovelace\",\n    \"email\": \"not-an-email\",\n    \"phone_number\": \"+2348012345678\",\n    \"organisation\": \"Zurich Tech\",\n    \"message\": \"We would like a quote for a new project.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/contact/submit",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "contact",
+                "submit"
+              ]
+            },
+            "description": "Expect 422 with an 'email' validation error."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Partner",
+      "item": [
+        {
+          "name": "Submit Partner Form - Valid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Ada Lovelace\",\n    \"email\": \"ada@example.com\",\n    \"phone_number\": \"+2348012345678\",\n    \"organisation\": \"Zurich Tech\",\n    \"service_of_interest\": \"Software Development\",\n    \"message\": \"We would like to explore a partnership.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/partner/submit",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "partner",
+                "submit"
+              ]
+            },
+            "description": "Happy path. Expect 200 with { \"error\": false, \"message\": \"Message sent successfully\", \"data\": [] } and an email to CONTACT_RECIPIENT_EMAIL."
+          },
+          "response": [
+            {
+              "name": "Submit Partner Form - Valid",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"full_name\": \"Ada Lovelace\",\n    \"email\": \"ada@example.com\",\n    \"phone_number\": \"+2348012345678\",\n    \"organisation\": \"Zurich Tech\",\n    \"service_of_interest\": \"Software Development\",\n    \"message\": \"We would like to explore a partnership.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/partner/submit",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "partner",
+                    "submit"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.4.25"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 11:54:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": false,\n    \"message\": \"Message sent successfully\",\n    \"data\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Submit Partner Form - Missing Fields (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/partner/submit",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "partner",
+                "submit"
+              ]
+            },
+            "description": "Expect 422 with Laravel's default { \"message\": ..., \"errors\": { field: [...] } } shape for full_name, email, phone_number, organisation, service_of_interest, message."
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Partner Form - Invalid Service of Interest (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Ada Lovelace\",\n    \"email\": \"ada@example.com\",\n    \"phone_number\": \"+2348012345678\",\n    \"organisation\": \"Zurich Tech\",\n    \"service_of_interest\": \"Something Unlisted\",\n    \"message\": \"We would like to explore a partnership.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/partner/submit",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "partner",
+                "submit"
+              ]
+            },
+            "description": "Expect 422 with a 'service_of_interest' validation error. Valid values: Software Development, Web Development, Cybersecurity and ID Audit, Cloud Solutions and Devops, IT Consulting & Advisory, IT Support & Maintenance."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Service of Interest",
+      "item": [
+        {
+          "name": "List Service of Interest Options",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/v1/service-of-interest",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "service-of-interest"
+              ]
+            },
+            "description": "Expect 200 with { \"error\": false, \"message\": \"Service of interest options retrieved successfully\", \"data\": [\"Software Development\", \"Web Development\", \"Cybersecurity and ID Audit\", \"Cloud Solutions and Devops\", \"IT Consulting & Advisory\", \"IT Support & Maintenance\"] }. Use these values to populate the Partner form's service_of_interest dropdown."
+          },
+          "response": [
+            {
+              "name": "List Service of Interest Options",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/service-of-interest",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "service-of-interest"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.4.25"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 09 Sep 2026 12:27:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": false,\n    \"message\": \"Service of interest options retrieved successfully\",\n    \"data\": [\n        \"Software Development\",\n        \"Web Development\",\n        \"Cybersecurity and ID Audit\",\n        \"Cloud Solutions and Devops\",\n        \"IT Consulting & Advisory\",\n        \"IT Support & Maintenance\"\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}

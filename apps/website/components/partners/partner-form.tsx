@@ -1,11 +1,12 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import {
   InquiryField,
+  InquirySelect,
   inquiryControlClass,
   inquiryTextareaControlClass,
 } from "@/components/contact/inquiry-field";
@@ -13,41 +14,59 @@ import { InquiryPhoneInput } from "@/components/contact/inquiry-phone-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useSubmitContact } from "@/hooks/api/use-submit-contact";
+import { useSubmitPartner } from "@/hooks/api/use-submit-partner";
 import { getApiErrorMessage, getApiFieldErrors } from "@/lib/api/client";
 import {
-  contactFormSchema,
-  emptyContactForm,
-  type ContactFormValues,
+  emptyPartnerForm,
+  partnerFormSchema,
+  type PartnerFormValues,
   zodIssuesToFieldErrors,
 } from "@/lib/api/form-schemas";
 
-type ContactFormProps = {
-  formNote?: string;
+type PartnerFormProps = {
+  serviceOptions: string[];
+  service?: string;
+  onServiceChange?: (value: string) => void;
+  servicesLoading?: boolean;
   submitLabel?: string;
   successMessage?: string;
 };
 
 /**
- * Contact enquiry form → POST /api/v1/contact/submit
- * Fields: full_name, email, phone_number, organisation, message
+ * Partner enquiry form (Figma 261:25413) → POST /api/v1/partner/submit
  */
-export function ContactForm({
-  formNote = "Your opinion matters to us...",
+export function PartnerForm({
+  serviceOptions,
+  service,
+  onServiceChange,
+  servicesLoading = false,
   submitLabel = "Send enquiry",
   successMessage = "Thanks — we will be in touch.",
-}: ContactFormProps = {}) {
+}: PartnerFormProps) {
   const formId = useId();
-  const [form, setForm] = useState<ContactFormValues>(emptyContactForm);
-  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormValues, string>>>(
-    {},
+  const [form, setForm] = useState<PartnerFormValues>(() =>
+    emptyPartnerForm(service ?? ""),
   );
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof PartnerFormValues, string>>
+  >({});
   const [submitted, setSubmitted] = useState(false);
-  const submit = useSubmitContact();
+  const submit = useSubmitPartner();
 
-  function update<K extends keyof ContactFormValues>(
+  const selectedService = service ?? form.service_of_interest;
+
+  useEffect(() => {
+    if (service === undefined) return;
+    setForm((current) =>
+      current.service_of_interest === service
+        ? current
+        : { ...current, service_of_interest: service },
+    );
+  }, [service]);
+
+  function update<K extends keyof PartnerFormValues>(
     key: K,
-    value: ContactFormValues[K],
+    value: PartnerFormValues[K],
   ) {
     setForm((current) => ({ ...current, [key]: value }));
     setSubmitted(false);
@@ -60,9 +79,11 @@ export function ContactForm({
     }
   }
 
-  function validateField<K extends keyof ContactFormValues>(key: K) {
-    const shape = contactFormSchema.shape[key];
-    const result = shape.safeParse(form[key]);
+  function validateField<K extends keyof PartnerFormValues>(key: K) {
+    const value =
+      key === "service_of_interest" ? selectedService : form[key];
+    const shape = partnerFormSchema.shape[key];
+    const result = shape.safeParse(value);
     setErrors((current) => {
       const next = { ...current };
       if (result.success) {
@@ -77,17 +98,35 @@ export function ContactForm({
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const parsed = contactFormSchema.safeParse(form);
+    const payload: PartnerFormValues = {
+      ...form,
+      service_of_interest: selectedService,
+    };
+
+    const parsed = partnerFormSchema.safeParse(payload);
     if (!parsed.success) {
       setErrors(zodIssuesToFieldErrors(parsed.error));
       toast.error("Please fix the highlighted fields and try again.");
       return;
     }
 
+    if (
+      serviceOptions.length > 0 &&
+      !serviceOptions.includes(parsed.data.service_of_interest)
+    ) {
+      setErrors((current) => ({
+        ...current,
+        service_of_interest: "Please select a valid service of interest.",
+      }));
+      toast.error("Please select a valid service of interest.");
+      return;
+    }
+
     setErrors({});
     submit.mutate(parsed.data, {
       onSuccess: (data) => {
-        setForm(emptyContactForm());
+        setForm(emptyPartnerForm(""));
+        onServiceChange?.("");
         setSubmitted(true);
         toast.success(data.message?.trim() || successMessage);
       },
@@ -99,7 +138,7 @@ export function ContactForm({
         toast.error(
           getApiErrorMessage(
             error,
-            "Could not send your message. Please try again.",
+            "Could not send your enquiry. Please try again.",
           ),
         );
       },
@@ -121,7 +160,7 @@ export function ContactForm({
         </output>
       ) : null}
 
-      <div className="flex flex-col gap-6">
+      <div className="flex w-full flex-col gap-6">
         <InquiryField
           label="Full Name"
           htmlFor={`${formId}-full_name`}
@@ -136,9 +175,6 @@ export function ContactForm({
             value={form.full_name}
             disabled={isPending}
             aria-invalid={Boolean(errors.full_name)}
-            aria-describedby={
-              errors.full_name ? `${formId}-full_name-error` : undefined
-            }
             onBlur={() => validateField("full_name")}
             onChange={(event) => update("full_name", event.target.value)}
             className={inquiryControlClass(Boolean(errors.full_name))}
@@ -205,6 +241,28 @@ export function ContactForm({
         </InquiryField>
 
         <InquiryField
+          label="Service of interest"
+          htmlFor={`${formId}-service_of_interest`}
+          required
+          error={errors.service_of_interest}
+        >
+          <InquirySelect
+            id={`${formId}-service_of_interest`}
+            name="service_of_interest"
+            value={selectedService}
+            placeholder="Software development"
+            options={serviceOptions}
+            disabled={isPending || servicesLoading}
+            hasError={Boolean(errors.service_of_interest)}
+            onBlur={() => validateField("service_of_interest")}
+            onChange={(value) => {
+              update("service_of_interest", value);
+              onServiceChange?.(value);
+            }}
+          />
+        </InquiryField>
+
+        <InquiryField
           label="How can we help"
           htmlFor={`${formId}-message`}
           required
@@ -222,20 +280,15 @@ export function ContactForm({
             onChange={(event) => update("message", event.target.value)}
             className={inquiryTextareaControlClass(Boolean(errors.message))}
           />
-          {formNote ? (
-            <p className="mt-1 font-body text-[18px] font-normal text-ink italic">
-              {formNote}
-            </p>
-          ) : null}
         </InquiryField>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex w-full items-center justify-end">
         <Button
           type="submit"
           variant="brand"
-          disabled={isPending}
-          className="h-auto w-47.75 cursor-pointer gap-2 rounded-lg px-6 py-2.5 font-body text-lg"
+          disabled={isPending || servicesLoading}
+          className="h-auto w-[191px] cursor-pointer gap-2 rounded-lg px-6 py-2.5 font-body text-[18px] font-normal"
         >
           {isPending ? (
             <>
@@ -245,7 +298,7 @@ export function ContactForm({
           ) : (
             <>
               {submitLabel}
-              <span className="relative size-6 overflow-hidden">
+              <span className="relative size-6 shrink-0 overflow-hidden">
                 <img
                   alt=""
                   src="/figma/shared/arrow-up-right.svg"
