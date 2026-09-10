@@ -10,6 +10,7 @@ import {
   type CtaLink,
   type SanityCtaLink,
 } from "./types";
+import { resolveFooterServiceHref } from "@/lib/site/service-sections";
 
 export type SiteSettingsContent = {
   siteName: string;
@@ -56,11 +57,17 @@ export const FALLBACK_SITE_SETTINGS: SiteSettingsContent = {
   headerCta: { label: "Contact Us", href: "/contact" },
   footerServicesTitle: "services",
   footerServiceLinks: [
-    { label: "Software Development", href: "/services" },
-    { label: "Web Development", href: "/services" },
-    { label: "Cloud Solution & DevOps", href: "/services" },
-    { label: "Cybersecurity & IT audit", href: "/services" },
-    { label: "IT Consulting", href: "/services" },
+    { label: "Software Development", href: "/services#software-development" },
+    { label: "Web Development", href: "/services#web-development" },
+    {
+      label: "Cloud Solution & DevOps",
+      href: "/services#cloud-solutions-and-devops",
+    },
+    {
+      label: "Cybersecurity & IT audit",
+      href: "/services#cybersecurity-and-id-audit",
+    },
+    { label: "IT Consulting", href: "/services#it-consulting-and-advisory" },
   ],
   footerCompanyTitle: "Company",
   footerCompanyLinks: [
@@ -170,7 +177,10 @@ function mapSiteSettings(doc: SanitySiteSettings | null): SiteSettingsContent {
     footerServiceLinks: mapCtaLinks(
       doc.footerServiceLinks,
       FALLBACK_SITE_SETTINGS.footerServiceLinks,
-    ),
+    ).map((link) => ({
+      ...link,
+      href: resolveFooterServiceHref(link.label, link.href),
+    })),
     footerCompanyTitle:
       doc.footerCompanyTitle?.trim() ||
       FALLBACK_SITE_SETTINGS.footerCompanyTitle,

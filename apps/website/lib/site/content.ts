@@ -12,11 +12,17 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const FOOTER_SERVICES: NavLink[] = [
-  { label: "Software Development", href: "/services" },
-  { label: "Web Development", href: "/services" },
-  { label: "Cloud Solution & DevOps", href: "/services" },
-  { label: "Cybersecurity & IT audit", href: "/services" },
-  { label: "IT Consulting", href: "/services" },
+  { label: "Software Development", href: "/services#software-development" },
+  { label: "Web Development", href: "/services#web-development" },
+  {
+    label: "Cloud Solution & DevOps",
+    href: "/services#cloud-solutions-and-devops",
+  },
+  {
+    label: "Cybersecurity & IT audit",
+    href: "/services#cybersecurity-and-id-audit",
+  },
+  { label: "IT Consulting", href: "/services#it-consulting-and-advisory" },
 ];
 
 export const FOOTER_COMPANY: NavLink[] = [
