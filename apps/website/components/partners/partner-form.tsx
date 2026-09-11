@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import {
+  InquiryCharacterCount,
   InquiryField,
   InquirySelect,
   inquiryControlClass,
@@ -18,6 +19,7 @@ import { useSubmitPartner } from "@/hooks/api/use-submit-partner";
 import { getApiErrorMessage, getApiFieldErrors } from "@/lib/api/client";
 import {
   emptyPartnerForm,
+  MESSAGE_MAX_LENGTH,
   partnerFormSchema,
   type PartnerFormValues,
   zodIssuesToFieldErrors,
@@ -276,6 +278,7 @@ export function PartnerForm({
             id={`${formId}-message`}
             name="message"
             rows={4}
+            maxLength={MESSAGE_MAX_LENGTH}
             placeholder="Start Typing"
             value={form.message}
             disabled={isPending}
@@ -283,6 +286,10 @@ export function PartnerForm({
             onBlur={() => validateField("message")}
             onChange={(event) => update("message", event.target.value)}
             className={inquiryTextareaControlClass(Boolean(errors.message))}
+          />
+          <InquiryCharacterCount
+            value={form.message}
+            max={MESSAGE_MAX_LENGTH}
           />
         </InquiryField>
       </div>

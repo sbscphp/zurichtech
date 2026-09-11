@@ -90,6 +90,26 @@ export function inquiryTextareaControlClass(
   );
 }
 
+export function InquiryCharacterCount({
+  value,
+  max,
+}: {
+  value: string;
+  max: number;
+}) {
+  const isNearLimit = value.length >= max;
+  return (
+    <p
+      className={cn(
+        "mt-1 self-end font-body text-sm",
+        isNearLimit ? "text-[#fa5252]" : "text-ink-dimmed",
+      )}
+    >
+      {value.length}/{max}
+    </p>
+  );
+}
+
 type InquirySelectProps = {
   id: string;
   name?: string;
