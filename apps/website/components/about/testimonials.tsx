@@ -63,24 +63,24 @@ export function Testimonials({
               type="button"
               onClick={prev}
               aria-label="Previous testimonial"
-              className="cursor-pointer rounded-full bg-brand-soft p-3"
+              className="group cursor-pointer rounded-full bg-brand-soft p-3 transition-colors duration-300 hover:bg-brand"
             >
               <img
                 alt=""
                 src="/figma/about/chevron-left.svg"
-                className="size-9"
+                className="size-9 transition-[filter] duration-300 group-hover:brightness-0 group-hover:invert"
               />
             </button>
             <button
               type="button"
               onClick={next}
               aria-label="Next testimonial"
-              className="cursor-pointer rounded-full bg-brand-soft p-3"
+              className="group cursor-pointer rounded-full bg-brand-soft p-3 transition-colors duration-300 hover:bg-brand"
             >
               <img
                 alt=""
                 src="/figma/about/chevron-left.svg"
-                className="size-9 rotate-180"
+                className="size-9 rotate-180 transition-[filter] duration-300 group-hover:brightness-0 group-hover:invert"
               />
             </button>
           </div>

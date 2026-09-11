@@ -81,10 +81,7 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                 </p>
                 <ul className="flex flex-col gap-3">
                   {contactRows.map((row) => (
-                    <li
-                      key={row.lines.join("-")}
-                      className="flex items-start gap-3"
-                    >
+                    <li key={row.lines.join("-")} className="flex flex-col gap-2">
                       <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[6.4px] bg-white/32">
                         <span className="relative size-4 overflow-hidden">
                           <img
@@ -94,7 +91,7 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                           />
                         </span>
                       </span>
-                      <div className="font-body text-base leading-[1.4] text-white/40">
+                      <div className="min-w-0 font-body text-base leading-[1.4] text-white/40">
                         {row.lines.map((line) =>
                           row.hrefPrefix ? (
                             <a
@@ -104,12 +101,14 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                                   ? line.replace(/\s/g, "")
                                   : line
                               }`}
-                              className="block hover:text-brand hover:underline"
+                              className="block wrap-break-word hover:text-brand hover:underline"
                             >
                               {line}
                             </a>
                           ) : (
-                            <p key={line}>{line}</p>
+                            <p key={line} className="wrap-break-word">
+                              {line}
+                            </p>
                           ),
                         )}
                       </div>

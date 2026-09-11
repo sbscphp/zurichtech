@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import {
+  InquiryCharacterCount,
   InquiryField,
   inquiryControlClass,
   inquiryTextareaControlClass,
@@ -18,6 +19,7 @@ import { getApiErrorMessage, getApiFieldErrors } from "@/lib/api/client";
 import {
   contactFormSchema,
   emptyContactForm,
+  MESSAGE_MAX_LENGTH,
   type ContactFormValues,
   zodIssuesToFieldErrors,
 } from "@/lib/api/form-schemas";
@@ -215,6 +217,7 @@ export function ContactForm({
             id={`${formId}-message`}
             name="message"
             rows={4}
+            maxLength={MESSAGE_MAX_LENGTH}
             placeholder="Start Typing"
             value={form.message}
             disabled={isPending}
@@ -222,6 +225,10 @@ export function ContactForm({
             onBlur={() => validateField("message")}
             onChange={(event) => update("message", event.target.value)}
             className={inquiryTextareaControlClass(Boolean(errors.message))}
+          />
+          <InquiryCharacterCount
+            value={form.message}
+            max={MESSAGE_MAX_LENGTH}
           />
           {formNote ? (
             <p className="mt-1 font-body text-[18px] font-normal text-ink italic">
