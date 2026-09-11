@@ -61,7 +61,12 @@ export function ServicesGrid({ title, cta, services }: ServicesGridProps) {
           <h2 className="max-w-145.75 font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             {titleNode}
           </h2>
-          <Button asChild variant="brand" size="xl" className="font-body">
+          <Button
+            asChild
+            variant="brand"
+            size="xl"
+            className="font-body hover:bg-[#B30008]"
+          >
             <Link href={cta.href}>{cta.label}</Link>
           </Button>
         </div>

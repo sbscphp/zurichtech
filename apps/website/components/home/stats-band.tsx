@@ -25,11 +25,11 @@ export function StatsBand({ title, description, stats }: StatsBandProps) {
             "radial-gradient(ellipse 80% 90% at 0% 50%, black 40%, transparent 75%)",
         }}
       />
-      <div className="relative mx-auto flex min-h-[400px] w-full max-w-[1440px] flex-col items-start justify-center gap-10 px-6 py-16 lg:flex-row lg:items-start lg:gap-[106px] lg:px-20 lg:py-[102px]">
-        <h2 className="max-w-[658px] font-display text-[32px] leading-[1.2] text-white lg:text-[40px]">
+      <div className="relative mx-auto flex min-h-100 w-full max-w-360 flex-col items-start justify-center gap-10 px-6 py-16 lg:flex-row lg:items-start lg:gap-26.5 lg:px-20 lg:py-25.5">
+        <h2 className="max-w-164.5 font-display text-[32px] leading-[1.2] text-white lg:text-[40px]">
           {title}
         </h2>
-        <div className="flex max-w-[516px] flex-col gap-6">
+        <div className="flex max-w-129 flex-col gap-6">
           <p className="font-body text-base leading-[1.4] text-white/70">
             {description}
           </p>

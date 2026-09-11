@@ -146,6 +146,10 @@ export function PartnerForm({
   }
 
   const isPending = submit.isPending;
+  const isFormValid = partnerFormSchema.safeParse({
+    ...form,
+    service_of_interest: selectedService,
+  }).success;
 
   return (
     <form
@@ -287,8 +291,8 @@ export function PartnerForm({
         <Button
           type="submit"
           variant="brand"
-          disabled={isPending || servicesLoading}
-          className="h-auto w-[191px] cursor-pointer gap-2 rounded-lg px-6 py-2.5 font-body text-[18px] font-normal"
+          disabled={isPending || servicesLoading || !isFormValid}
+          className="h-auto w-[191px] cursor-pointer gap-2 rounded-lg px-6 py-2.5 font-body text-[18px] font-normal hover:bg-[#B30008]"
         >
           {isPending ? (
             <>
