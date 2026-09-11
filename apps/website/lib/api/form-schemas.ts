@@ -6,12 +6,29 @@ const nameSchema = z
   .min(2, "Please enter your full name.")
   .max(120, "Full name is too long.");
 
+// Common TLDs so typos like "gmail.con" or "yahoo.cmo" are caught up front,
+// since format-only email validation treats them as structurally valid.
+const COMMON_TLDS = new Set([
+  "com", "net", "org", "edu", "gov", "mil", "int", "co", "io", "ai",
+  "app", "dev", "info", "biz", "name", "me", "tv", "xyz", "online",
+  "site", "tech", "store", "shop", "cloud", "ng", "us", "uk", "ca",
+  "au", "de", "fr", "es", "it", "nl", "se", "no", "dk", "fi", "pl",
+  "ru", "cn", "jp", "kr", "in", "br", "mx", "za", "ke", "gh", "eg",
+]);
+
 const emailSchema = z
   .string()
   .trim()
   .min(1, "Please enter your email address.")
   .max(255, "Email address is too long.")
-  .pipe(z.email("Please enter a valid email address."));
+  .pipe(z.email("Please enter a valid email address."))
+  .refine(
+    (value) => {
+      const tld = value.split("@").at(-1)?.split(".").at(-1)?.toLowerCase();
+      return Boolean(tld && COMMON_TLDS.has(tld));
+    },
+    { message: "Please double-check your email address." },
+  );
 
 const phoneSchema = z
   .string()

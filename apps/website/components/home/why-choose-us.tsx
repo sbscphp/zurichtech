@@ -29,9 +29,9 @@ export function WhyChooseUs({
 }: WhyChooseUsProps) {
   return (
     <section className="bg-surface-blush px-6 py-16 lg:px-20 lg:py-20">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center justify-between gap-8 lg:flex-row lg:gap-8">
-        <div className="flex h-[698px] w-full max-w-[632px] items-center rounded-2xl bg-brand-soft p-5">
-          <div className="relative h-[658px] w-full overflow-hidden rounded-2xl">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-8 lg:flex-row lg:gap-8">
+        <div className="flex h-174.5 w-full max-w-158 items-center rounded-2xl bg-brand-soft p-5">
+          <div className="relative h-164.5 w-full overflow-hidden rounded-2xl">
             <Image
               src={imageUrl}
               alt={imageAlt}
@@ -42,7 +42,7 @@ export function WhyChooseUs({
           </div>
         </div>
 
-        <div className="flex w-full max-w-[616px] flex-col gap-6">
+        <div className="flex w-full max-w-154 flex-col gap-6">
           <div className="flex flex-col gap-2">
             <p className="font-display text-lg leading-[1.2] text-brand uppercase">
               {eyebrow}
@@ -74,8 +74,13 @@ export function WhyChooseUs({
             ))}
           </div>
 
-          <div className="lg:pl-[63px]">
-            <Button asChild variant="brand" size="xl" className="font-body">
+          <div className="lg:pl-15.75">
+            <Button
+              asChild
+              variant="brand"
+              size="xl"
+              className="font-body hover:bg-[#B30008]"
+            >
               <Link href={cta.href}>{cta.label}</Link>
             </Button>
           </div>

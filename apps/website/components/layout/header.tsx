@@ -44,7 +44,12 @@ export function Header({ initialSiteSettings }: HeaderProps) {
         </nav>
 
         <div className="hidden lg:block">
-          <Button asChild variant="brand" size="xl" className="font-body">
+          <Button
+            asChild
+            variant="brand"
+            size="xl"
+            className="font-body hover:bg-[#B30008]"
+          >
             <Link href={data.headerCta.href}>{data.headerCta.label}</Link>
           </Button>
         </div>
@@ -80,7 +85,7 @@ export function Header({ initialSiteSettings }: HeaderProps) {
                 asChild
                 variant="brand"
                 size="xl"
-                className="w-full font-body"
+                className="w-full font-body hover:bg-[#B30008]"
               >
                 <Link
                   href={data.headerCta.href}
@@ -119,7 +124,7 @@ function NavLink({
       href={href}
       onClick={onClick}
       className={cn(
-        "inline-flex h-full items-center justify-center px-5 font-body text-xl leading-[1.4] whitespace-nowrap transition-colors hover:text-ink",
+        "inline-flex h-full items-center justify-center px-5 font-body text-xl leading-[1.4] whitespace-nowrap transition-colors hover:text-brand",
         active ? "text-ink font-medium" : "text-ink-dimmed",
         className,
       )}

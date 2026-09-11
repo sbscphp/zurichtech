@@ -107,6 +107,7 @@ export function ContactForm({
   }
 
   const isPending = submit.isPending;
+  const isFormValid = contactFormSchema.safeParse(form).success;
 
   return (
     <form
@@ -234,8 +235,8 @@ export function ContactForm({
         <Button
           type="submit"
           variant="brand"
-          disabled={isPending}
-          className="h-auto w-47.75 cursor-pointer gap-2 rounded-lg px-6 py-2.5 font-body text-lg"
+          disabled={isPending || !isFormValid}
+          className="h-auto w-47.75 cursor-pointer gap-2 rounded-lg px-6 py-2.5 font-body text-lg hover:bg-[#B30008]"
         >
           {isPending ? (
             <>

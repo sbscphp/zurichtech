@@ -61,7 +61,12 @@ export function Story({
               </p>
             ))}
           </div>
-          <Button asChild variant="brand" size="xl" className="self-start font-body">
+          <Button
+            asChild
+            variant="brand"
+            size="xl"
+            className="self-start font-body hover:bg-[#B30008]"
+          >
             <Link href={cta.href}>{cta.label}</Link>
           </Button>
         </div>

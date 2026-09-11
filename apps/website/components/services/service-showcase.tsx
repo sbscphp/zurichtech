@@ -92,7 +92,7 @@ function ServiceRow({
         <Button
           asChild
           variant="brand"
-          className="h-13 w-60.5 gap-2 rounded-[10px] px-8 py-1 font-body text-xl font-normal"
+          className="h-13 w-60.5 gap-2 rounded-[10px] px-8 py-1 font-body text-xl font-normal hover:bg-[#B30008]"
         >
           <Link href={cta.href}>{cta.label}</Link>
         </Button>

@@ -37,7 +37,12 @@ export function SiteCta({
             {description}
           </p>
         </div>
-        <Button asChild variant="brand" size="xl" className="font-body">
+        <Button
+          asChild
+          variant="brand"
+          size="xl"
+          className="font-body hover:bg-[#B30008]"
+        >
           <Link href={button.href}>{button.label}</Link>
         </Button>
       </div>
