@@ -44,8 +44,8 @@ export function Footer({ initialSiteSettings }: FooterProps) {
 
   return (
     <footer className="relative">
-      <div className="relative z-10 mx-auto max-w-[1280px] px-6 lg:px-20">
-        <div className="-mb-24 md:-mb-[172px]">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-20">
+        <div className="-mb-24 md:-mb-43">
           <SiteCta
             titlePrefix={data.ctaTitlePrefix}
             titleHighlight={data.ctaTitleHighlight}
@@ -56,17 +56,17 @@ export function Footer({ initialSiteSettings }: FooterProps) {
         </div>
       </div>
 
-      <div className="bg-black pt-36 md:pt-[241px]">
-        <div className="mx-auto w-full max-w-[1440px] px-6 pb-0 lg:px-[82px]">
-          <div className="flex flex-col gap-8 lg:flex-row lg:gap-[71px]">
-            <div className="flex w-full max-w-[313px] flex-col gap-[18px]">
+      <div className="bg-black pt-36 md:pt-60.25">
+        <div className="mx-auto w-full max-w-360 px-6 pb-0 lg:px-20.5">
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-17.75">
+            <div className="flex w-full max-w-78.25 flex-col gap-4.5">
               <BrandLogo />
               <p className="font-body text-base leading-[1.4] text-white/50">
                 {data.tagline}
               </p>
             </div>
 
-            <div className="grid flex-1 gap-8 sm:grid-cols-3">
+            <div className="grid min-w-0 flex-1 gap-8 sm:grid-cols-3">
               <FooterColumn
                 title={data.footerServicesTitle}
                 items={data.footerServiceLinks}
@@ -75,13 +75,16 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                 title={data.footerCompanyTitle}
                 items={data.footerCompanyLinks}
               />
-              <div className="flex flex-col gap-2">
+              <div className="flex min-w-0 flex-col gap-2">
                 <p className="font-body text-sm leading-[1.4] font-semibold text-white uppercase">
                   {data.footerContactTitle}
                 </p>
-                <ul className="flex flex-col gap-3">
+                <ul className="flex min-w-0 flex-col gap-3">
                   {contactRows.map((row) => (
-                    <li key={row.lines.join("-")} className="flex flex-col gap-2">
+                    <li
+                      key={row.lines.join("-")}
+                      className="flex min-w-0 items-start gap-3"
+                    >
                       <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[6.4px] bg-white/32">
                         <span className="relative size-4 overflow-hidden">
                           <img
@@ -91,7 +94,7 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                           />
                         </span>
                       </span>
-                      <div className="min-w-0 font-body text-base leading-[1.4] text-white/40">
+                      <div className="min-w-0 flex-1 font-body text-base leading-[1.4] text-white/40">
                         {row.lines.map((line) =>
                           row.hrefPrefix ? (
                             <a
