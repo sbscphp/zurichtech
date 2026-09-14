@@ -2,7 +2,11 @@
  * Seeds the Studio with the same starter content the website falls back to,
  * so a fresh dataset matches what you see before any editing.
  *
- * Usage: pnpm --filter cms seed
+ * Usage:
+ *   pnpm --filter cms seed:dev          # recommended — seeds development dataset only
+ *   pnpm --filter cms seed              # blocked if SANITY_STUDIO_DATASET is production
+ *   pnpm --filter cms seed:production   # explicit opt-in for production (overwrites content)
+ *
  * Requires SANITY_API_WRITE_TOKEN (Editor permissions) in apps/cms/.env.local.
  */
 import { createClient } from "@sanity/client";
@@ -63,6 +67,45 @@ const client = createClient({
   token,
   useCdn: false,
 });
+
+const PRODUCTION_DATASET_NAMES = new Set(["production", "prod"]);
+
+function assertSeedTargetAllowed() {
+  const normalizedDataset = dataset.trim().toLowerCase();
+  const allowProduction =
+    process.argv.includes("--allow-production") ||
+    process.env.SEED_ALLOW_PRODUCTION === "1" ||
+    process.env.SEED_ALLOW_PRODUCTION === "true";
+
+  if (!PRODUCTION_DATASET_NAMES.has(normalizedDataset)) {
+    return;
+  }
+
+  if (allowProduction) {
+    console.warn(
+      `⚠ Seeding PRODUCTION dataset "${dataset}" — createOrReplace will overwrite documents.`,
+    );
+    return;
+  }
+
+  throw new Error(
+    [
+      `Refusing to seed production dataset "${dataset}".`,
+      "",
+      "This script uses createOrReplace and replaces Studio content with repo seed data.",
+      "",
+      "For local / staging:",
+      "  pnpm --filter cms seed:dev",
+      "  (uses dataset \"development\" — create it in Sanity Manage if needed)",
+      "",
+      "Studio deploy (pnpm --filter cms deploy:production) is safe — it does not run seed.",
+      "",
+      "Only if you intentionally reset production:",
+      "  pnpm --filter cms seed:production",
+      "  Export a backup from Sanity Manage first.",
+    ].join("\n"),
+  );
+}
 
 const services = [
   {
@@ -253,6 +296,7 @@ async function uploadPublicImage(
 }
 
 async function seed() {
+  assertSeedTargetAllowed();
   console.log(`Seeding ${projectId}/${dataset}…`);
 
   const heroImage = await uploadPublicImage(

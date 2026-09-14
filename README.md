@@ -32,7 +32,8 @@ or the backend API are configured.
 | `pnpm check-types` | `tsc --noEmit` across the workspace |
 | `pnpm test` | Run unit tests |
 | `pnpm --filter website build:static` | Static export to `apps/website/out` |
-| `pnpm --filter cms seed` | Populate a fresh dataset with the starter content |
+| `pnpm --filter cms seed:dev` | Seed the **development** dataset (safe default) |
+| `pnpm --filter cms seed:production` | Reset **production** content (explicit; overwrites CMS) |
 
 ## How content flows
 
