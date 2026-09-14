@@ -50,9 +50,9 @@ export function Insights({ title, cta, insights }: InsightsProps) {
 
         <div className="scrollbar-brand -mx-6 overflow-x-auto px-6 pb-2">
           <div className="flex w-max gap-8">
-            {insights.slice(0, 5).map((insight) => (
+            {insights.slice(0, 5).map((insight, index) => (
               <Link
-                key={insight.href}
+                key={`${insight.href}-${index}`}
                 href={insight.href}
                 className="flex w-70 shrink-0 flex-col gap-4 sm:w-91"
               >
