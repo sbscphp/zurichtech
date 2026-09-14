@@ -24,6 +24,18 @@ type FooterProps = {
 export function Footer({ initialSiteSettings }: FooterProps) {
   const { data = FALLBACK_SITE_SETTINGS } = useSiteSettings(initialSiteSettings);
 
+  function withWrapHint(line: string) {
+    const atIndex = line.indexOf("@");
+    if (atIndex === -1) return line;
+    return (
+      <>
+        {line.slice(0, atIndex + 1)}
+        <wbr />
+        {line.slice(atIndex + 1)}
+      </>
+    );
+  }
+
   const contactRows = [
     {
       icon: "/figma/shared/icon-pin.svg",
@@ -83,7 +95,7 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                   {contactRows.map((row) => (
                     <li
                       key={row.lines.join("-")}
-                      className="flex min-w-0 items-start gap-3"
+                      className="flex min-w-0 items-center gap-3"
                     >
                       <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[6.4px] bg-white/32">
                         <span className="relative size-4 overflow-hidden">
@@ -94,7 +106,7 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                           />
                         </span>
                       </span>
-                      <div className="min-w-0 flex-1 font-body text-base leading-[1.4] text-white/40">
+                      <div className="min-w-0 flex-1 font-body text-sm leading-[1.4] text-white/40">
                         {row.lines.map((line) =>
                           row.hrefPrefix ? (
                             <a
@@ -106,7 +118,9 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                               }`}
                               className="block wrap-break-word hover:text-brand hover:underline"
                             >
-                              {line}
+                              {row.hrefPrefix === "mailto:"
+                                ? withWrapHint(line)
+                                : line}
                             </a>
                           ) : (
                             <p key={line} className="wrap-break-word">
