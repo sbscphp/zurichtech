@@ -6,10 +6,18 @@ import {
   TEAM,
 } from "@/lib/site/content";
 
+import { getHomeInsightsFromBlogPosts } from "./blogs";
 import { sanityFetch } from "./fetch";
 import { getImageUrl } from "./image";
 import { homePageQuery } from "./queries";
-import { mapCtaLink, type CtaLink, type SanityCtaLink } from "./types";
+import {
+  mapCtaLink,
+  type CtaLink,
+  type InsightCard,
+  type SanityCtaLink,
+} from "./types";
+
+export type { InsightCard };
 
 export const FALLBACK_HERO_IMAGE = "/figma/home/hero-image.png";
 export const FALLBACK_WHY_IMAGE = "/figma/home/why-choose-us.png";
@@ -28,14 +36,6 @@ export type WhyPoint = {
   number: string;
   title: string;
   body: string;
-};
-
-export type InsightCard = {
-  category: string;
-  title: string;
-  excerpt: string;
-  imageSrc: string;
-  href: string;
 };
 
 export type HomeTeamMember = {
@@ -378,5 +378,7 @@ function mapHomePage(doc: SanityHomePage | null): HomePageContent {
 
 export async function getHomePage(): Promise<HomePageContent> {
   const doc = await sanityFetch<SanityHomePage | null>(homePageQuery);
-  return mapHomePage(doc);
+  const page = mapHomePage(doc);
+  page.insights = await getHomeInsightsFromBlogPosts(page.insights);
+  return page;
 }

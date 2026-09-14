@@ -6,10 +6,11 @@ import { sanityFetch } from "./fetch";
 import { getImageUrl } from "./image";
 import {
   blogPostBySlugQuery,
+  blogPostsForHomeQuery,
   blogPostsQuery,
   blogsPageQuery,
 } from "./queries";
-import { mapStrings } from "./types";
+import { mapStrings, type InsightCard } from "./types";
 
 export type BlogCard = {
   _id: string;
@@ -260,6 +261,12 @@ type SanityBlogCard = {
   coverImage?: SanityImage;
 };
 
+type SanityBlogCardForHome = SanityBlogCard & {
+  showOnHomePage?: boolean;
+  order?: number;
+  _createdAt?: string;
+};
+
 type SanityBlogSection = {
   heading?: string;
   paragraphs?: string[];
@@ -284,6 +291,78 @@ type SanityBlogsPage = {
   featuredPost?: SanityBlogCard | null;
   sidebarPosts?: SanityBlogCard[] | null;
 };
+
+export function blogCardToInsight(card: BlogCard): InsightCard {
+  return {
+    category: card.category,
+    title: card.title,
+    excerpt: card.excerpt,
+    imageSrc: card.imageSrc,
+    href: `/blogs/${card.slug}`,
+  };
+}
+
+function compareByLatest(a: SanityBlogCardForHome, b: SanityBlogCardForHome) {
+  const aTime = a._createdAt ?? "";
+  const bTime = b._createdAt ?? "";
+  return bTime.localeCompare(aTime);
+}
+
+function compareByDisplayOrder(
+  a: SanityBlogCardForHome,
+  b: SanityBlogCardForHome,
+) {
+  const orderA = a.order ?? 99;
+  const orderB = b.order ?? 99;
+  if (orderA !== orderB) return orderA - orderB;
+  return compareByLatest(a, b);
+}
+
+/**
+ * Home insights: posts tagged "Show on home page", else the three newest posts.
+ */
+export function resolveHomeInsightsFromBlogPosts(
+  docs: SanityBlogCardForHome[] | null | undefined,
+  legacyFallback: InsightCard[],
+): InsightCard[] {
+  const entries =
+    docs
+      ?.map((doc) => {
+        const card = mapCard(doc);
+        if (!card) return null;
+        return { card, doc };
+      })
+      .filter(
+        (
+          entry,
+        ): entry is { card: BlogCard; doc: SanityBlogCardForHome } =>
+          entry !== null,
+      ) ?? [];
+
+  if (entries.length === 0) {
+    return legacyFallback;
+  }
+
+  const featured = entries
+    .filter(({ doc }) => doc.showOnHomePage === true)
+    .sort((a, b) => compareByDisplayOrder(a.doc, b.doc));
+
+  const selected =
+    featured.length > 0
+      ? featured.slice(0, 5)
+      : [...entries].sort((a, b) => compareByLatest(a.doc, b.doc)).slice(0, 3);
+
+  return selected.map(({ card }) => blogCardToInsight(card));
+}
+
+export async function getHomeInsightsFromBlogPosts(
+  legacyFallback: InsightCard[],
+): Promise<InsightCard[]> {
+  const docs = await sanityFetch<SanityBlogCardForHome[] | null>(
+    blogPostsForHomeQuery,
+  );
+  return resolveHomeInsightsFromBlogPosts(docs, legacyFallback);
+}
 
 function mapCard(doc: SanityBlogCard | null | undefined): BlogCard | null {
   const title = doc?.title?.trim();
