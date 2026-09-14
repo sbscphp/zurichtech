@@ -175,6 +175,13 @@ export const blogsPageQuery = `*[_type == "blogsPage" && _id == "blogsPage"][0] 
 
 export const blogPostsQuery = `*[_type == "blogPost" && defined(slug.current)] | order(coalesce(order, 99) asc, title asc) ${blogCardProjection}`;
 
+export const blogPostsForHomeQuery = `*[_type == "blogPost" && defined(slug.current)] {
+  ${blogCardProjection.slice(1, -1).trim()},
+  showOnHomePage,
+  order,
+  _createdAt
+}`;
+
 export const blogPostBySlugQuery = `*[_type == "blogPost" && slug.current == $slug][0] {
   _id,
   title,

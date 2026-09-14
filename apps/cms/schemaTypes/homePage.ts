@@ -413,11 +413,13 @@ export const homePage = defineType({
     }),
     defineField({
       name: "insights",
-      title: "Featured Insights",
+      title: "Featured Insights (legacy fallback)",
       type: "array",
       group: "insights",
       of: [insightCardMember],
       validation: (rule) => rule.max(12),
+      description:
+        "Home insights are loaded from Blog Posts (Show on home page). These cards are only used when no blog posts exist in the CMS.",
     }),
     defineField({
       name: "teamEyebrow",

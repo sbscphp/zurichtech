@@ -105,6 +105,15 @@ export const blogPost = defineType({
       description: "Lower numbers appear first in the explore grid.",
     }),
     defineField({
+      name: "showOnHomePage",
+      title: "Show on home page",
+      type: "boolean",
+      group: "card",
+      initialValue: false,
+      description:
+        "When enabled, this post appears in the home page insights carousel. If no posts are tagged, the three most recently created posts are shown instead.",
+    }),
+    defineField({
       name: "date",
       title: "Published Date Label",
       type: "string",

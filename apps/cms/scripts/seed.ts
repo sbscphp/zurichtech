@@ -978,6 +978,7 @@ async function seed() {
       imagePath: "figma/blogs/explore-img1.png",
       imageFile: "explore-img1.png",
       order: 10,
+      showOnHomePage: true,
     },
     {
       id: "blog-turning-complex-explore",
@@ -989,6 +990,7 @@ async function seed() {
       imagePath: "figma/blogs/IT-consulting.png",
       imageFile: "IT-consulting.png",
       order: 11,
+      showOnHomePage: true,
     },
     {
       id: "blog-cloud-agile-businesses",
@@ -1000,6 +1002,7 @@ async function seed() {
       imagePath: "figma/blogs/explore-img1.png",
       imageFile: "explore-img1.png",
       order: 12,
+      showOnHomePage: true,
     },
     {
       id: "blog-mitigating-threats",
@@ -1128,6 +1131,9 @@ async function seed() {
       category: post.category,
       excerpt: post.excerpt,
       order: post.order,
+      ...("showOnHomePage" in post && post.showOnHomePage
+        ? { showOnHomePage: true }
+        : {}),
       ...(coverImage ? { coverImage } : {}),
     };
 
