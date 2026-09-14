@@ -5,6 +5,14 @@ export type CtaLink = {
   href: string;
 };
 
+export type InsightCard = {
+  category: string;
+  title: string;
+  excerpt: string;
+  imageSrc: string;
+  href: string;
+};
+
 export type SanityCtaLink = {
   label?: string;
   href?: string;

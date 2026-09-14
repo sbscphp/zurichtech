@@ -52,7 +52,7 @@ export function Insights({ title, cta, insights }: InsightsProps) {
           <div className="flex w-max gap-8">
             {insights.slice(0, 5).map((insight) => (
               <Link
-                key={insight.title}
+                key={insight.href}
                 href={insight.href}
                 className="flex w-70 shrink-0 flex-col gap-4 sm:w-91"
               >
