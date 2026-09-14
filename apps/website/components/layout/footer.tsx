@@ -9,6 +9,7 @@ import {
   FALLBACK_SITE_SETTINGS,
   type SiteSettingsContent,
 } from "@/lib/sanity/site-settings";
+import { cn } from "@/lib/utils";
 
 type FooterProps = {
   initialSiteSettings?: SiteSettingsContent;
@@ -71,14 +72,14 @@ export function Footer({ initialSiteSettings }: FooterProps) {
       <div className="bg-black pt-36 md:pt-60.25">
         <div className="mx-auto w-full max-w-360 px-6 pb-0 lg:px-20.5">
           <div className="flex flex-col gap-8 lg:flex-row lg:gap-17.75">
-            <div className="flex w-full max-w-78.25 flex-col gap-4.5">
+            <div className="flex w-full max-w-64 flex-col gap-4.5">
               <BrandLogo />
               <p className="font-body text-base leading-[1.4] text-white/50">
                 {data.tagline}
               </p>
             </div>
 
-            <div className="grid min-w-0 flex-1 gap-8 sm:grid-cols-3">
+            <div className="grid min-w-0 flex-1 gap-8 sm:grid-cols-3 lg:grid-cols-[1fr_1fr_1.2fr]">
               <FooterColumn
                 title={data.footerServicesTitle}
                 items={data.footerServiceLinks}
@@ -116,14 +117,19 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                                   ? line.replace(/\s/g, "")
                                   : line
                               }`}
-                              className="block wrap-break-word hover:text-brand hover:underline"
+                              className={cn(
+                                "block hover:text-brand hover:underline",
+                                row.hrefPrefix === "mailto:"
+                                  ? "wrap-normal"
+                                  : "wrap-break-word",
+                              )}
                             >
                               {row.hrefPrefix === "mailto:"
                                 ? withWrapHint(line)
                                 : line}
                             </a>
                           ) : (
-                            <p key={line} className="wrap-break-word">
+                            <p key={line} className="wrap-normal">
                               {line}
                             </p>
                           ),
