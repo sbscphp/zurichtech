@@ -103,9 +103,9 @@ export const FALLBACK_WHY_CHOOSE_US_PAGE: WhyChooseUsPageContent = {
     "Plenty of developers can write code. Here's what businesses tell us keeps them coming back to SaidByte Technologies.",
   heroCta: { label: "Our Projects", href: "/projects" },
   storyEyebrow: "why choose us",
-  storyTitlePrefix: "Your ",
+  storyTitlePrefix: "Your",
   storyTitleHighlight: "Technology Partner",
-  storyTitleSuffix: " for Growth",
+  storyTitleSuffix: "for Growth",
   storyBody: [
     "Choosing a technology partner is about more than finding someone who can build software or manage infrastructure. You need a partner who understands the problem behind the technology and can help you make the right decisions.",
     "At Zuritech, we take a practical approach to technology. We begin by understanding your objectives, challenges, users, and existing environment before recommending a solution.",
@@ -115,9 +115,9 @@ export const FALLBACK_WHY_CHOOSE_US_PAGE: WhyChooseUsPageContent = {
   storyImageAlt: "ZurichTech colleagues in discussion",
   pillars: FALLBACK_PILLARS,
   differenceEyebrow: "OUR DIFFERENCE",
-  differenceTitlePrefix: "What Sets ",
+  differenceTitlePrefix: "What Sets",
   differenceTitleHighlight: "Zuritech",
-  differenceTitleSuffix: " Apart.",
+  differenceTitleSuffix: "Apart.",
   difference: FALLBACK_DIFFERENCE,
 };
 

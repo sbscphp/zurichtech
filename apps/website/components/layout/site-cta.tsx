@@ -30,7 +30,7 @@ export function SiteCta({
       <div className="relative flex h-full flex-col items-center justify-center gap-6 px-6 text-center">
         <div className="flex max-w-150.75 flex-col items-center gap-4">
           <h2 className="font-display text-[32px] leading-[1.1] font-semibold md:text-[48px]">
-            <span className="text-white">{titlePrefix}</span>
+            <span className="text-white">{titlePrefix} </span>
             <span className="text-brand">{titleHighlight}</span>
           </h2>
           <p className="max-w-137.25 font-body text-xl leading-[1.4] text-[#adb5bd]">
