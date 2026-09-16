@@ -88,7 +88,7 @@ export const FALLBACK_SITE_SETTINGS: SiteSettingsContent = {
   newsletterTitle: "Stay in the loop",
   newsletterDescription:
     "Occasional notes on what we are building and what we are learning. No noise.",
-  ctaTitlePrefix: "Powering Opportunities. ",
+  ctaTitlePrefix: "Powering Opportunities.",
   ctaTitleHighlight: "Building the Future.",
   ctaDescription:
     "Unlock sustainable opportunities, develop transformative energy solutions, and create lasting value for the future.",

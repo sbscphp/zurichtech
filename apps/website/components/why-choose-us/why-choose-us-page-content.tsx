@@ -37,8 +37,8 @@ export function WhyChooseUsPageContentView({
                   {page.storyEyebrow}
                 </p>
                 <h2 className="font-display text-[36px] leading-[1.2] text-black lg:text-[48px]">
-                  {page.storyTitlePrefix}
-                  <span className="text-brand">{page.storyTitleHighlight}</span>
+                  {page.storyTitlePrefix}{" "}
+                  <span className="text-brand">{page.storyTitleHighlight}</span>{" "}
                   {page.storyTitleSuffix}
                 </h2>
               </div>
@@ -103,8 +103,8 @@ export function WhyChooseUsPageContentView({
               <p className="font-body text-lg text-black">{page.differenceEyebrow}</p>
             </div>
             <h2 className="font-display text-[32px] leading-[1.4] font-semibold text-ink-heading lg:text-[40px]">
-              {page.differenceTitlePrefix}
-              <span className="text-brand">{page.differenceTitleHighlight}</span>
+              {page.differenceTitlePrefix}{" "}
+              <span className="text-brand">{page.differenceTitleHighlight}</span>{" "}
               {page.differenceTitleSuffix}
             </h2>
           </div>

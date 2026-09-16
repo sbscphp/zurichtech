@@ -127,7 +127,7 @@ export const FALLBACK_ABOUT_PAGE: AboutPageContent = {
   heroCta: { label: "Partner With Us", href: "/partners" },
   storyEyebrow: "why work with Us",
   storyTitleHighlight: "Building Technology",
-  storyTitleRest: " Around Your Business",
+  storyTitleRest: "Around Your Business",
   storyBody: [
     "Zurich Technology is a technology solutions company focused on helping organizations make better use of technology. We combine technical expertise, innovative thinking, and a clear understanding of business requirements to develop solutions that are practical, scalable, secure, and built for long-term value.",
     "Our capabilities span software development, web development, cloud solutions and DevOps, and cybersecurity and identity audit. Across every engagement, our focus remains the same: understand the challenge, identify the right approach, and deliver technology that supports the organization's objectives.",

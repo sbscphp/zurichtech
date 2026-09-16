@@ -48,7 +48,7 @@ export function WhyChooseUs({
               {eyebrow}
             </p>
             <h2 className="font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
-              {titlePrefix}
+              {titlePrefix}{" "}
               <span className="text-brand">{titleHighlight}</span>
             </h2>
           </div>
