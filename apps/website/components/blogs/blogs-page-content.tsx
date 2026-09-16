@@ -80,7 +80,7 @@ export function BlogsPageContentView({ initialPage }: BlogsPageContentProps) {
           <h2 className="font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             {page.recentTitle}
           </h2>
-          <div className="grid gap-8 lg:grid-cols-[660px_610px]">
+          <div className="grid gap-8 xl:grid-cols-[52%_45%]">
             {featured ? (
               <BlogCardLink
                 post={featured}
