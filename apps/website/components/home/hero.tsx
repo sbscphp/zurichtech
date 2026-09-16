@@ -37,7 +37,7 @@ export function Hero({ content }: HeroProps) {
             <h1 className="font-display text-[36px] leading-[1.1] font-medium text-white sm:text-[44px] lg:text-[48px]">
               {content.heroTitleLine1}
               <br />
-              {content.heroTitleLine2}{" "}
+              {`${content.heroTitleLine2} `}
               <span>{content.heroTitleHighlight}</span>
             </h1>
             <p className="font-body text-lg leading-[1.4] text-white lg:text-xl">
