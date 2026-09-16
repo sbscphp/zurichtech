@@ -413,7 +413,7 @@ async function seed() {
     ),
     footerContactTitle: "Contact Us",
     copyrightText: "© 2026 ZurichTech. All Rights Reserved.",
-    creditText: "Designed and Developed by SSBC UK, 2026",
+    creditText: "Designed and Developed by SBSC UK, 2026",
     socialLinks: keyed(
       [
         { _type: "link", label: "LinkedIn", href: "#" },

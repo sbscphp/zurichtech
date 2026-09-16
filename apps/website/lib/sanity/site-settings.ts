@@ -79,7 +79,7 @@ export const FALLBACK_SITE_SETTINGS: SiteSettingsContent = {
   ],
   footerContactTitle: "Contact Us",
   copyrightText: "© 2026 ZurichTech. All Rights Reserved.",
-  creditText: "Designed and Developed by SSBC UK, 2026",
+  creditText: "Designed and Developed by SBSC UK, 2026",
   socialLinks: [
     { label: "LinkedIn", href: "#" },
     { label: "X", href: "#" },
