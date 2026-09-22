@@ -1,5 +1,6 @@
 import type { SanityImageSource } from "@sanity/image-url";
 
+import { blogPostHref } from "@/lib/site/blog-paths";
 import { BLOG_POSTS } from "@/lib/site/blogs";
 
 import { sanityFetch } from "./fetch";
@@ -298,7 +299,7 @@ export function blogCardToInsight(card: BlogCard): InsightCard {
     title: card.title,
     excerpt: card.excerpt,
     imageSrc: card.imageSrc,
-    href: `/blogs/${card.slug}`,
+    href: blogPostHref(card.slug),
   };
 }
 

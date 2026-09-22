@@ -1,0 +1,5 @@
+# Netlify / similar: unknown or all blog pretty-URLs soft-route to the
+# client detail shell (existing files take precedence by default).
+# Prefer links shaped as /blogs/view/?slug=my-post for static hosts.
+/blogs/:slug/  /blogs/view/index.html  200
+/blogs/:slug   /blogs/view/index.html  200

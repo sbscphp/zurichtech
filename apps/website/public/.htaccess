@@ -1,0 +1,14 @@
+# Static-export fallbacks (Apache / LiteSpeed).
+# Prefer real files when they exist; otherwise send unknown blog pretty-URLs
+# to the always-built client detail shell.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # /blogs/some-new-slug/ → /blogs/view/?slug=some-new-slug
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/blogs/view/?$ [NC]
+  RewriteRule ^blogs/(?!view$)([^/]+)/?$ /blogs/view/?slug=$1 [R=302,L,QSA]
+</IfModule>

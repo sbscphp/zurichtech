@@ -9,6 +9,7 @@ import {
   type BlogCard,
   type BlogsPageContent,
 } from "@/lib/sanity/blogs";
+import { blogPostHref } from "@/lib/site/blog-paths";
 
 type BlogsPageContentProps = {
   initialPage?: BlogsPageContent;
@@ -30,7 +31,7 @@ function BlogCardLink({
   excerptClassName?: string;
 }) {
   return (
-    <Link href={`/blogs/${post.slug}`} className="flex flex-col gap-4">
+    <Link href={blogPostHref(post.slug)} className="flex flex-col gap-4">
       <p className="font-display text-sm text-brand uppercase">{post.category}</p>
       <div className={`relative overflow-hidden bg-white ${imageClassName}`}>
         <Image
@@ -94,7 +95,7 @@ export function BlogsPageContentView({ initialPage }: BlogsPageContentProps) {
               {page.sidebar.map((item) => (
                 <Link
                   key={item._id}
-                  href={`/blogs/${item.slug}`}
+                  href={blogPostHref(item.slug)}
                   className="flex gap-4"
                 >
                   <div className="relative h-35 w-45 shrink-0 overflow-hidden bg-white sm:h-56.5 sm:w-70.5">
