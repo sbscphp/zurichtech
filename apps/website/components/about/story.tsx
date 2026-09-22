@@ -47,7 +47,7 @@ export function Story({
               {eyebrow}
             </p>
             <h2 className="font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
-              <span className="text-brand">{titleHighlight}</span>
+              <span className="text-brand">{`${titleHighlight} `}</span>
               <span>{titleRest}</span>
             </h2>
           </div>
@@ -61,7 +61,12 @@ export function Story({
               </p>
             ))}
           </div>
-          <Button asChild variant="brand" size="xl" className="self-start font-body">
+          <Button
+            asChild
+            variant="brand"
+            size="xl"
+            className="self-start font-body hover:bg-[#B30008]"
+          >
             <Link href={cta.href}>{cta.label}</Link>
           </Button>
         </div>

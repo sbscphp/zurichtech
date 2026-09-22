@@ -413,7 +413,7 @@ async function seed() {
     ),
     footerContactTitle: "Contact Us",
     copyrightText: "© 2026 ZurichTech. All Rights Reserved.",
-    creditText: "Designed and Developed by SSBC UK, 2026",
+    creditText: "Designed and Developed by SBSC UK, 2026",
     socialLinks: keyed(
       [
         { _type: "link", label: "LinkedIn", href: "#" },
@@ -422,7 +422,7 @@ async function seed() {
       ],
       "social",
     ),
-    ctaTitlePrefix: "Powering Opportunities. ",
+    ctaTitlePrefix: "Powering Opportunities.",
     ctaTitleHighlight: "Building the Future.",
     ctaDescription:
       "Unlock sustainable opportunities, develop transformative energy solutions, and create lasting value for the future.",
@@ -442,7 +442,7 @@ async function seed() {
     _id: "homePage",
     _type: "homePage",
     heroTitleLine1: "Engineering the systems",
-    heroTitleLine2: "your ",
+    heroTitleLine2: "your",
     heroTitleHighlight: "business actually runs on.",
     heroDescription:
       "We design, build and secure software, cloud platforms and digital products with senior engineers, written commitments and delivery dates that hold",
@@ -463,7 +463,7 @@ async function seed() {
       "stat",
     ),
     whyEyebrow: "why Choose Us?",
-    whyTitlePrefix: "Technology expertise built around what your ",
+    whyTitlePrefix: "Technology expertise built around what your",
     whyTitleHighlight: "business needs next.",
     ...(whyImage ? { whyImage } : {}),
     whyPoints: keyed(
@@ -817,7 +817,7 @@ async function seed() {
     heroCta: { label: "Partner With Us", href: "/partners" },
     storyEyebrow: "why work with Us",
     storyTitleHighlight: "Building Technology",
-    storyTitleRest: " Around Your Business",
+    storyTitleRest: "Around Your Business",
     storyBody: [
       "Zurich Technology is a technology solutions company focused on helping organizations make better use of technology. We combine technical expertise, innovative thinking, and a clear understanding of business requirements to develop solutions that are practical, scalable, secure, and built for long-term value.",
       "Our capabilities span software development, web development, cloud solutions and DevOps, and cybersecurity and identity audit. Across every engagement, our focus remains the same: understand the challenge, identify the right approach, and deliver technology that supports the organization's objectives.",
@@ -1307,9 +1307,9 @@ async function seed() {
       "Plenty of developers can write code. Here's what businesses tell us keeps them coming back to SaidByte Technologies.",
     heroCta: { label: "Our Projects", href: "/projects" },
     storyEyebrow: "why choose us",
-    storyTitlePrefix: "Your ",
+    storyTitlePrefix: "Your",
     storyTitleHighlight: "Technology Partner",
-    storyTitleSuffix: " for Growth",
+    storyTitleSuffix: "for Growth",
     storyBody: [
       "Choosing a technology partner is about more than finding someone who can build software or manage infrastructure. You need a partner who understands the problem behind the technology and can help you make the right decisions.",
       "At Zuritech, we take a practical approach to technology. We begin by understanding your objectives, challenges, users, and existing environment before recommending a solution.",
@@ -1318,9 +1318,9 @@ async function seed() {
     ...(whyStoryImage ? { storyImage: whyStoryImage } : {}),
     ...(whyPillars.length > 0 ? { pillars: whyPillars } : {}),
     differenceEyebrow: "OUR DIFFERENCE",
-    differenceTitlePrefix: "What Sets ",
+    differenceTitlePrefix: "What Sets",
     differenceTitleHighlight: "Zuritech",
-    differenceTitleSuffix: " Apart.",
+    differenceTitleSuffix: "Apart.",
     difference: keyed(
       [
         {

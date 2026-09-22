@@ -38,16 +38,21 @@ export function Insights({ title, cta, insights }: InsightsProps) {
           <h2 className="max-w-145.75 font-display text-[32px] leading-[1.2] text-ink lg:text-[40px]">
             {titleNode}
           </h2>
-          <Button asChild variant="brand" size="xl" className="font-body">
+          <Button
+            asChild
+            variant="brand"
+            size="xl"
+            className="font-body hover:bg-[#B30008]"
+          >
             <Link href={cta.href}>{cta.label}</Link>
           </Button>
         </div>
 
         <div className="scrollbar-brand -mx-6 overflow-x-auto px-6 pb-2">
           <div className="flex w-max gap-8">
-            {insights.slice(0, 5).map((insight) => (
+            {insights.slice(0, 5).map((insight, index) => (
               <Link
-                key={insight.href}
+                key={`${insight.href}-${index}`}
                 href={insight.href}
                 className="flex w-70 shrink-0 flex-col gap-4 sm:w-91"
               >

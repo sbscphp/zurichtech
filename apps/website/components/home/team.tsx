@@ -15,8 +15,8 @@ type TeamProps = {
 export function Team({ eyebrow, title, members }: TeamProps) {
   return (
     <section className="px-6 pb-16 lg:px-20 lg:pb-20">
-      <div className="mx-auto flex w-full max-w-[1280px] flex-col items-center gap-8">
-        <div className="max-w-[616px] text-center">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-8">
+        <div className="max-w-154 text-center">
           <p className="font-display text-lg leading-[1.2] text-brand uppercase">
             {eyebrow}
           </p>
@@ -31,10 +31,10 @@ export function Team({ eyebrow, title, members }: TeamProps) {
               key={member.name}
               className={cn(
                 "flex flex-col gap-6",
-                member.raised && "lg:pt-[120px]",
+                member.raised && "lg:pt-30",
               )}
             >
-              <div className="relative h-[390.5px] overflow-hidden bg-gradient-to-b from-brand-soft to-[rgba(239,113,119,0.03)]">
+              <div className="relative h-[390.5px] overflow-hidden bg-linear-to-b from-brand-soft to-[rgba(239,113,119,0.03)]">
                 <Image
                   src={member.imageSrc}
                   alt={member.name}

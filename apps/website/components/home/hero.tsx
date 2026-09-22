@@ -22,7 +22,7 @@ type HeroProps = {
  */
 export function Hero({ content }: HeroProps) {
   return (
-    <section className="relative min-h-[600px] overflow-hidden bg-[#fef2f2]">
+    <section className="relative min-h-150 overflow-hidden bg-[#fef2f2]">
       <div className="pointer-events-none absolute inset-0">
         <img
           alt=""
@@ -31,13 +31,13 @@ export function Hero({ content }: HeroProps) {
         />
       </div>
 
-      <div className="relative mx-auto flex min-h-[600px] w-full max-w-[1440px] items-center px-6 py-16 lg:px-20">
-        <div className="flex max-w-[707px] flex-col gap-6">
+      <div className="relative mx-auto flex min-h-150 w-full max-w-360 items-center px-6 py-16 lg:px-20">
+        <div className="flex max-w-176.75 flex-col gap-6">
           <div className="flex flex-col gap-4">
             <h1 className="font-display text-[36px] leading-[1.1] font-medium text-white sm:text-[44px] lg:text-[48px]">
               {content.heroTitleLine1}
               <br />
-              {content.heroTitleLine2}
+              {`${content.heroTitleLine2} `}
               <span>{content.heroTitleHighlight}</span>
             </h1>
             <p className="font-body text-lg leading-[1.4] text-white lg:text-xl">
@@ -45,7 +45,12 @@ export function Hero({ content }: HeroProps) {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <Button asChild variant="brand" size="xl" className="font-body">
+            <Button
+              asChild
+              variant="brand"
+              size="xl"
+              className="font-body hover:bg-[#B30008]"
+            >
               <Link href={content.heroPrimaryCta.href}>
                 {content.heroPrimaryCta.label}
                 <span className="relative size-8 overflow-hidden">
@@ -60,7 +65,7 @@ export function Hero({ content }: HeroProps) {
             <Button
               asChild
               size="xl"
-              className="bg-white font-body text-brand hover:bg-white/90"
+              className="bg-white font-body text-brand hover:bg-[#B30008] hover:text-white"
             >
               <Link href={content.heroSecondaryCta.href}>
                 {content.heroSecondaryCta.label}

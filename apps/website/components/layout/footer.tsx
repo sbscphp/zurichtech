@@ -9,6 +9,7 @@ import {
   FALLBACK_SITE_SETTINGS,
   type SiteSettingsContent,
 } from "@/lib/sanity/site-settings";
+import { cn } from "@/lib/utils";
 
 type FooterProps = {
   initialSiteSettings?: SiteSettingsContent;
@@ -23,6 +24,18 @@ type FooterProps = {
  */
 export function Footer({ initialSiteSettings }: FooterProps) {
   const { data = FALLBACK_SITE_SETTINGS } = useSiteSettings(initialSiteSettings);
+
+  function withWrapHint(line: string) {
+    const atIndex = line.indexOf("@");
+    if (atIndex === -1) return line;
+    return (
+      <>
+        {line.slice(0, atIndex + 1)}
+        <wbr />
+        {line.slice(atIndex + 1)}
+      </>
+    );
+  }
 
   const contactRows = [
     {
@@ -44,8 +57,8 @@ export function Footer({ initialSiteSettings }: FooterProps) {
 
   return (
     <footer className="relative">
-      <div className="relative z-10 mx-auto max-w-[1280px] px-6 lg:px-20">
-        <div className="-mb-24 md:-mb-[172px]">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-20">
+        <div className="-mb-24 md:-mb-43">
           <SiteCta
             titlePrefix={data.ctaTitlePrefix}
             titleHighlight={data.ctaTitleHighlight}
@@ -56,17 +69,17 @@ export function Footer({ initialSiteSettings }: FooterProps) {
         </div>
       </div>
 
-      <div className="bg-black pt-36 md:pt-[241px]">
-        <div className="mx-auto w-full max-w-[1440px] px-6 pb-0 lg:px-[82px]">
-          <div className="flex flex-col gap-8 lg:flex-row lg:gap-[71px]">
-            <div className="flex w-full max-w-[313px] flex-col gap-[18px]">
+      <div className="bg-black pt-36 md:pt-60.25">
+        <div className="mx-auto w-full max-w-360 px-6 pb-0 lg:px-20.5">
+          <div className="flex flex-col gap-8 lg:flex-row lg:gap-17.75">
+            <div className="flex w-full max-w-64 flex-col gap-4.5">
               <BrandLogo />
               <p className="font-body text-base leading-[1.4] text-white/50">
                 {data.tagline}
               </p>
             </div>
 
-            <div className="grid flex-1 gap-8 sm:grid-cols-3">
+            <div className="grid min-w-0 flex-1 gap-8 sm:grid-cols-3 lg:grid-cols-[1fr_1fr_1.2fr]">
               <FooterColumn
                 title={data.footerServicesTitle}
                 items={data.footerServiceLinks}
@@ -75,15 +88,15 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                 title={data.footerCompanyTitle}
                 items={data.footerCompanyLinks}
               />
-              <div className="flex flex-col gap-2">
+              <div className="flex min-w-0 flex-col gap-2">
                 <p className="font-body text-sm leading-[1.4] font-semibold text-white uppercase">
                   {data.footerContactTitle}
                 </p>
-                <ul className="flex flex-col gap-3">
+                <ul className="flex min-w-0 flex-col gap-3">
                   {contactRows.map((row) => (
                     <li
                       key={row.lines.join("-")}
-                      className="flex items-start gap-3"
+                      className="flex min-w-0 items-center gap-3"
                     >
                       <span className="flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[6.4px] bg-white/32">
                         <span className="relative size-4 overflow-hidden">
@@ -94,7 +107,7 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                           />
                         </span>
                       </span>
-                      <div className="font-body text-base leading-[1.4] text-white/40">
+                      <div className="min-w-0 flex-1 font-body text-sm leading-[1.4] text-white/40">
                         {row.lines.map((line) =>
                           row.hrefPrefix ? (
                             <a
@@ -104,12 +117,21 @@ export function Footer({ initialSiteSettings }: FooterProps) {
                                   ? line.replace(/\s/g, "")
                                   : line
                               }`}
-                              className="block hover:text-brand hover:underline"
+                              className={cn(
+                                "block hover:text-brand hover:underline",
+                                row.hrefPrefix === "mailto:"
+                                  ? "wrap-normal"
+                                  : "wrap-break-word",
+                              )}
                             >
-                              {line}
+                              {row.hrefPrefix === "mailto:"
+                                ? withWrapHint(line)
+                                : line}
                             </a>
                           ) : (
-                            <p key={line}>{line}</p>
+                            <p key={line} className="wrap-normal">
+                              {line}
+                            </p>
                           ),
                         )}
                       </div>

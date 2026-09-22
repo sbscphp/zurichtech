@@ -102,7 +102,7 @@ const FALLBACK_STATS: Stat[] = [
 
 export const FALLBACK_HOME_PAGE: HomePageContent = {
   heroTitleLine1: "Engineering the systems",
-  heroTitleLine2: "your ",
+  heroTitleLine2: "your",
   heroTitleHighlight: "business actually runs on.",
   heroDescription:
     "We design, build and secure software, cloud platforms and digital products with senior engineers, written commitments and delivery dates that hold",
@@ -120,7 +120,7 @@ export const FALLBACK_HOME_PAGE: HomePageContent = {
     "Businesses need technology that does more than simply keep up. From complex systems and evolving infrastructure to growing security demands, the right technology partner helps turn challenges into opportunities for sustainable growth.",
   stats: FALLBACK_STATS,
   whyEyebrow: "why Choose Us?",
-  whyTitlePrefix: "Technology expertise built around what your ",
+  whyTitlePrefix: "Technology expertise built around what your",
   whyTitleHighlight: "business needs next.",
   whyImageUrl: FALLBACK_WHY_IMAGE,
   whyImageAlt: "ZurichTech team in the office",
