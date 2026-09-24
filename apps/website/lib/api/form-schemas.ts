@@ -26,6 +26,11 @@ const KNOWN_EMAIL_DOMAINS = [
   "yandex.com", "gmx.com",
 ];
 
+// Domains that are valid but happen to sit within edit-distance of a
+// KNOWN_EMAIL_DOMAINS entry (e.g. "yopmail.com" vs "hotmail.com"), so the
+// typo heuristic below must never flag them.
+const TYPO_CHECK_EXEMPT_DOMAINS = new Set(["yopmail.com"]);
+
 function levenshteinDistance(a: string, b: string): number {
   const rows = a.length + 1;
   const cols = b.length + 1;
@@ -48,6 +53,7 @@ function levenshteinDistance(a: string, b: string): number {
 }
 
 function findLikelyDomainTypo(domain: string): string | null {
+  if (TYPO_CHECK_EXEMPT_DOMAINS.has(domain)) return null;
   for (const known of KNOWN_EMAIL_DOMAINS) {
     if (domain === known) return null;
     const distance = levenshteinDistance(domain, known);
@@ -69,8 +75,21 @@ const emailSchema = z
     const domain = value.split("@").at(-1)?.toLowerCase();
     if (!domain) return;
 
-    const tld = domain.split(".").at(-1);
+    const labels = domain.split(".");
+    const tld = labels.at(-1);
     if (!tld || !COMMON_TLDS.has(tld)) {
+      ctx.addIssue({
+        code: "custom",
+        message: "Please double-check your email address.",
+      });
+      return;
+    }
+
+    // Catches a doubled TLD like "yopmail.com.com" or "gmail.co.co", which
+    // is structurally valid and passes the TLD check above but is always a
+    // typo (e.g. from a browser autofill or copy-paste mistake).
+    const secondToLast = labels.at(-2);
+    if (labels.length > 2 && secondToLast === tld) {
       ctx.addIssue({
         code: "custom",
         message: "Please double-check your email address.",
