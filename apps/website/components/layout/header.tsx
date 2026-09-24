@@ -123,13 +123,22 @@ function NavLink({
     <Link
       href={href}
       onClick={onClick}
+      aria-current={active ? "page" : undefined}
       className={cn(
         "inline-flex h-full items-center justify-center px-5 font-body text-xl leading-[1.4] whitespace-nowrap transition-colors hover:text-brand",
         active ? "text-ink font-medium" : "text-ink-dimmed",
         className,
       )}
     >
-      {children}
+      <span
+        className={cn(
+          "relative pb-1",
+          active &&
+            "after:absolute after:-bottom-0.5 after:left-0 after:right-0 after:h-0.5 after:rounded-full after:bg-brand",
+        )}
+      >
+        {children}
+      </span>
     </Link>
   );
 }
